@@ -1,12 +1,6 @@
-import { createTheme, PaletteOptions } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 // https://mui.com/material-ui/customization/palette/#default-colors
-
-export type ExtendedPaletteOptions = {
-  customNeutral?: {
-    [key: string]: string;
-  };
-} & PaletteOptions;
 
 export const defaultTheme = createTheme({
   cssVariables: true,
@@ -35,7 +29,7 @@ export const defaultTheme = createTheme({
       '800': '#343a40',
       '900': '#212529',
     },
-  } as ExtendedPaletteOptions,
+  },
 });
 
 // TODO (if need)
