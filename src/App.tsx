@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import { createCustomTheme } from './theme';
+import React from 'react';
+
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
 
 const App: React.FC = () => {
-  const [theme] = useState(() => createCustomTheme('light'));
-
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <div>Hello World</div>
-      </div>
-    </ThemeProvider>
+    <Container maxWidth="sm">
+      <Button variant="contained">test</Button>
+    </Container>
   );
 };
 
