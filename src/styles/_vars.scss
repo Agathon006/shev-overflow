@@ -1,4 +1,42 @@
 :root {
+  --color-primary: #ffcc70;
+  --color-primary-light: #ffe4a1;
+  --color-primary-dark: #e6b35d;
+
+  --color-secondary: #70ffcc;
+  --color-secondary-light: #a1ffe4;
+  --color-secondary-dark: #5dd6b3;
+
+  --color-neutral-100: #f8f9fa;
+  --color-neutral-200: #e9ecef;
+  --color-neutral-300: #dee2e6;
+  --color-neutral-400: #ced4da;
+  --color-neutral-500: #adb5bd;
+  --color-neutral-600: #6c757d;
+  --color-neutral-700: #495057;
+  --color-neutral-800: #343a40;
+  --color-neutral-900: #212529;
+
   --color-white: #ffffff;
   --color-black: #000000;
+
+  --color-bg: var(--color-white);
+  --color-bg-paper: var(--color-neutral-100);
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-600);
+
+  --color-border: var(--color-neutral-300);
+  --color-input: var(--color-neutral-200);
+  --color-ring: var(--color-neutral-400);
+}
+
+.dark-mode {
+  --color-bg: var(--color-neutral-900);
+  --color-bg-paper: var(--color-neutral-800);
+  --color-text-primary: var(--color-white);
+  --color-text-secondary: var(--color-neutral-500);
+
+  --color-border: var(--color-neutral-700);
+  --color-input: var(--color-neutral-800);
+  --color-ring: var(--color-neutral-600);
 }
