@@ -1,9 +1,17 @@
-function App() {
+import React, { useState } from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import { createCustomTheme } from './theme';
+
+const App: React.FC = () => {
+  const [theme] = useState(() => createCustomTheme('light'));
+
   return (
-    <>
-      <h1>Я обязательно выживу</h1>
-    </>
+    <ThemeProvider theme={theme}>
+      <div>
+        <div>Hello World</div>
+      </div>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
