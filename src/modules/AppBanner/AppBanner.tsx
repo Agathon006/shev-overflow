@@ -1,3 +1,4 @@
+import LanguageIcon from '@mui/icons-material/Language';
 import MenuIcon from '@mui/icons-material/Menu';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import AppBar from '@mui/material/AppBar';
@@ -205,6 +206,9 @@ export const AppBanner = () => {
               </MenuItem>
             </Menu>
           </Box>
+          <IconButton aria-label="language" color="inherit" sx={{ ml: 1 }}>
+            <LanguageIcon fontSize='large' />
+          </IconButton>
         </Toolbar>
       </Container>
     </AppBar>
