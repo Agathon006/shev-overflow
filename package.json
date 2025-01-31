@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite --port 5174",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
+    "lint-check": "eslint .",
     "format": "npx prettier --write .",
+    "typecheck": "tsc --noEmit",
     "prepare": "husky",
     "preview": "vite preview"
   },
