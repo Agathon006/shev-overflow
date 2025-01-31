@@ -2,18 +2,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Link } from '@tanstack/react-router';
 
-export const NavMenu = ({
-  handleCloseNavMenu,
-}: {
-  handleCloseNavMenu: () => void;
-}) => {
+export const NavMenu = () => {
   return (
     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
       <Button
         component={Link}
         to="/"
         key="Home"
-        onClick={handleCloseNavMenu}
         sx={{ my: 2, color: 'inherit', display: 'block' }}
       >
         Home
@@ -22,7 +17,6 @@ export const NavMenu = ({
         component={Link}
         to="/users"
         key="Users"
-        onClick={handleCloseNavMenu}
         sx={{ my: 2, color: 'inherit', display: 'block' }}
       >
         Users
@@ -31,7 +25,6 @@ export const NavMenu = ({
         component={Link}
         to="/questions"
         key="Questions"
-        onClick={handleCloseNavMenu}
         sx={{ my: 2, color: 'inherit', display: 'block' }}
       >
         Questions

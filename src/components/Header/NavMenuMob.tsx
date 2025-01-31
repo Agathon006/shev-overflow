@@ -4,16 +4,18 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 
-export const NavMenuMob = ({
-  anchorElNav,
-  handleOpenNavMenu,
-  handleCloseNavMenu,
-}: {
-  anchorElNav: null | HTMLElement;
-  handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void;
-  handleCloseNavMenu: () => void;
-}) => {
+export const NavMenuMob = () => {
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
   return (
     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
       <IconButton

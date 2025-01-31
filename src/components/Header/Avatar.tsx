@@ -6,16 +6,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 
-export const Avatar = ({
-  anchorElUser,
-  handleOpenUserMenu,
-  handleCloseUserMenu,
-}: {
-  anchorElUser: null | HTMLElement;
-  handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void;
-  handleCloseUserMenu: () => void;
-}) => {
+export const Avatar = () => {
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
