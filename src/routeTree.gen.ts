@@ -14,12 +14,15 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as UsersIndexImport } from './routes/users/index'
 import { Route as QuestionsIndexImport } from './routes/questions/index'
+import { Route as UsersUserIdImport } from './routes/users/$userId'
 import { Route as QuestionsCreateImport } from './routes/questions/create'
 import { Route as PostsCreateImport } from './routes/posts/create'
+import { Route as PostsPostIdImport } from './routes/posts/$postId'
 import { Route as AuthRegisterImport } from './routes/auth/register'
 import { Route as AuthLoginImport } from './routes/auth/login'
 import { Route as UsersMeIndexImport } from './routes/users/me/index'
-import { Route as UsersMePostsImport } from './routes/users/me/posts'
+import { Route as UsersMePostsIndexImport } from './routes/users/me/posts/index'
+import { Route as UsersMePostsPostIdImport } from './routes/users/me/posts/$postId'
 
 // Create/Update Routes
 
@@ -41,6 +44,12 @@ const QuestionsIndexRoute = QuestionsIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const UsersUserIdRoute = UsersUserIdImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const QuestionsCreateRoute = QuestionsCreateImport.update({
   id: '/questions/create',
   path: '/questions/create',
@@ -50,6 +59,12 @@ const QuestionsCreateRoute = QuestionsCreateImport.update({
 const PostsCreateRoute = PostsCreateImport.update({
   id: '/posts/create',
   path: '/posts/create',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsPostIdRoute = PostsPostIdImport.update({
+  id: '/posts/$postId',
+  path: '/posts/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -71,9 +86,15 @@ const UsersMeIndexRoute = UsersMeIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const UsersMePostsRoute = UsersMePostsImport.update({
-  id: '/users/me/posts',
-  path: '/users/me/posts',
+const UsersMePostsIndexRoute = UsersMePostsIndexImport.update({
+  id: '/users/me/posts/',
+  path: '/users/me/posts/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const UsersMePostsPostIdRoute = UsersMePostsPostIdImport.update({
+  id: '/users/me/posts/$postId',
+  path: '/users/me/posts/$postId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterImport
       parentRoute: typeof rootRoute
     }
+    '/posts/$postId': {
+      id: '/posts/$postId'
+      path: '/posts/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof PostsPostIdImport
+      parentRoute: typeof rootRoute
+    }
     '/posts/create': {
       id: '/posts/create'
       path: '/posts/create'
@@ -114,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/questions/create'
       fullPath: '/questions/create'
       preLoaderRoute: typeof QuestionsCreateImport
+      parentRoute: typeof rootRoute
+    }
+    '/users/$userId': {
+      id: '/users/$userId'
+      path: '/users/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof UsersUserIdImport
       parentRoute: typeof rootRoute
     }
     '/questions/': {
@@ -130,18 +165,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsersIndexImport
       parentRoute: typeof rootRoute
     }
-    '/users/me/posts': {
-      id: '/users/me/posts'
-      path: '/users/me/posts'
-      fullPath: '/users/me/posts'
-      preLoaderRoute: typeof UsersMePostsImport
-      parentRoute: typeof rootRoute
-    }
     '/users/me/': {
       id: '/users/me/'
       path: '/users/me'
       fullPath: '/users/me'
       preLoaderRoute: typeof UsersMeIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/users/me/posts/$postId': {
+      id: '/users/me/posts/$postId'
+      path: '/users/me/posts/$postId'
+      fullPath: '/users/me/posts/$postId'
+      preLoaderRoute: typeof UsersMePostsPostIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/users/me/posts/': {
+      id: '/users/me/posts/'
+      path: '/users/me/posts'
+      fullPath: '/users/me/posts'
+      preLoaderRoute: typeof UsersMePostsIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -153,24 +195,30 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/posts/$postId': typeof PostsPostIdRoute
   '/posts/create': typeof PostsCreateRoute
   '/questions/create': typeof QuestionsCreateRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/questions': typeof QuestionsIndexRoute
   '/users': typeof UsersIndexRoute
-  '/users/me/posts': typeof UsersMePostsRoute
   '/users/me': typeof UsersMeIndexRoute
+  '/users/me/posts/$postId': typeof UsersMePostsPostIdRoute
+  '/users/me/posts': typeof UsersMePostsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/posts/$postId': typeof PostsPostIdRoute
   '/posts/create': typeof PostsCreateRoute
   '/questions/create': typeof QuestionsCreateRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/questions': typeof QuestionsIndexRoute
   '/users': typeof UsersIndexRoute
-  '/users/me/posts': typeof UsersMePostsRoute
   '/users/me': typeof UsersMeIndexRoute
+  '/users/me/posts/$postId': typeof UsersMePostsPostIdRoute
+  '/users/me/posts': typeof UsersMePostsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -178,12 +226,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/posts/$postId': typeof PostsPostIdRoute
   '/posts/create': typeof PostsCreateRoute
   '/questions/create': typeof QuestionsCreateRoute
+  '/users/$userId': typeof UsersUserIdRoute
   '/questions/': typeof QuestionsIndexRoute
   '/users/': typeof UsersIndexRoute
-  '/users/me/posts': typeof UsersMePostsRoute
   '/users/me/': typeof UsersMeIndexRoute
+  '/users/me/posts/$postId': typeof UsersMePostsPostIdRoute
+  '/users/me/posts/': typeof UsersMePostsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -192,34 +243,43 @@ export interface FileRouteTypes {
     | '/'
     | '/auth/login'
     | '/auth/register'
+    | '/posts/$postId'
     | '/posts/create'
     | '/questions/create'
+    | '/users/$userId'
     | '/questions'
     | '/users'
-    | '/users/me/posts'
     | '/users/me'
+    | '/users/me/posts/$postId'
+    | '/users/me/posts'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth/login'
     | '/auth/register'
+    | '/posts/$postId'
     | '/posts/create'
     | '/questions/create'
+    | '/users/$userId'
     | '/questions'
     | '/users'
-    | '/users/me/posts'
     | '/users/me'
+    | '/users/me/posts/$postId'
+    | '/users/me/posts'
   id:
     | '__root__'
     | '/'
     | '/auth/login'
     | '/auth/register'
+    | '/posts/$postId'
     | '/posts/create'
     | '/questions/create'
+    | '/users/$userId'
     | '/questions/'
     | '/users/'
-    | '/users/me/posts'
     | '/users/me/'
+    | '/users/me/posts/$postId'
+    | '/users/me/posts/'
   fileRoutesById: FileRoutesById
 }
 
@@ -227,24 +287,30 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
+  PostsPostIdRoute: typeof PostsPostIdRoute
   PostsCreateRoute: typeof PostsCreateRoute
   QuestionsCreateRoute: typeof QuestionsCreateRoute
+  UsersUserIdRoute: typeof UsersUserIdRoute
   QuestionsIndexRoute: typeof QuestionsIndexRoute
   UsersIndexRoute: typeof UsersIndexRoute
-  UsersMePostsRoute: typeof UsersMePostsRoute
   UsersMeIndexRoute: typeof UsersMeIndexRoute
+  UsersMePostsPostIdRoute: typeof UsersMePostsPostIdRoute
+  UsersMePostsIndexRoute: typeof UsersMePostsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
+  PostsPostIdRoute: PostsPostIdRoute,
   PostsCreateRoute: PostsCreateRoute,
   QuestionsCreateRoute: QuestionsCreateRoute,
+  UsersUserIdRoute: UsersUserIdRoute,
   QuestionsIndexRoute: QuestionsIndexRoute,
   UsersIndexRoute: UsersIndexRoute,
-  UsersMePostsRoute: UsersMePostsRoute,
   UsersMeIndexRoute: UsersMeIndexRoute,
+  UsersMePostsPostIdRoute: UsersMePostsPostIdRoute,
+  UsersMePostsIndexRoute: UsersMePostsIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -260,12 +326,15 @@ export const routeTree = rootRoute
         "/",
         "/auth/login",
         "/auth/register",
+        "/posts/$postId",
         "/posts/create",
         "/questions/create",
+        "/users/$userId",
         "/questions/",
         "/users/",
-        "/users/me/posts",
-        "/users/me/"
+        "/users/me/",
+        "/users/me/posts/$postId",
+        "/users/me/posts/"
       ]
     },
     "/": {
@@ -277,11 +346,17 @@ export const routeTree = rootRoute
     "/auth/register": {
       "filePath": "auth/register.tsx"
     },
+    "/posts/$postId": {
+      "filePath": "posts/$postId.tsx"
+    },
     "/posts/create": {
       "filePath": "posts/create.tsx"
     },
     "/questions/create": {
       "filePath": "questions/create.tsx"
+    },
+    "/users/$userId": {
+      "filePath": "users/$userId.tsx"
     },
     "/questions/": {
       "filePath": "questions/index.tsx"
@@ -289,11 +364,14 @@ export const routeTree = rootRoute
     "/users/": {
       "filePath": "users/index.tsx"
     },
-    "/users/me/posts": {
-      "filePath": "users/me/posts.tsx"
-    },
     "/users/me/": {
       "filePath": "users/me/index.tsx"
+    },
+    "/users/me/posts/$postId": {
+      "filePath": "users/me/posts/$postId.tsx"
+    },
+    "/users/me/posts/": {
+      "filePath": "users/me/posts/index.tsx"
     }
   }
 }
