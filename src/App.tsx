@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 };

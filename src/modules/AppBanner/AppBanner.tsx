@@ -182,7 +182,7 @@ export const AppBanner = () => {
             >
               <MenuItem
                 component={Link}
-                to="/account"
+                to="/users/me"
                 key="Account"
                 onClick={handleCloseUserMenu}
               >
@@ -190,7 +190,7 @@ export const AppBanner = () => {
               </MenuItem>
               <MenuItem
                 component={Link}
-                to="/my-posts"
+                to="/users/me/posts"
                 key="My posts"
                 onClick={handleCloseUserMenu}
               >
@@ -198,7 +198,7 @@ export const AppBanner = () => {
               </MenuItem>
               <MenuItem
                 component={Link}
-                to="/login"
+                to="/auth/login"
                 key="Logout"
                 onClick={handleCloseUserMenu}
               >
