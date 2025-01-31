@@ -1,9 +1,13 @@
-function App() {
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import React from 'react';
+
+const App: React.FC = () => {
   return (
-    <>
-      <h1>Я обязательно выживу</h1>
-    </>
+    <Container maxWidth="sm">
+      <Button variant="contained">test</Button>
+    </Container>
   );
-}
+};
 
 export default App;
