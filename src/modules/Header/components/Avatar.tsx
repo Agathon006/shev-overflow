@@ -4,10 +4,13 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const Avatar = () => {
+  const { t } = useTranslation();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -40,44 +43,35 @@ export const Avatar = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key="Account" sx={{ padding: '0' }}>
-          <Link
-            to="/users/me"
-            onClick={handleCloseUserMenu}
-            style={{
-              padding: '6px 16px',
-              width: '100%',
-              textAlign: 'center',
-            }}
-          >
-            Account
-          </Link>
+        <MenuItem
+          component={Link}
+          to="/users/me"
+          key="Account"
+          onClick={handleCloseUserMenu}
+        >
+          <Typography sx={{ textAlign: 'center' }}>
+            {t('header.avatar.account')}
+          </Typography>
         </MenuItem>
-        <MenuItem key="My posts" sx={{ padding: '0' }}>
-          <Link
-            to="/users/me/posts"
-            onClick={handleCloseUserMenu}
-            style={{
-              padding: '6px 16px',
-              width: '100%',
-              textAlign: 'center',
-            }}
-          >
-            My posts
-          </Link>
+        <MenuItem
+          component={Link}
+          to="/users/me/posts"
+          key="My posts"
+          onClick={handleCloseUserMenu}
+        >
+          <Typography sx={{ textAlign: 'center' }}>
+            {t('header.avatar.my-posts')}
+          </Typography>
         </MenuItem>
-        <MenuItem key="Logout" sx={{ padding: '0' }}>
-          <Link
-            to="/auth/login"
-            onClick={handleCloseUserMenu}
-            style={{
-              padding: '6px 16px',
-              width: '100%',
-              textAlign: 'center',
-            }}
-          >
-            Logout
-          </Link>
+        <MenuItem
+          component={Link}
+          to="/auth/login"
+          key="Logout"
+          onClick={handleCloseUserMenu}
+        >
+          <Typography sx={{ textAlign: 'center' }}>
+            {t('header.avatar.logout')}
+          </Typography>
         </MenuItem>
       </Menu>
     </Box>

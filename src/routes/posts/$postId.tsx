@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/posts/$postId')({
   //   loader: ({ params }) => fetchPost(params.postId),
@@ -7,13 +7,13 @@ export const Route = createFileRoute('/posts/$postId')({
       setTimeout(
         () => resolve({ id: params.postId, title: 'Mock Post Title' }),
         500,
-      )
-    })
+      );
+    });
   },
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const { postId } = Route.useParams()
-  return <div>Post page, ID: {postId}</div>
+  const { postId } = Route.useParams();
+  return <img src="" alt={'Post page, ID: ' + { postId }} />;
 }

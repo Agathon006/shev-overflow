@@ -6,6 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import i18next from 'eslint-plugin-i18next';
 
 export default tseslint.config(
   {
@@ -35,6 +36,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
+      i18next,
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -43,6 +45,8 @@ export default tseslint.config(
 
       'simple-import-sort/imports': 'warn',
       'simple-import-sort/exports': 'warn',
+
+      'i18next/no-literal-string': ['error', { markupOnly: true }]
     },
   }
 );
