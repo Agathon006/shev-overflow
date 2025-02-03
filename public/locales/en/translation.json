@@ -17,5 +17,13 @@
       "en": "EN",
       "ru": "RU"
     }
+  },
+  "login-form": {
+    "title": "Login",
+    "login-input-placeholder": "Login",
+    "password-input-placeholder": "Password",
+    "submit-text": "login",
+    "no-account-text": "Not registered yet?",
+    "register-link-text": "Register"
   }
 }

@@ -30,6 +30,25 @@ export const defaultTheme = createTheme({
       '900': '#212529',
     },
   },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        inputProps: {
+          autoComplete: 'off',
+        },
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        color: 'primary.dark',
+        sx: {
+          '&:hover': {
+            color: 'secondary.dark',
+          },
+        },
+      },
+    },
+  },
 });
 
 // TODO (if need)

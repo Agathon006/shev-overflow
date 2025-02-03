@@ -17,5 +17,13 @@
       "en": "EN",
       "ru": "RU"
     }
+  },
+  "login-form": {
+    "title": "Вход",
+    "login-input-placeholder": "Логин",
+    "password-input-placeholder": "Пароль",
+    "submit-text": "войти",
+    "no-account-text": "Ещё не зарегистрованы?",
+    "register-link-text": "Зарегистрироваться"
   }
 }
