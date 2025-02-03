@@ -9,13 +9,7 @@ import React from 'react';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
-const router = createRouter({ routeTree });
-
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
+export const router = createRouter({ routeTree });
 
 const App: React.FC = () => {
   return (

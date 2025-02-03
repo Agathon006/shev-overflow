@@ -6,21 +6,30 @@ import { useTranslation } from 'react-i18next';
 export const NavMenu = () => {
   const { t } = useTranslation();
   return (
-    <Box
-      component="nav"
-      sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
-    >
-      <Button key="Home" sx={{ my: 2, color: 'inherit', display: 'block' }}>
-        <Link to="/">{t('header.nav.home')}</Link>
-      </Button>
-      <Button key="Users" sx={{ my: 2, color: 'inherit', display: 'block' }}>
-        <Link to="/users">{t('header.nav.users')}</Link>
+    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+      <Button
+        component={Link}
+        to="/"
+        key="Home"
+        sx={{ my: 2, color: 'inherit', display: 'block' }}
+      >
+        {t('header.nav.home')}
       </Button>
       <Button
+        component={Link}
+        to="/users"
+        key="Users"
+        sx={{ my: 2, color: 'inherit', display: 'block' }}
+      >
+        {t('header.nav.users')}
+      </Button>
+      <Button
+        component={Link}
+        to="/questions"
         key="Questions"
         sx={{ my: 2, color: 'inherit', display: 'block' }}
       >
-        <Link to="/questions">{t('header.nav.questions')}</Link>
+        {t('header.nav.questions')}
       </Button>
     </Box>
   );
