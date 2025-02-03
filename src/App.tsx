@@ -1,4 +1,5 @@
 import '@/styles/index.scss';
+import '@mui/material/styles';
 
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';

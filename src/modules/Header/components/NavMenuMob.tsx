@@ -44,29 +44,44 @@ export const NavMenuMob = () => {
         onClose={handleCloseNavMenu}
         sx={{ display: { xs: 'block', md: 'none' } }}
       >
-        <MenuItem
-          component={Link}
-          to="/"
-          key="Home"
-          onClick={handleCloseNavMenu}
-        >
-          Home
+        <MenuItem key="Home" sx={{ padding: '0' }}>
+          <Link
+            to="/"
+            onClick={handleCloseNavMenu}
+            style={{
+              padding: '6px 16px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            Home
+          </Link>
         </MenuItem>
-        <MenuItem
-          component={Link}
-          to="/users"
-          key="Users"
-          onClick={handleCloseNavMenu}
-        >
-          Users
+        <MenuItem key="Users" sx={{ padding: '0' }}>
+          <Link
+            to="/users"
+            onClick={handleCloseNavMenu}
+            style={{
+              padding: '6px 16px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            Users
+          </Link>
         </MenuItem>
-        <MenuItem
-          component={Link}
-          to="/questions"
-          key="Questions"
-          onClick={handleCloseNavMenu}
-        >
-          Questions
+        <MenuItem key="Questions" sx={{ padding: '0' }}>
+          <Link
+            to="/questions"
+            onClick={handleCloseNavMenu}
+            style={{
+              padding: '6px 16px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            Questions
+          </Link>
         </MenuItem>
       </Menu>
     </Box>

@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 
@@ -41,29 +40,44 @@ export const Avatar = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem
-          component={Link}
-          to="/users/me"
-          key="Account"
-          onClick={handleCloseUserMenu}
-        >
-          <Typography sx={{ textAlign: 'center' }}>Account</Typography>
+        <MenuItem key="Account" sx={{ padding: '0' }}>
+          <Link
+            to="/users/me"
+            onClick={handleCloseUserMenu}
+            style={{
+              padding: '6px 16px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            Account
+          </Link>
         </MenuItem>
-        <MenuItem
-          component={Link}
-          to="/users/me/posts"
-          key="My posts"
-          onClick={handleCloseUserMenu}
-        >
-          <Typography sx={{ textAlign: 'center' }}>My posts</Typography>
+        <MenuItem key="My posts" sx={{ padding: '0' }}>
+          <Link
+            to="/users/me/posts"
+            onClick={handleCloseUserMenu}
+            style={{
+              padding: '6px 16px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            My posts
+          </Link>
         </MenuItem>
-        <MenuItem
-          component={Link}
-          to="/auth/login"
-          key="Logout"
-          onClick={handleCloseUserMenu}
-        >
-          <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+        <MenuItem key="Logout" sx={{ padding: '0' }}>
+          <Link
+            to="/auth/login"
+            onClick={handleCloseUserMenu}
+            style={{
+              padding: '6px 16px',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            Logout
+          </Link>
         </MenuItem>
       </Menu>
     </Box>
