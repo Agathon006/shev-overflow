@@ -5,5 +5,5 @@ export const Route = createFileRoute('/users/me/')({
 });
 
 function RouteComponent() {
-  return <div>Account page</div>;
+  return <img src="" alt="Account page" />;
 }

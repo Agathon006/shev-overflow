@@ -5,8 +5,10 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const NavMenuMob = () => {
+  const { t } = useTranslation();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -57,7 +59,7 @@ export const NavMenuMob = () => {
               textAlign: 'center',
             }}
           >
-            Home
+            {t('header.nav.home')}
           </Link>
         </MenuItem>
         <MenuItem key="Users" sx={{ padding: '0' }}>
@@ -70,7 +72,7 @@ export const NavMenuMob = () => {
               textAlign: 'center',
             }}
           >
-            Users
+            {t('header.nav.users')}
           </Link>
         </MenuItem>
         <MenuItem key="Questions" sx={{ padding: '0' }}>
@@ -83,7 +85,7 @@ export const NavMenuMob = () => {
               textAlign: 'center',
             }}
           >
-            Questions
+            {t('header.nav.questions')}
           </Link>
         </MenuItem>
       </Menu>

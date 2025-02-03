@@ -1,3 +1,17 @@
 {
-  "welcome": "Welcome to React!"
+  "header": {
+    "avatar": {
+      "account": "Account",
+      "my-posts": "My posts",
+      "logout": "Logout"
+    },
+    "logo": {
+      "title": "Shev Overflow"
+    },
+    "nav": {
+      "home": "Home",
+      "users": "Users",
+      "questions": "Questions"
+    }
+  }
 }

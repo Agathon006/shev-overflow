@@ -1,3 +1,17 @@
 {
-  "welcome": "Добро пожаловать в React!"
+  "header": {
+    "avatar": {
+      "account": "Аккаунт",
+      "my-posts": "Мои посты",
+      "logout": "Выйти"
+    },
+    "logo": {
+      "title": "Shev Overflow"
+    },
+    "nav": {
+      "home": "Главная",
+      "users": "Пользователи",
+      "questions": "Вопросы"
+    }
+  }
 }

@@ -6,8 +6,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const Avatar = () => {
+  const { t } = useTranslation();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -50,7 +52,7 @@ export const Avatar = () => {
               textAlign: 'center',
             }}
           >
-            Account
+            {t('header.avatar.account')}
           </Link>
         </MenuItem>
         <MenuItem key="My posts" sx={{ padding: '0' }}>
@@ -63,7 +65,7 @@ export const Avatar = () => {
               textAlign: 'center',
             }}
           >
-            My posts
+            {t('header.avatar.my-posts')}
           </Link>
         </MenuItem>
         <MenuItem key="Logout" sx={{ padding: '0' }}>
@@ -76,7 +78,7 @@ export const Avatar = () => {
               textAlign: 'center',
             }}
           >
-            Logout
+            {t('header.avatar.logout')}
           </Link>
         </MenuItem>
       </Menu>

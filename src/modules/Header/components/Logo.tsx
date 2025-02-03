@@ -1,8 +1,10 @@
 import TerminalIcon from '@mui/icons-material/Terminal';
 import Typography from '@mui/material/Typography';
 import { Link } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 
 export const Logo = () => {
+  const { t } = useTranslation();
   return (
     <>
       <TerminalIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -19,7 +21,7 @@ export const Logo = () => {
             textDecoration: 'none',
           }}
         >
-          Shev Overflow
+          {t('header.logo.title')}
         </Typography>
       </Link>
     </>
