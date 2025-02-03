@@ -24,6 +24,11 @@ export default tseslint.config(
     },
     settings: {
       react: { version: 'detect' },
+      'import/resolver': {
+        typescript: {
+          project: ['./tsconfig.app.json', './tsconfig.node.json'],
+        },
+      },
     },
     plugins: {
       react,

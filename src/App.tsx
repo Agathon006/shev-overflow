@@ -1,12 +1,12 @@
-import './styles/index.scss';
+import '@/styles/index.scss';
 
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import React from 'react';
 
-import { routeTree } from './routeTree.gen';
-import { defaultTheme } from './theme';
+import { routeTree } from '@/routeTree.gen';
+import { defaultTheme } from '@/theme';
 
 const router = createRouter({ routeTree });
 
