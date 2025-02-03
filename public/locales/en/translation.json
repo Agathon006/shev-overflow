@@ -1,10 +1,5 @@
 {
   "header": {
-    "avatar": {
-      "account": "Account",
-      "my-posts": "My posts",
-      "logout": "Logout"
-    },
     "logo": {
       "title": "Shev Overflow"
     },
@@ -12,6 +7,15 @@
       "home": "Home",
       "users": "Users",
       "questions": "Questions"
+    },
+    "avatar": {
+      "account": "Account",
+      "my-posts": "My posts",
+      "logout": "Logout"
+    },
+    "language-switcher": {
+      "en": "EN",
+      "ru": "RU"
     }
   }
 }
