@@ -21,9 +21,18 @@
   "login-form": {
     "title": "Login",
     "login-input-placeholder": "Login",
-    "password-input-placeholder": "Password",
+    "password-input-placeholder": "Login",
     "submit-text": "login",
     "no-account-text": "Not registered yet?",
     "register-link-text": "Register"
+  },
+  "register-form": {
+    "title": "Register",
+    "login-input-placeholder": "Login",
+    "password-input-placeholder": "Password",
+    "confirm-password-input-placeholder": "Confirm Password",
+    "submit-text": "Register",
+    "exist-account-text": "Already registered?",
+    "login-link-text": "Login"
   }
 }

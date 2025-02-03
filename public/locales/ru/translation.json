@@ -25,5 +25,14 @@
     "submit-text": "войти",
     "no-account-text": "Ещё не зарегистрованы?",
     "register-link-text": "Зарегистрироваться"
+  },
+  "register-form": {
+    "title": "Регистрация",
+    "login-input-placeholder": "Логин",
+    "password-input-placeholder": "Пароль",
+    "confirm-password-input-placeholder": "Подтвердите пароль",
+    "submit-text": "Зарегистрироваться",
+    "exist-account-text": "Уже зарегистрированы?",
+    "login-link-text": "Войти"
   }
 }
