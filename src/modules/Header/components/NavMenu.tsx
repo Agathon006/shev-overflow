@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router';
 
 export const NavMenu = () => {
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+    <Box component='nav' sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
       <Button key="Home" sx={{ my: 2, color: 'inherit', display: 'block' }}>
         <Link to="/">Home</Link>
       </Button>
