@@ -1,3 +1,5 @@
+import { axiosInstance } from '@/api/axiosInstance';
+
 import { LoginFormInputs } from '../LoginForm';
 
 type ApiError = {
@@ -7,28 +9,9 @@ type ApiError = {
 
 export const loginUser = async (credentials: LoginFormInputs) => {
   try {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-      body: JSON.stringify(credentials),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw {
-        message: errorData.message || 'Login failed',
-        statusCode: response.status,
-      } as ApiError;
-    }
-
-    return response.json();
+    const response = await axiosInstance.post('/auth/login', credentials);
+    return response.data;
   } catch (error) {
-    if (error instanceof TypeError) {
-      throw { message: 'Network error. Please try again later.' } as ApiError;
-    }
-    throw error;
+    throw error as ApiError;
   }
 };
