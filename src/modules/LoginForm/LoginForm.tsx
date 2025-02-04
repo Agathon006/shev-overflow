@@ -14,8 +14,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { Notification } from '@/components';
-
 import { loginUser } from './api';
 
 const schema = z.object({
@@ -27,7 +25,6 @@ export type LoginFormInputs = z.infer<typeof schema>;
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
-
   const {
     register,
     handleSubmit,
@@ -36,7 +33,7 @@ export const LoginForm: React.FC = () => {
     resolver: zodResolver(schema),
   });
 
-  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       console.log('Login successful:', data);
@@ -61,21 +58,6 @@ export const LoginForm: React.FC = () => {
         <Typography component="h1" variant="h5" mb={2}>
           {t('login-form.title')}
         </Typography>
-
-        {isError && (
-          <Notification
-            title={t('login-form.submit-result-text.fail')}
-            message={(error as Error).message}
-            severity="error"
-          />
-        )}
-
-        {isSuccess && (
-          <Notification
-            title={t('login-form.submit-result-text.success')}
-            severity="success"
-          />
-        )}
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} width="100%">
           <TextField

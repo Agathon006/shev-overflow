@@ -1,4 +1,4 @@
-import { axiosInstance } from '@/api/axiosInstance';
+import { api } from '@/api/axiosInstance';
 
 import { RegisterFormInputs } from '../RegisterForm';
 
@@ -11,7 +11,7 @@ export const registerUser = async (
   credentials: Omit<RegisterFormInputs, 'confirmPassword'>,
 ) => {
   try {
-    const response = await axiosInstance.post('/register', credentials);
+    const response = await api.post('/register', credentials);
     return response.data;
   } catch (error) {
     throw error as ApiError;

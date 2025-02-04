@@ -20,10 +20,6 @@
   },
   "login-form": {
     "title": "Login",
-    "submit-result-text": {
-      "fail": "Login failed",
-      "success": "Login successful"
-    },
     "username-input-placeholder": "Username",
     "password-input-placeholder": "Password",
     "submit-text": {
@@ -43,10 +39,6 @@
   },
   "register-form": {
     "title": "Register",
-    "submit-result-text": {
-      "fail": "Regisration failed",
-      "success": "Regisration successful"
-    },
     "username-input-placeholder": "Username",
     "password-input-placeholder": "Password",
     "confirm-password-input-placeholder": "Confirm Password",

@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import React from 'react';
 
+import { Notifications } from '@/components/Notifications';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
         <RouterProvider router={router} />
+        <Notifications />
       </ThemeProvider>
     </QueryClientProvider>
   );

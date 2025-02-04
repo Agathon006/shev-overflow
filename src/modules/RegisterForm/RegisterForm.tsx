@@ -14,8 +14,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { Notification } from '@/components';
-
 import { registerUser } from './api';
 
 const schema = z
@@ -43,7 +41,7 @@ export const RegisterForm: React.FC = () => {
     resolver: zodResolver(schema),
   });
 
-  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
       console.log('Registration successful:', data);
@@ -68,21 +66,6 @@ export const RegisterForm: React.FC = () => {
         <Typography component="h1" variant="h5" mb={2}>
           {t('register-form.title')}
         </Typography>
-
-        {isError && (
-          <Notification
-            title={t('register-form.submit-result-text.fail')}
-            message={(error as Error).message}
-            severity="error"
-          />
-        )}
-
-        {isSuccess && (
-          <Notification
-            title={t('register-form.submit-result-text.success')}
-            severity="success"
-          />
-        )}
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} width="100%">
           <TextField
@@ -117,12 +100,14 @@ export const RegisterForm: React.FC = () => {
             variant="contained"
             color="primary"
             sx={{ mt: 2 }}
+            disabled={isPending}
           >
             {isPending
               ? t('register-form.submit-text.loading')
               : t('register-form.submit-text.register')}
           </Button>
         </Box>
+
         <Typography variant="body2" sx={{ mt: 2 }}>
           {t('register-form.exist-account-text')}{' '}
           <MuiLink component={Link} to="/auth/login">

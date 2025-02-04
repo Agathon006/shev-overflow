@@ -20,10 +20,6 @@
   },
   "login-form": {
     "title": "Вход",
-    "submit-result-text": {
-      "fail": "Авторизация не удалась",
-      "success": "Авторизация успешна"
-    },
     "username-input-placeholder": "Никнейм",
     "password-input-placeholder": "Пароль",
     "submit-text": {
@@ -43,10 +39,6 @@
   },
   "register-form": {
     "title": "Регистрация",
-    "submit-result-text": {
-      "fail": "Регистрация не удалась",
-      "success": "Регистрация успешна"
-    },
     "username-input-placeholder": "Никнейм",
     "password-input-placeholder": "Пароль",
     "confirm-password-input-placeholder": "Подтвердите пароль",

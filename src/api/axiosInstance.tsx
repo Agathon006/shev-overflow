@@ -1,23 +1,36 @@
 import axios from 'axios';
 
-export const axiosInstance = axios.create({
+import { useNotifications } from '@/components/Notifications';
+
+// import { paths } from '@/config/paths';
+
+export const api = axios.create({
   baseURL: '/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
   withCredentials: true,
 });
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
+api.interceptors.request.use((config) => {
+  config.headers.Accept = 'application/json';
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response.data,
   (error) => {
     const message =
-      error.response?.data?.message || 'An unexpected error occurred';
-    const statusCode = error.response?.status;
+      error.response?.data?.message || 'Unexpected error occurred';
 
-    console.error(`Error ${statusCode}: ${message}`);
+    useNotifications.getState().addNotification({
+      type: 'error',
+      title: 'Error',
+      message,
+    });
 
+    if (error.response?.status === 401) {
+      // const redirectTo = window.location.pathname;
+      // window.location.href = paths.auth.login.getHref(redirectTo);
+    }
 
-    return Promise.reject({ message, statusCode });
+    return Promise.reject(error);
   },
 );
