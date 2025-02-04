@@ -24,7 +24,7 @@
       "fail": "Login failed",
       "success": "Login successful"
     },
-    "username-input-placeholder": "Login",
+    "username-input-placeholder": "Username",
     "password-input-placeholder": "Password",
     "submit-text": {
       "login": "login",
@@ -34,7 +34,7 @@
     "register-link-text": "Register",
     "errors": {
       "username-input": {
-        "length": "Login is required"
+        "length": "Username must be at least 5 characters"
       },
       "password-input": {
         "length": "Password must be at least 5 characters"
@@ -47,7 +47,7 @@
       "fail": "Regisration failed",
       "success": "Regisration successful"
     },
-    "username-input-placeholder": "Login",
+    "username-input-placeholder": "Username",
     "password-input-placeholder": "Password",
     "confirm-password-input-placeholder": "Confirm Password",
     "submit-text": {
@@ -58,7 +58,7 @@
     "login-link-text": "Login",
     "errors": {
       "username-input": {
-        "length": "Login is required"
+        "length": "Username must be at least 5 characters"
       },
       "password-input": {
         "length": "Password must be at least 5 characters"

@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  Alert,
   Box,
   Button,
   Container,
@@ -14,6 +13,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+
+import { Notification } from '@/components';
 
 import { loginUser } from './api';
 
@@ -65,15 +66,18 @@ export const LoginForm: React.FC = () => {
         </Typography>
 
         {isError && (
-          <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
-            {(error as Error).message || t('login-form.submit-result-text.fail')}
-          </Alert>
+          <Notification
+            title={t('login-form.submit-result-text.fail')}
+            message={(error as Error).message}
+            severity="error"
+          />
         )}
 
         {isSuccess && (
-          <Alert severity="success" sx={{ width: '100%', mb: 2 }}>
-            {t('login-form.submit-result-text.success')}
-          </Alert>
+          <Notification
+            title={t('login-form.submit-result-text.success')}
+            severity="success"
+          />
         )}
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} width="100%">

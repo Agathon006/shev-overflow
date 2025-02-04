@@ -3,22 +3,22 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://codelang.vercel.app', 
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '/api'),
+export default defineConfig(() => {
+  return {
+    plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
       },
     },
-  },
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://codelang.vercel.app',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
+  };
 });
