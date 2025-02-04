@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -7,19 +8,22 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
+import { registerUser } from '@/api';
+
 const schema = z
   .object({
-    login: z.string().min(1, 'register-form.errors.login-input.required'),
-    password: z.string().min(6, 'register-form.errors.password-input.length'),
+    username: z.string().min(5, 'register-form.errors.username-input.length'),
+    password: z.string().min(5, 'register-form.errors.password-input.length'),
     confirmPassword: z
       .string()
-      .min(6, 'register-form.errors.confirm-password-input.length'),
+      .min(5, 'register-form.errors.confirm-password-input.length'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'register-form.errors.confirm-password-input.match',
@@ -27,7 +31,7 @@ const schema = z
   });
 
 type RegisterFormInputs = {
-  login: string;
+  username: string;
   password: string;
   confirmPassword: string;
 };
@@ -42,8 +46,18 @@ export const RegisterForm: React.FC = () => {
     resolver: zodResolver(schema),
   });
 
+  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (data) => {
+      console.log('Registration successful:', data);
+    },
+    onError: (err) => {
+      console.error('Registration failed:', err.message);
+    },
+  });
+
   const onSubmit = (data: RegisterFormInputs) => {
-    console.log('Form Data:', data);
+    mutate({ username: data.username, password: data.password });
   };
 
   return (
@@ -57,14 +71,28 @@ export const RegisterForm: React.FC = () => {
         <Typography component="h1" variant="h5" mb={2}>
           {t('register-form.title')}
         </Typography>
+
+        {isError && (
+          <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+            {(error as Error).message ||
+              t('register-form.submit-result-text.fail')}
+          </Alert>
+        )}
+
+        {isSuccess && (
+          <Alert severity="success" sx={{ width: '100%', mb: 2 }}>
+            {t('register-form.submit-result-text.success')}
+          </Alert>
+        )}
+
         <Box component="form" onSubmit={handleSubmit(onSubmit)} width="100%">
           <TextField
-            label={t('register-form.login-input-placeholder')}
+            label={t('register-form.username-input-placeholder')}
             fullWidth
             margin="normal"
-            {...register('login')}
-            error={!!errors.login}
-            helperText={t(errors.login?.message ?? '')}
+            {...register('username')}
+            error={!!errors.username}
+            helperText={t(errors.username?.message ?? '')}
           />
           <TextField
             label={t('register-form.password-input-placeholder')}
@@ -91,7 +119,9 @@ export const RegisterForm: React.FC = () => {
             color="primary"
             sx={{ mt: 2 }}
           >
-            {t('register-form.submit-text')}
+            {isPending
+              ? t('register-form.submit-text.loading')
+              : t('register-form.submit-text.register')}
           </Button>
         </Box>
         <Typography variant="body2" sx={{ mt: 2 }}>

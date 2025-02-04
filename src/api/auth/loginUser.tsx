@@ -1,5 +1,5 @@
 type LoginParams = {
-  login: string;
+  username: string;
   password: string;
 };
 

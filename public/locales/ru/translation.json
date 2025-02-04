@@ -24,7 +24,7 @@
       "fail": "Авторизация не удалась",
       "success": "Авторизация успешна"
     },
-    "login-input-placeholder": "Логин",
+    "username-input-placeholder": "Никнейм",
     "password-input-placeholder": "Пароль",
     "submit-text": {
       "login": "войти",
@@ -33,31 +33,38 @@
     "no-account-text": "Ещё не зарегистрованы?",
     "register-link-text": "Зарегистрироваться",
     "errors": {
-      "login-input": {
-        "required": "Логин обязателен"
+      "username-input": {
+        "length": "Никнейм должен содержать хотя бы 5 символов"
       },
       "password-input": {
-        "length": "Пароль должен содержать хотя бы 6 символов"
+        "length": "Пароль должен содержать хотя бы 5 символов"
       }
     }
   },
   "register-form": {
     "title": "Регистрация",
-    "login-input-helper-text": "Логин обязателен",
+    "submit-result-text": {
+      "fail": "Регистрация не удалась",
+      "success": "Регистрация успешна"
+    },
+    "username-input-placeholder": "Никнейм",
     "password-input-placeholder": "Пароль",
     "confirm-password-input-placeholder": "Подтвердите пароль",
-    "submit-text": "Зарегистрироваться",
+    "submit-text": {
+      "register": "Зарегистрироваться",
+      "loading": "Регистрация..."
+    },
     "exist-account-text": "Уже зарегистрированы?",
     "login-link-text": "Войти",
     "errors": {
-      "login-input": {
-        "required": "Логин обязателен"
+      "username-input": {
+        "length": "Никнейм должен содержать хотя бы 5 символов"
       },
       "password-input": {
-        "length": "Пароль должен содержать хотя бы 6 символов"
+        "length": "Пароль должен содержать хотя бы 5 символов"
       },
       "confirm-password-input": {
-        "length": "Пароль должен содержать хотя бы 6 символов",
+        "length": "Пароль должен содержать хотя бы 5 символов",
         "match": "Пароли не совпадают"
       }
     }

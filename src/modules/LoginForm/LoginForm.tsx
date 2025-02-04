@@ -18,12 +18,12 @@ import { z } from 'zod';
 import { loginUser } from '@/api';
 
 const schema = z.object({
-  login: z.string().min(1, 'login-form.errors.login-input.required'),
-  password: z.string().min(6, 'login-form.errors.password-input.length'),
+  username: z.string().min(5, 'login-form.errors.username-input.length'),
+  password: z.string().min(5, 'login-form.errors.password-input.length'),
 });
 
 type LoginFormInputs = {
-  login: string;
+  username: string;
   password: string;
 };
 
@@ -78,12 +78,12 @@ export const LoginForm: React.FC = () => {
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} width="100%">
           <TextField
-            label={t('login-form.login-input-placeholder')}
+            label={t('login-form.username-input-placeholder')}
             fullWidth
             margin="normal"
-            {...register('login')}
-            error={!!errors.login}
-            helperText={t(errors.login?.message ?? '')}
+            {...register('username')}
+            error={!!errors.username}
+            helperText={t(errors.username?.message ?? '')}
           />
           <TextField
             label={t('login-form.password-input-placeholder')}
