@@ -14,8 +14,8 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
 const schema = z.object({
-  login: z.string().min(1, 'Login is required'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  login: z.string().min(1, 'login-form.errors.login-input.required'),
+  password: z.string().min(6, 'login-form.errors.password-input.length'),
 });
 
 type LoginFormInputs = {
@@ -55,7 +55,7 @@ export const LoginForm: React.FC = () => {
             margin="normal"
             {...register('login')}
             error={!!errors.login}
-            helperText={errors.login?.message}
+            helperText={t(errors.login?.message ?? '')}
           />
           <TextField
             label={t('login-form.password-input-placeholder')}
@@ -64,7 +64,7 @@ export const LoginForm: React.FC = () => {
             margin="normal"
             {...register('password')}
             error={!!errors.password}
-            helperText={errors.password?.message}
+            helperText={t(errors.password?.message ?? '')}
           />
           <Button
             type="submit"

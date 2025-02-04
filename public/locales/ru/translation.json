@@ -24,15 +24,35 @@
     "password-input-placeholder": "Пароль",
     "submit-text": "войти",
     "no-account-text": "Ещё не зарегистрованы?",
-    "register-link-text": "Зарегистрироваться"
+    "register-link-text": "Зарегистрироваться",
+    "errors": {
+      "login-input": {
+        "required": "Логин обязателен"
+      },
+      "password-input": {
+        "length": "Пароль должен содержать хотя бы 6 символов"
+      }
+    }
   },
   "register-form": {
     "title": "Регистрация",
-    "login-input-placeholder": "Логин",
+    "login-input-helper-text": "Логин обязателен",
     "password-input-placeholder": "Пароль",
     "confirm-password-input-placeholder": "Подтвердите пароль",
     "submit-text": "Зарегистрироваться",
     "exist-account-text": "Уже зарегистрированы?",
-    "login-link-text": "Войти"
+    "login-link-text": "Войти",
+    "errors": {
+      "login-input": {
+        "required": "Логин обязателен"
+      },
+      "password-input": {
+        "length": "Пароль должен содержать хотя бы 6 символов"
+      },
+      "confirm-password-input": {
+        "length": "Пароль должен содержать хотя бы 6 символов",
+        "match": "Пароли не совпадают"
+      }
+    }
   }
 }

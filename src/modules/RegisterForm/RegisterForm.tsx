@@ -15,14 +15,14 @@ import { z } from 'zod';
 
 const schema = z
   .object({
-    login: z.string().min(1, 'Login is required'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
+    login: z.string().min(1, 'register-form.errors.login-input.required'),
+    password: z.string().min(6, 'register-form.errors.password-input.length'),
     confirmPassword: z
       .string()
-      .min(6, 'Confirm Password must be at least 6 characters'),
+      .min(6, 'register-form.errors.confirm-password-input.length'),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: 'register-form.errors.confirm-password-input.match',
     path: ['confirmPassword'],
   });
 
@@ -64,7 +64,7 @@ export const RegisterForm: React.FC = () => {
             margin="normal"
             {...register('login')}
             error={!!errors.login}
-            helperText={errors.login?.message}
+            helperText={t(errors.login?.message ?? '')}
           />
           <TextField
             label={t('register-form.password-input-placeholder')}
@@ -73,7 +73,7 @@ export const RegisterForm: React.FC = () => {
             margin="normal"
             {...register('password')}
             error={!!errors.password}
-            helperText={errors.password?.message}
+            helperText={t(errors.password?.message ?? '')}
           />
           <TextField
             label={t('register-form.confirm-password-input-placeholder')}
@@ -82,7 +82,7 @@ export const RegisterForm: React.FC = () => {
             margin="normal"
             {...register('confirmPassword')}
             error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message}
+            helperText={t(errors.confirmPassword?.message ?? '')}
           />
           <Button
             type="submit"

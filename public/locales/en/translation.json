@@ -24,7 +24,15 @@
     "password-input-placeholder": "Password",
     "submit-text": "login",
     "no-account-text": "Not registered yet?",
-    "register-link-text": "Register"
+    "register-link-text": "Register",
+    "errors": {
+      "login-input": {
+        "required": "Login is required"
+      },
+      "password-input": {
+        "length": "Password must be at least 6 characters"
+      }
+    }
   },
   "register-form": {
     "title": "Register",
@@ -33,6 +41,18 @@
     "confirm-password-input-placeholder": "Confirm Password",
     "submit-text": "Register",
     "exist-account-text": "Already registered?",
-    "login-link-text": "Login"
+    "login-link-text": "Login",
+    "errors": {
+      "login-input": {
+        "required": "Login is required"
+      },
+      "password-input": {
+        "length": "Password must be at least 6 characters"
+      },
+      "confirm-password-input": {
+        "length": "Password must be at least 6 characters",
+        "match": "Passwords don't match"
+      }
+    }
   }
 }
