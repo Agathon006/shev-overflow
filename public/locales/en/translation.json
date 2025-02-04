@@ -20,9 +20,16 @@
   },
   "login-form": {
     "title": "Login",
+    "submit-result-text": {
+      "fail": "Login failed",
+      "success": "Login successful"
+    },
     "login-input-placeholder": "Login",
     "password-input-placeholder": "Password",
-    "submit-text": "login",
+    "submit-text": {
+      "login": "login",
+      "loading": "loading"
+    },
     "no-account-text": "Not registered yet?",
     "register-link-text": "Register",
     "errors": {

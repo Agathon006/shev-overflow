@@ -20,9 +20,16 @@
   },
   "login-form": {
     "title": "Вход",
+    "submit-result-text": {
+      "fail": "Авторизация не удалась",
+      "success": "Авторизация успешна"
+    },
     "login-input-placeholder": "Логин",
     "password-input-placeholder": "Пароль",
-    "submit-text": "войти",
+    "submit-text": {
+      "login": "войти",
+      "loading": "вход..."
+    },
     "no-account-text": "Ещё не зарегистрованы?",
     "register-link-text": "Зарегистрироваться",
     "errors": {

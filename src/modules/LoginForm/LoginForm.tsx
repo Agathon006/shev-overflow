@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -7,11 +8,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+
+import { loginUser } from '@/api';
 
 const schema = z.object({
   login: z.string().min(1, 'login-form.errors.login-input.required'),
@@ -25,6 +29,7 @@ type LoginFormInputs = {
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -33,8 +38,18 @@ export const LoginForm: React.FC = () => {
     resolver: zodResolver(schema),
   });
 
+  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      console.log('Login successful:', data);
+    },
+    onError: (err) => {
+      console.error('Login failed:', err.message);
+    },
+  });
+
   const onSubmit = (data: LoginFormInputs) => {
-    console.log('Form Data:', data);
+    mutate(data);
   };
 
   return (
@@ -48,6 +63,19 @@ export const LoginForm: React.FC = () => {
         <Typography component="h1" variant="h5" mb={2}>
           {t('login-form.title')}
         </Typography>
+
+        {isError && (
+          <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+            {(error as Error).message || t('login-form.submit-result-text.fail')}
+          </Alert>
+        )}
+
+        {isSuccess && (
+          <Alert severity="success" sx={{ width: '100%', mb: 2 }}>
+            {t('login-form.submit-result-text.success')}
+          </Alert>
+        )}
+
         <Box component="form" onSubmit={handleSubmit(onSubmit)} width="100%">
           <TextField
             label={t('login-form.login-input-placeholder')}
@@ -72,10 +100,14 @@ export const LoginForm: React.FC = () => {
             variant="contained"
             color="primary"
             sx={{ mt: 2 }}
+            disabled={isPending}
           >
-            {t('login-form.submit-text')}
+            {isPending
+              ? t('login-form.submit-text.loading')
+              : t('login-form.submit-text.login')}
           </Button>
         </Box>
+
         <Typography variant="body2" sx={{ mt: 2 }}>
           {t('login-form.no-account-text')}{' '}
           <MuiLink component={Link} to="/auth/register">
