@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { registerUser } from '@/api';
+import { registerUser } from './api';
 
 const schema = z
   .object({
