@@ -1,14 +1,11 @@
-type LoginParams = {
-  username: string;
-  password: string;
-};
+import { LoginFormInputs } from '../LoginForm';
 
 type ApiError = {
   message: string;
   statusCode?: number;
 };
 
-export const loginUser = async (credentials: LoginParams) => {
+export const loginUser = async (credentials: LoginFormInputs) => {
   try {
     const response = await fetch('/api/auth/login', {
       method: 'POST',

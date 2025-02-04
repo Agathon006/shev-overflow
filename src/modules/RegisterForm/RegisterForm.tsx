@@ -31,11 +31,7 @@ const schema = z
     path: ['confirmPassword'],
   });
 
-type RegisterFormInputs = {
-  username: string;
-  password: string;
-  confirmPassword: string;
-};
+export type RegisterFormInputs = z.infer<typeof schema>;
 
 export const RegisterForm: React.FC = () => {
   const { t } = useTranslation();
