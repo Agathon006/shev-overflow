@@ -7,11 +7,9 @@ import { useNotifications } from '@/components/Notifications';
 export const api = axios.create({
   baseURL: '/api',
   withCredentials: true,
-});
-
-api.interceptors.request.use((config) => {
-  config.headers.Accept = 'application/json';
-  return config;
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 api.interceptors.response.use(
