@@ -1,5 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert, AlertTitle, IconButton } from '@mui/material';
+import { Alert, AlertTitle, Fade, IconButton } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export type NotificationProps = {
   notification: {
@@ -15,23 +16,44 @@ export const Notification = ({
   notification: { id, type, title, message },
   onDismiss,
 }: NotificationProps) => {
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen(false);
+      setTimeout(() => onDismiss(id), 500);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [id, onDismiss]);
+
+  const handleClose = () => {
+    setOpen(false);
+    setTimeout(() => onDismiss(id), 500);
+  };
+
   return (
-    <Alert
-      severity={type}
-      action={
-        <IconButton
-          aria-label="close"
-          color="inherit"
-          size="small"
-          onClick={() => onDismiss(id)}
+    <Fade in={open} timeout={500}>
+      <div>
+        <Alert
+          variant="filled"
+          severity={type}
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ width: '100%', mb: 2 }}
         >
-          <CloseIcon fontSize="inherit" />
-        </IconButton>
-      }
-      sx={{ width: '100%', mb: 2 }}
-    >
-      <AlertTitle>{title}</AlertTitle>
-      {message}
-    </Alert>
+          <AlertTitle>{title}</AlertTitle>
+          {message}
+        </Alert>
+      </div>
+    </Fade>
   );
 };
