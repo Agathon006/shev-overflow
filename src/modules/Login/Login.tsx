@@ -7,26 +7,13 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
-import { api } from '@/api/axiosInstance';
-
-const schema = z.object({
-  username: z.string().min(5, 'login-form.errors.username-input.length'),
-  password: z.string().min(5, 'login-form.errors.password-input.length'),
-});
-
-type LoginFormInputs = z.infer<typeof schema>;
-
-const loginUser = async (credentials: LoginFormInputs) => {
-  const response = await api.post('/auth/login', credentials);
-  return response.data;
-};
+import { useLogin } from './hooks/useLogin';
+import { LoginFormInputsType, loginSchema } from './schema/loginSchema';
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
@@ -34,21 +21,19 @@ export const Login: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputs>({
-    resolver: zodResolver(schema),
+  } = useForm<LoginFormInputsType>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: loginUser,
-    onSuccess: (data) => {
-      console.log('Login successful:', data);
-    },
-    onError: (err) => {
-      console.error('Login failed:', err.message);
+  const { mutate, isPending } = useLogin({
+    mutationConfig: {
+      onSuccess: (data) => {
+        console.log('Login successful:', data);
+      },
     },
   });
 
-  const onSubmit = (data: LoginFormInputs) => {
+  const onSubmit = (data: LoginFormInputsType) => {
     mutate(data);
   };
 

@@ -7,36 +7,16 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
 
-import { api } from '@/api/axiosInstance';
-
-const schema = z
-  .object({
-    username: z.string().min(5, 'register-form.errors.username-input.length'),
-    password: z.string().min(5, 'register-form.errors.password-input.length'),
-    confirmPassword: z
-      .string()
-      .min(5, 'register-form.errors.confirm-password-input.length'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'register-form.errors.confirm-password-input.match',
-    path: ['confirmPassword'],
-  });
-
-type RegisterFormInputs = z.infer<typeof schema>;
-
-const registerUser = async (
-  credentials: Omit<RegisterFormInputs, 'confirmPassword'>,
-) => {
-  const response = await api.post('/register', credentials);
-  return response.data;
-};
+import { useRegister } from './hooks/useRegister';
+import {
+  RegisterFormInputsType,
+  registerSchema,
+} from './schema/registerSchema';
 
 export const Register: React.FC = () => {
   const { t } = useTranslation();
@@ -44,21 +24,19 @@ export const Register: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormInputs>({
-    resolver: zodResolver(schema),
+  } = useForm<RegisterFormInputsType>({
+    resolver: zodResolver(registerSchema),
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: registerUser,
-    onSuccess: (data) => {
-      console.log('Registration successful:', data);
-    },
-    onError: (err) => {
-      console.error('Registration failed:', err.message);
+  const { mutate, isPending } = useRegister({
+    mutationConfig: {
+      onSuccess: (data) => {
+        console.log('Registration successful:', data);
+      },
     },
   });
 
-  const onSubmit = (data: RegisterFormInputs) => {
+  const onSubmit = (data: RegisterFormInputsType) => {
     mutate({ username: data.username, password: data.password });
   };
 
