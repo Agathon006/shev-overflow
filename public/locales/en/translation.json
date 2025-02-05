@@ -1,4 +1,14 @@
 {
+  "api": {
+    "error-title": "Error",
+    "error-message": "Unexpected error occurred",
+    "login-form": {
+      "success": "Autorization successful"
+    },
+    "register-form": {
+      "success": "Registration successful"
+    }
+  },
   "header": {
     "logo": {
       "title": "Shev Overflow"

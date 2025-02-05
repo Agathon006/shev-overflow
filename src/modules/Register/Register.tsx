@@ -12,6 +12,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useNotifications } from '@/components/Notifications';
+
 import { useRegister } from './api/registerUser';
 import {
   RegisterFormInputsType,
@@ -32,6 +34,11 @@ export const Register: React.FC = () => {
     mutationConfig: {
       onSuccess: (data) => {
         console.log('Registration successful:', data);
+
+        useNotifications.getState().addNotification({
+          type: 'success',
+          title: t('api.register-form.success'),
+        });
       },
     },
   });

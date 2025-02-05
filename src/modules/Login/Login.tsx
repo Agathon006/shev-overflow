@@ -12,6 +12,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useNotifications } from '@/components/Notifications';
+
 import { useLogin } from './api/loginUser';
 import { LoginFormInputsType, loginSchema } from './schema/loginSchema';
 
@@ -29,6 +31,11 @@ export const Login: React.FC = () => {
     mutationConfig: {
       onSuccess: (data) => {
         console.log('Login successful:', data);
+
+        useNotifications.getState().addNotification({
+          type: 'success',
+          title: t('api.login-form.success'),
+        });
       },
     },
   });

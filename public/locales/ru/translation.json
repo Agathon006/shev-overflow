@@ -1,4 +1,14 @@
 {
+  "api": {
+    "error-title": "Ошибка",
+    "error-message": "Произошла непредвиденная ошибка",
+    "login-form": {
+      "success": "Авторизация успешна"
+    },
+    "register-form": {
+      "success": "Регистрация успешна"
+    }
+  },
   "header": {
     "logo": {
       "title": "Shev Overflow"

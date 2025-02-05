@@ -1,4 +1,5 @@
 import axios from 'axios';
+import i18n from 'i18next';
 
 import { useNotifications } from '@/components/Notifications';
 
@@ -16,11 +17,11 @@ api.interceptors.response.use(
   (response) => response.data,
   (error) => {
     const message =
-      error.response?.data?.message || 'Unexpected error occurred';
+      error.response?.data?.message || i18n.t('api.error-message');
 
     useNotifications.getState().addNotification({
       type: 'error',
-      title: 'Error',
+      title: i18n.t('api.error-title'),
       message,
     });
 
