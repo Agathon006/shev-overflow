@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { registerUser } from './api/registerUser';
+import { api } from '@/api/axiosInstance';
 
 const schema = z
   .object({
@@ -29,7 +29,22 @@ const schema = z
     path: ['confirmPassword'],
   });
 
-export type RegisterFormInputs = z.infer<typeof schema>;
+type RegisterFormInputs = z.infer<typeof schema>;
+type ApiError = {
+  message: string;
+  statusCode?: number;
+};
+
+const registerUser = async (
+  credentials: Omit<RegisterFormInputs, 'confirmPassword'>,
+) => {
+  try {
+    const response = await api.post('/register', credentials);
+    return response.data;
+  } catch (error) {
+    throw error as ApiError;
+  }
+};
 
 export const Register: React.FC = () => {
   const { t } = useTranslation();

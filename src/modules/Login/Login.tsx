@@ -14,14 +14,28 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { loginUser } from './api/loginUser';
+import { api } from '@/api/axiosInstance';
 
 const schema = z.object({
   username: z.string().min(5, 'login-form.errors.username-input.length'),
   password: z.string().min(5, 'login-form.errors.password-input.length'),
 });
 
-export type LoginFormInputs = z.infer<typeof schema>;
+type LoginFormInputs = z.infer<typeof schema>;
+
+type ApiError = {
+  message: string;
+  statusCode?: number;
+};
+
+const loginUser = async (credentials: LoginFormInputs) => {
+  try {
+    const response = await api.post('/auth/login', credentials);
+    return response.data;
+  } catch (error) {
+    throw error as ApiError;
+  }
+};
 
 export const Login: React.FC = () => {
   const { t } = useTranslation();
