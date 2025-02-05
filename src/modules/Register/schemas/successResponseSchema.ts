@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const SuccessResponseSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   username: z.string(),
   role: z.string(),
 });
