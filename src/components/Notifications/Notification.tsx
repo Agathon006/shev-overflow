@@ -1,20 +1,22 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Alert, AlertTitle, IconButton } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export type NotificationProps = {
   notification: {
     id: string;
     type: 'info' | 'warning' | 'success' | 'error';
-    title: string;
-    message?: string;
+    titleTranslationKey: string;
+    messageTranslationKey?: string;
   };
   onDismiss: (id: string) => void;
 };
 
 export const Notification = ({
-  notification: { id, type, title, message },
+  notification: { id, type, titleTranslationKey, messageTranslationKey },
   onDismiss,
 }: NotificationProps) => {
+  const { t } = useTranslation();
   return (
     <Alert
       severity={type}
@@ -30,8 +32,8 @@ export const Notification = ({
       }
       sx={{ width: '100%', mb: 2 }}
     >
-      <AlertTitle>{title}</AlertTitle>
-      {message}
+      <AlertTitle>{t(titleTranslationKey)}</AlertTitle>
+      {t(messageTranslationKey ?? '')}
     </Alert>
   );
 };

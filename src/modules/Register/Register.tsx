@@ -37,7 +37,7 @@ export const Register: React.FC = () => {
 
         useNotifications.getState().addNotification({
           type: 'success',
-          title: t('api.register-form.success'),
+          titleTranslationKey: 'api.register-form.success',
         });
       },
     },

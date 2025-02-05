@@ -34,7 +34,7 @@ export const Login: React.FC = () => {
 
         useNotifications.getState().addNotification({
           type: 'success',
-          title: t('api.login-form.success'),
+          titleTranslationKey: 'api.login-form.success',
         });
       },
     },

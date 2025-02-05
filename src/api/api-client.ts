@@ -1,5 +1,4 @@
 import axios from 'axios';
-import i18n from 'i18next';
 
 import { useNotifications } from '@/components/Notifications';
 
@@ -16,13 +15,13 @@ export const api = axios.create({
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const message =
-      error.response?.data?.message || i18n.t('api.error-message');
+    const messageTranslationKey =
+      error.response?.data?.message || 'api.error-message';
 
     useNotifications.getState().addNotification({
       type: 'error',
-      title: i18n.t('api.error-title'),
-      message,
+      titleTranslationKey: 'api.error-title',
+      messageTranslationKey,
     });
 
     if (error.response?.status === axios.HttpStatusCode.Unauthorized) {
