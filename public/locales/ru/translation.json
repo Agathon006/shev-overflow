@@ -1,4 +1,7 @@
 {
+  "backend": {
+    "Incorrect password or username!": "Неправильное имя пользователя или пароль!"
+  },
   "api": {
     "error-title": "Ошибка",
     "error-message": "Произошла непредвиденная ошибка",

@@ -16,7 +16,9 @@ api.interceptors.response.use(
   (response) => response.data,
   (error) => {
     const messageTranslationKey =
-      error.response?.data?.message || 'api.error-message';
+      (error.response?.data?.message &&
+        'backend.' + error.response?.data?.message) ||
+      'api.error-message';
 
     useNotifications.getState().addNotification({
       type: 'error',

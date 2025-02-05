@@ -1,4 +1,7 @@
 {
+  "backend": {
+    "Incorrect password or username!": "Incorrect password or username!"
+  },
   "api": {
     "error-title": "Error",
     "error-message": "Unexpected error occurred",
