@@ -4,8 +4,8 @@ import { create } from 'zustand';
 export type Notification = {
   id: string;
   type: 'info' | 'warning' | 'success' | 'error';
-  titleTranslationKey: string;
-  messageTranslationKey?: string;
+  title: string;
+  message?: string;
 };
 
 type NotificationsStore = {
