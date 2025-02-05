@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { registerUser } from './api';
+import { registerUser } from './api/registerUser';
 
 const schema = z
   .object({
@@ -31,7 +31,7 @@ const schema = z
 
 export type RegisterFormInputs = z.infer<typeof schema>;
 
-export const RegisterForm: React.FC = () => {
+export const Register: React.FC = () => {
   const { t } = useTranslation();
   const {
     register,

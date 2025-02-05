@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { loginUser } from './api';
+import { loginUser } from './api/loginUser';
 
 const schema = z.object({
   username: z.string().min(5, 'login-form.errors.username-input.length'),
@@ -23,7 +23,7 @@ const schema = z.object({
 
 export type LoginFormInputs = z.infer<typeof schema>;
 
-export const LoginForm: React.FC = () => {
+export const Login: React.FC = () => {
   const { t } = useTranslation();
   const {
     register,

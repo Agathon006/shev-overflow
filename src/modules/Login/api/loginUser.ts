@@ -1,6 +1,6 @@
 import { api } from '@/api/axiosInstance';
 
-import { LoginFormInputs } from '../LoginForm';
+import { LoginFormInputs } from '../Login';
 
 type ApiError = {
   message: string;
