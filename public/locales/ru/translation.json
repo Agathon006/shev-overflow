@@ -1,6 +1,7 @@
 {
   "backend": {
-    "Incorrect password or username!": "Неправильное имя пользователя или пароль!"
+    "Incorrect password or username!": "Неправильное имя пользователя или пароль!",
+    "User with this username already exists!": "Пользователь с таким именем уже существует!"
   },
   "api": {
     "error-title": "Ошибка",

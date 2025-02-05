@@ -37,7 +37,7 @@ export const RegisterForm: React.FC = () => {
         
         notify({
           type: 'success',
-          title: t('api.login-form.success'),
+          title: t('api.register-form.success'),
         });
       },
     },

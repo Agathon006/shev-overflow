@@ -5,4 +5,3 @@ export const loginResponseSchema = z.object({
   username: z.string(),
   role: z.string(),
 });
-export type LoginResponseType = z.infer<typeof loginResponseSchema>;

@@ -1,37 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { MutationConfigType } from '@/types/react-query';
 
-import {
-  loginResponseSchema,
-  LoginResponseType,
-} from '../schemas/loginResponseSchema';
+import { loginResponseSchema } from '../schemas/loginResponseSchema';
 import { LoginFormInputsType } from '../schemas/loginSchema';
-
-type UseLoginOptions = {
-  mutationConfig?: {
-    onSuccess?: (data: LoginResponseType) => void;
-  };
-};
 
 export const loginUser = async (credentials: LoginFormInputsType) => {
   const response = await api.post('/auth/login', credentials);
-
   return loginResponseSchema.parseAsync(response.data);
 };
 
-export const useLogin = ({ mutationConfig }: UseLoginOptions = {}) => {
-  const queryClient = useQueryClient();
+type UseLoginOptionsType = {
+  mutationConfig?: MutationConfigType<typeof loginUser>;
+};
 
-  const { onSuccess, ...restConfig } = mutationConfig || {};
+export const useLogin = ({ mutationConfig }: UseLoginOptionsType = {}) => {
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-
-      onSuccess?.(data);
+      mutationConfig?.onSuccess?.(data, variables, context);
     },
-    ...restConfig,
+    ...mutationConfig,
   });
 };
