@@ -12,7 +12,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useLogin } from './hooks/useLogin';
+import { useLogin } from './api/loginUser';
 import { LoginFormInputsType, loginSchema } from './schema/loginSchema';
 
 export const Login: React.FC = () => {

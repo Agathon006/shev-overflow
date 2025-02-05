@@ -12,7 +12,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useRegister } from './hooks/useRegister';
+import { useRegister } from './api/registerUser';
 import {
   RegisterFormInputsType,
   registerSchema,
