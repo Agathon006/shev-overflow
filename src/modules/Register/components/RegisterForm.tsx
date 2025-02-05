@@ -12,7 +12,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useNotifications } from '@/components/Notifications';
+import { notify } from '@/utils/notify';
 
 import { useRegister } from '../api/registerUser';
 import {
@@ -34,10 +34,10 @@ export const RegisterForm: React.FC = () => {
     mutationConfig: {
       onSuccess: (data) => {
         console.log('Registration successful:', data);
-
-        useNotifications.getState().addNotification({
+        
+        notify({
           type: 'success',
-          title:  t('api.register-form.success'),
+          title: t('api.login-form.success'),
         });
       },
     },

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { useNotifications } from '@/components/Notifications';
 import i18n from '@/i18n/i18n';
+import { notify } from '@/utils/notify';
 
 // import { paths } from '@/config/paths';
 
@@ -22,7 +22,7 @@ api.interceptors.response.use(
         'api.error-message',
     );
 
-    useNotifications.getState().addNotification({
+    notify({
       type: 'error',
       title: i18n.t('api.error-title'),
       message,

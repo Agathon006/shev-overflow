@@ -12,7 +12,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useNotifications } from '@/components/Notifications';
+import { notify } from '@/utils/notify';
 
 import { useLogin } from '../api/loginUser';
 import { LoginFormInputsType, loginSchema } from '../schemas/loginSchema';
@@ -32,7 +32,7 @@ export const LoginForm: React.FC = () => {
       onSuccess: (data) => {
         console.log('Login successful:', data);
 
-        useNotifications.getState().addNotification({
+        notify({
           type: 'success',
           title: t('api.login-form.success'),
         });
