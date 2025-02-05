@@ -30,20 +30,12 @@ const schema = z
   });
 
 type RegisterFormInputs = z.infer<typeof schema>;
-type ApiError = {
-  message: string;
-  statusCode?: number;
-};
 
 const registerUser = async (
   credentials: Omit<RegisterFormInputs, 'confirmPassword'>,
 ) => {
-  try {
-    const response = await api.post('/register', credentials);
-    return response.data;
-  } catch (error) {
-    throw error as ApiError;
-  }
+  const response = await api.post('/register', credentials);
+  return response.data;
 };
 
 export const Register: React.FC = () => {

@@ -23,18 +23,9 @@ const schema = z.object({
 
 type LoginFormInputs = z.infer<typeof schema>;
 
-type ApiError = {
-  message: string;
-  statusCode?: number;
-};
-
 const loginUser = async (credentials: LoginFormInputs) => {
-  try {
-    const response = await api.post('/auth/login', credentials);
-    return response.data;
-  } catch (error) {
-    throw error as ApiError;
-  }
+  const response = await api.post('/auth/login', credentials);
+  return response.data;
 };
 
 export const Login: React.FC = () => {
