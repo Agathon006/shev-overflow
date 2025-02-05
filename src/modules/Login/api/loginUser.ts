@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 
-import { LoginFormInputsType } from '../schema/loginSchema';
+import { LoginFormInputsType } from '../schemas/loginSchema';
 
 type UserLoginSuccessResponseType = {
   id: number;

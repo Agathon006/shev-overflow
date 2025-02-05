@@ -1,9 +1,9 @@
-import { Register } from '@/modules';
+import { RegisterForm } from '@/modules/Register';
 
 export const RegisterPage = () => {
   return (
     <>
-      <Register />;
+      <RegisterForm />;
     </>
   );
 };

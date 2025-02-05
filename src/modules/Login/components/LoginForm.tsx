@@ -14,10 +14,10 @@ import { useTranslation } from 'react-i18next';
 
 import { useNotifications } from '@/components/Notifications';
 
-import { useLogin } from './api/loginUser';
-import { LoginFormInputsType, loginSchema } from './schema/loginSchema';
+import { useLogin } from '../api/loginUser';
+import { LoginFormInputsType, loginSchema } from '../schemas/loginSchema';
 
-export const Login: React.FC = () => {
+export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
   const {
     register,

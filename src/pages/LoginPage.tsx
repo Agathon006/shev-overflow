@@ -1,9 +1,9 @@
-import { Login } from '@/modules';
+import { LoginForm } from '@/modules/Login';
 
 export const LoginPage = () => {
   return (
     <>
-      <Login />;
+      <LoginForm />;
     </>
   );
 };

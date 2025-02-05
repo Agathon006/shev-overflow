@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 
-import { RegisterFormInputsType } from '../schema/registerSchema';
+import { RegisterFormInputsType } from '../schemas/registerSchema';
 
 type UserRegisterSuccessResponseType = {
   id: number;

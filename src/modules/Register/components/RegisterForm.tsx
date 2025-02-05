@@ -14,13 +14,13 @@ import { useTranslation } from 'react-i18next';
 
 import { useNotifications } from '@/components/Notifications';
 
-import { useRegister } from './api/registerUser';
+import { useRegister } from '../api/registerUser';
 import {
   RegisterFormInputsType,
   registerSchema,
-} from './schema/registerSchema';
+} from '../schemas/registerSchema';
 
-export const Register: React.FC = () => {
+export const RegisterForm: React.FC = () => {
   const { t } = useTranslation();
   const {
     register,
