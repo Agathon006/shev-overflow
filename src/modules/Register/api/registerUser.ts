@@ -2,15 +2,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 
-import { RegisterFormInputsType } from '../schemas/registerSchema';
 import {
-  SuccessResponseSchema,
-  SuccessResponseType,
-} from '../schemas/successResponseSchema';
+  registerResponseSchema,
+  RegisterResponseType,
+} from '../schemas/registerResponseSchema';
+import { RegisterFormInputsType } from '../schemas/registerSchema';
 
 type UseRegisterOptionsType = {
   mutationConfig?: {
-    onSuccess?: (data: SuccessResponseType) => void;
+    onSuccess?: (data: RegisterResponseType) => void;
   };
 };
 
@@ -19,9 +19,7 @@ export const registerUser = async (
 ) => {
   const response = await api.post('/register', credentials);
 
-  const validatedData = await SuccessResponseSchema.parseAsync(response.data);
-
-  return validatedData;
+  return registerResponseSchema.parseAsync(response.data);
 };
 
 export const useRegister = ({

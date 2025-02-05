@@ -2,24 +2,22 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 
-import { LoginFormInputsType } from '../schemas/loginSchema';
 import {
-  SuccessResponseSchema,
-  SuccessResponseType,
-} from '../schemas/successResponseSchema';
+  loginResponseSchema,
+  LoginResponseType,
+} from '../schemas/loginResponseSchema';
+import { LoginFormInputsType } from '../schemas/loginSchema';
 
 type UseLoginOptions = {
   mutationConfig?: {
-    onSuccess?: (data: SuccessResponseType) => void;
+    onSuccess?: (data: LoginResponseType) => void;
   };
 };
 
 export const loginUser = async (credentials: LoginFormInputsType) => {
   const response = await api.post('/auth/login', credentials);
 
-  const validatedData = await SuccessResponseSchema.parseAsync(response.data);
-
-  return validatedData;
+  return loginResponseSchema.parseAsync(response.data);
 };
 
 export const useLogin = ({ mutationConfig }: UseLoginOptions = {}) => {
