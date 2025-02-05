@@ -24,7 +24,7 @@ api.interceptors.response.use(
       message,
     });
 
-    if (error.response?.status === 401) {
+    if (error.response?.status === axios.HttpStatusCode.Unauthorized) {
       // const redirectTo = window.location.pathname;
       // window.location.href = paths.auth.login.getHref(redirectTo);
     }
