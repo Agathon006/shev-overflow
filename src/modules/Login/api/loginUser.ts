@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { api } from '@/api/axiosInstance';
+import { api } from '@/api/api-client';
 
 import { LoginFormInputsType } from '../schema/loginSchema';
 
