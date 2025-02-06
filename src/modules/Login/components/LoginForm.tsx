@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { notify } from '@/utils/notify';
 
 import { useLogin } from '../api/loginUser';
-import { LoginFormInputsType, loginSchema } from '../schemas/login';
+import { LoginSchema, loginSchema } from '../schemas/login';
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
@@ -23,7 +23,7 @@ export const LoginForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormInputsType>({
+  } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -40,7 +40,7 @@ export const LoginForm: React.FC = () => {
     },
   });
 
-  const onSubmit = (data: LoginFormInputsType) => {
+  const onSubmit = (data: LoginSchema) => {
     mutate(data);
   };
 

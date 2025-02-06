@@ -16,7 +16,7 @@ import { notify } from '@/utils/notify';
 
 import { useRegister } from '../api/registerUser';
 import {
-  RegisterFormInputsType,
+  RegisterSchema,
   registerSchema,
 } from '../schemas/register';
 
@@ -26,7 +26,7 @@ export const RegisterForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormInputsType>({
+  } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   });
 
@@ -43,7 +43,7 @@ export const RegisterForm: React.FC = () => {
     },
   });
 
-  const onSubmit = (data: RegisterFormInputsType) => {
+  const onSubmit = (data: RegisterSchema) => {
     mutate({ username: data.username, password: data.password });
   };
 
