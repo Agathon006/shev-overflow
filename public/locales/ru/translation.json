@@ -1,4 +1,18 @@
 {
+  "backend": {
+    "Incorrect password or username!": "Неправильное имя пользователя или пароль!",
+    "User with this username already exists!": "Пользователь с таким именем уже существует!"
+  },
+  "api": {
+    "error-title": "Ошибка",
+    "error-message": "Произошла непредвиденная ошибка",
+    "login-form": {
+      "success": "Авторизация успешна"
+    },
+    "register-form": {
+      "success": "Регистрация успешна"
+    }
+  },
   "header": {
     "logo": {
       "title": "Shev Overflow"
@@ -16,6 +30,49 @@
     "language-switcher": {
       "en": "EN",
       "ru": "RU"
+    }
+  },
+  "login-form": {
+    "title": "Вход",
+    "username-input-placeholder": "Никнейм",
+    "password-input-placeholder": "Пароль",
+    "submit-text": {
+      "login": "войти",
+      "loading": "вход..."
+    },
+    "no-account-text": "Ещё не зарегистрованы?",
+    "register-link-text": "Зарегистрироваться",
+    "errors": {
+      "username-input": {
+        "length": "Никнейм должен содержать хотя бы 5 символов"
+      },
+      "password-input": {
+        "length": "Пароль должен содержать хотя бы 5 символов"
+      }
+    }
+  },
+  "register-form": {
+    "title": "Регистрация",
+    "username-input-placeholder": "Никнейм",
+    "password-input-placeholder": "Пароль",
+    "confirm-password-input-placeholder": "Подтвердите пароль",
+    "submit-text": {
+      "register": "Зарегистрироваться",
+      "loading": "Регистрация..."
+    },
+    "exist-account-text": "Уже зарегистрированы?",
+    "login-link-text": "Войти",
+    "errors": {
+      "username-input": {
+        "length": "Никнейм должен содержать хотя бы 5 символов"
+      },
+      "password-input": {
+        "length": "Пароль должен содержать хотя бы 5 символов"
+      },
+      "confirm-password-input": {
+        "length": "Пароль должен содержать хотя бы 5 символов",
+        "match": "Пароли не совпадают"
+      }
     }
   }
 }

@@ -30,6 +30,41 @@ export const defaultTheme = createTheme({
       '900': '#212529',
     },
   },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        inputProps: {
+          autoComplete: 'off',
+        },
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        color: 'primary.dark',
+        sx: {
+          '&:hover': {
+            color: 'secondary.dark',
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          '&:hover, &:focus': {
+            backgroundColor: theme.palette.customNeutral[300],
+          },
+          '&.Mui-selected': {
+            backgroundColor: theme.palette.customNeutral[500],
+            '&:hover, &:focus': {
+              backgroundColor: theme.palette.customNeutral[700],
+              color: theme.palette.customNeutral[100],
+            },
+          },
+        }),
+      },
+    },
+  },
 });
 
 // TODO (if need)

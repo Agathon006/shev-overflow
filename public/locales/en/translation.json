@@ -1,4 +1,18 @@
 {
+  "backend": {
+    "Incorrect password or username!": "Incorrect password or username!",
+    "User with this username already exists!": "User with this username already exists!"
+  },
+  "api": {
+    "error-title": "Error",
+    "error-message": "Unexpected error occurred",
+    "login-form": {
+      "success": "Autorization successful"
+    },
+    "register-form": {
+      "success": "Registration successful"
+    }
+  },
   "header": {
     "logo": {
       "title": "Shev Overflow"
@@ -16,6 +30,49 @@
     "language-switcher": {
       "en": "EN",
       "ru": "RU"
+    }
+  },
+  "login-form": {
+    "title": "Login",
+    "username-input-placeholder": "Username",
+    "password-input-placeholder": "Password",
+    "submit-text": {
+      "login": "login",
+      "loading": "loading"
+    },
+    "no-account-text": "Not registered yet?",
+    "register-link-text": "Register",
+    "errors": {
+      "username-input": {
+        "length": "Username must be at least 5 characters"
+      },
+      "password-input": {
+        "length": "Password must be at least 5 characters"
+      }
+    }
+  },
+  "register-form": {
+    "title": "Register",
+    "username-input-placeholder": "Username",
+    "password-input-placeholder": "Password",
+    "confirm-password-input-placeholder": "Confirm Password",
+    "submit-text": {
+      "register": "Register",
+      "loading": "loading"
+    },
+    "exist-account-text": "Already registered?",
+    "login-link-text": "Login",
+    "errors": {
+      "username-input": {
+        "length": "Username must be at least 5 characters"
+      },
+      "password-input": {
+        "length": "Password must be at least 5 characters"
+      },
+      "confirm-password-input": {
+        "length": "Password must be at least 5 characters",
+        "match": "Passwords don't match"
+      }
     }
   }
 }

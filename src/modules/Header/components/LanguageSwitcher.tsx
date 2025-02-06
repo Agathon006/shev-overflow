@@ -2,12 +2,16 @@ import LanguageIcon from '@mui/icons-material/Language';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const currentLang = i18n.language || 'en';
+
+  const enRef = useRef<HTMLLIElement>(null);
+  const ruRef = useRef<HTMLLIElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -21,6 +25,16 @@ export const LanguageSwitcher = () => {
     i18n.changeLanguage(lang);
     handleClose();
   };
+
+  useEffect(() => {
+    if (anchorEl) {
+      if (currentLang === 'en' && enRef.current) {
+        enRef.current.focus();
+      } else if (currentLang === 'ru' && ruRef.current) {
+        ruRef.current.focus();
+      }
+    }
+  }, [anchorEl, currentLang]);
 
   return (
     <>
@@ -48,10 +62,18 @@ export const LanguageSwitcher = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => handleLanguageChange('en')}>
+        <MenuItem
+          ref={enRef}
+          selected={currentLang === 'en'}
+          onClick={() => handleLanguageChange('en')}
+        >
           {t('header.language-switcher.en')}
         </MenuItem>
-        <MenuItem onClick={() => handleLanguageChange('ru')}>
+        <MenuItem
+          ref={ruRef}
+          selected={currentLang === 'ru'}
+          onClick={() => handleLanguageChange('ru')}
+        >
           {t('header.language-switcher.ru')}
         </MenuItem>
       </Menu>
