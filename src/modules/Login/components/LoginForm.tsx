@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { notify } from '@/utils/notify';
 
 import { useLogin } from '../api/loginUser';
-import { LoginFormInputsType, loginSchema } from '../schemas/loginSchema';
+import { LoginFormInputsType, loginSchema } from '../schemas/login';
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();

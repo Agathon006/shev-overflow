@@ -3,11 +3,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/types/react-query';
 
-import { registerResponseSchema } from '../schemas/registerResponseSchema';
-import { RegisterFormInputsType } from '../schemas/registerSchema';
+import { registerSchema } from '../schemas/register';
+import { registerResponseSchema } from '../schemas/registerResponse';
 
 export const registerUser = async (
-  credentials: Omit<RegisterFormInputsType, 'confirmPassword'>,
+  credentials: Omit<registerSchema, 'confirmPassword'>,
 ) => {
   const response = await api.post('/register', credentials);
 

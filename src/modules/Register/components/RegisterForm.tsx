@@ -18,7 +18,7 @@ import { useRegister } from '../api/registerUser';
 import {
   RegisterFormInputsType,
   registerSchema,
-} from '../schemas/registerSchema';
+} from '../schemas/register';
 
 export const RegisterForm: React.FC = () => {
   const { t } = useTranslation();

@@ -3,11 +3,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/types/react-query';
 
-import { loginResponseSchema } from '../schemas/loginResponseSchema';
-import { LoginFormInputsType } from '../schemas/loginSchema';
+import { loginSchema } from '../schemas/login';
+import { loginResponseSchema } from '../schemas/loginResponse';
 
-export const loginUser = async (credentials: LoginFormInputsType) => {
+export const loginUser = async (credentials: loginSchema) => {
   const response = await api.post('/auth/login', credentials);
+
   return loginResponseSchema.parseAsync(response.data);
 };
 
