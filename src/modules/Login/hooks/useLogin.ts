@@ -1,6 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { queryClient } from '@/App';
 import { MutationConfigType } from '@/types/react-query';
 
 import { LoginSchema } from '../schemas/login';
@@ -16,8 +17,6 @@ type UseLoginOptionsType = {
 };
 
 export const useLogin = ({ mutationConfig }: UseLoginOptionsType = {}) => {
-  const queryClient = useQueryClient();
-
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({

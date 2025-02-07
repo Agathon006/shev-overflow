@@ -11,7 +11,7 @@ import { Notifications } from '@/components/Notifications';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,

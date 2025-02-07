@@ -31,7 +31,17 @@ export const LoginForm: React.FC = () => {
   const { mutate, isPending } = useLogin({
     mutationConfig: {
       onSuccess: () => {
-        router.navigate({ to: '/' });
+        const searchParams = new URLSearchParams(window.location.search);
+        const redirectUrl = searchParams.get('redirect');
+
+        if (redirectUrl) {
+          router.navigate({
+            to: decodeURIComponent(redirectUrl),
+            replace: true,
+          });
+        } else {
+          router.navigate({ to: '/' });
+        }
 
         notify({
           type: 'success',

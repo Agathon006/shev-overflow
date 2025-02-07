@@ -4,11 +4,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { queryClient } from '@/App';
 import { notify } from '@/utils/notify';
 
 import { useLogout } from '../hooks/useLogout';
@@ -16,7 +16,6 @@ import { useLogout } from '../hooks/useLogout';
 export const Avatar = () => {
   const { t } = useTranslation();
 
-  const queryClient = useQueryClient();
   const currentUser: { username: string } | null | undefined =
     queryClient.getQueryData(['currentUser']);
 
