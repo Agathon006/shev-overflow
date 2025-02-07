@@ -1,10 +1,10 @@
-import AvatarIcon from '@mui/material/Avatar';
+import { Avatar as MuiAvatar } from '@mui/material';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useQueryClient } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,13 @@ import { useLogout } from '../hooks/useLogout';
 
 export const Avatar = () => {
   const { t } = useTranslation();
+
+  const queryClient = useQueryClient();
+  const currentUser: { username: string } | null | undefined =
+    queryClient.getQueryData(['currentUser']);
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
   const { mutate } = useLogout({
     mutationConfig: {
       onSuccess: () => {
@@ -43,9 +49,15 @@ export const Avatar = () => {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <AvatarIcon alt="User Avatar" src="/static/images/avatar/1.jpg" />
-        </IconButton>
+        <MuiAvatar
+          sx={(theme) => ({
+            bgcolor: theme.palette.secondary.main,
+            cursor: 'pointer',
+          })}
+          onClick={handleOpenUserMenu}
+          src="/broken-image.jpg"
+          alt={currentUser?.username}
+        />
       </Tooltip>
       <Menu
         sx={{ mt: '45px' }}
