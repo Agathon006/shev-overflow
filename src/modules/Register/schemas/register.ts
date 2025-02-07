@@ -3,10 +3,14 @@ import { z } from 'zod';
 export const registerSchema = z
   .object({
     username: z.string().min(5, 'register-form.errors.username-input.length'),
-    password: z.string().min(5, 'register-form.errors.password-input.length'),
+    password: z
+      .string()
+      .min(8, 'login-form.errors.password-input.length')
+      .regex(/[A-Za-z]/, 'login-form.errors.password-input.letter'),
     confirmPassword: z
       .string()
-      .min(5, 'register-form.errors.confirm-password-input.length'),
+      .min(8, 'login-form.errors.password-input.length')
+      .regex(/[A-Za-z]/, 'login-form.errors.password-input.letter'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'register-form.errors.confirm-password-input.match',

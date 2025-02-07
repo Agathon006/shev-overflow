@@ -54,7 +54,7 @@
         "length": "Username must be at least 5 characters"
       },
       "password-input": {
-        "length": "Password must be at least 5 characters"
+        "length": "Password must be at least 8 characters and have 1 latin letter"
       }
     }
   },
@@ -74,10 +74,10 @@
         "length": "Username must be at least 5 characters"
       },
       "password-input": {
-        "length": "Password must be at least 5 characters"
+        "length": "Password must be at least 8 characters and have 1 latin letter"
       },
       "confirm-password-input": {
-        "length": "Password must be at least 5 characters",
+        "length": "Password must be at least 8 characters and have 1 latin letter",
         "match": "Passwords don't match"
       }
     }
