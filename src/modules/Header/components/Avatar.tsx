@@ -8,7 +8,7 @@ import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { queryClient } from '@/App';
+import { queryClient, router } from '@/App';
 import { notify } from '@/utils/notify';
 
 import { useLogout } from '../hooks/useLogout';
@@ -24,6 +24,8 @@ export const Avatar = () => {
   const { mutate } = useLogout({
     mutationConfig: {
       onSuccess: () => {
+        router.navigate({ to: '/auth/login' });
+
         notify({
           type: 'info',
           title: t('api.header.avatar.logout'),
