@@ -22,8 +22,8 @@ export const useLogin = ({ mutationConfig }: UseLoginOptionsType = {}) => {
 
   return useMutation({
     mutationFn: loginUser,
-    onSuccess: (...args) => {
-      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+    onSuccess: async (...args) => {
+      await queryClient.invalidateQueries({ queryKey: ['currentUser'] });
       onSuccess?.(...args);
     },
     ...restConfig,

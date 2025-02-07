@@ -15,7 +15,7 @@ import { NavMenuMob } from './NavMenuMob';
 
 export const Header = () => {
   const { t } = useTranslation();
-  const { data: currentUser } = useAuth();
+  const { data: currentUser, isLoading } = useAuth();
 
   return (
     <AppBar position="static">
@@ -24,18 +24,19 @@ export const Header = () => {
           <Logo />
           <NavMenuMob />
           <NavMenu />
-          {currentUser?.id ? (
-            <Avatar />
-          ) : (
-            <Button
-              component={Link}
-              to="/auth/login"
-              key="Login"
-              sx={{ my: 2, color: 'inherit', display: 'block' }}
-            >
-              {t('header.login-button')}
-            </Button>
-          )}
+          {!isLoading &&
+            (currentUser?.id ? (
+              <Avatar />
+            ) : (
+              <Button
+                component={Link}
+                to="/auth/login"
+                key="Login"
+                sx={{ my: 2, color: 'inherit', display: 'block' }}
+              >
+                {t('header.login-button')}
+              </Button>
+            ))}
           <LanguageSwitcher />
         </Toolbar>
       </Container>

@@ -18,8 +18,8 @@ export const useLogout = ({ mutationConfig }: UseLogoutOptionsType = {}) => {
 
   return useMutation({
     mutationFn: logoutUser,
-    onSuccess: (...args) => {
-      queryClient.setQueryData(['currentUser'], null);
+    onSuccess: async (...args) => {
+      await queryClient.setQueryData(['currentUser'], null);
       onSuccess?.(...args);
     },
     ...restConfig,
