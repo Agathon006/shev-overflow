@@ -81,5 +81,9 @@
         "match": "Passwords don't match"
       }
     }
+  },
+  "page404": {
+    "title": "Page not found",
+    "button-text": "Go to main page"
   }
 }

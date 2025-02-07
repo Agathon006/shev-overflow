@@ -8,6 +8,7 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import React from 'react';
 
 import { Notifications } from '@/components/Notifications';
+import { Page404 } from '@/components/Page404';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
@@ -21,6 +22,9 @@ export const router = createRouter({
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,
+  defaultNotFoundComponent: () => {
+    return <Page404 />;
+  },
 });
 
 const App: React.FC = () => {
