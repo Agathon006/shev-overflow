@@ -8,7 +8,6 @@ import { loginResponseSchema } from '../schemas/loginResponse';
 
 export const loginUser = async (credentials: LoginSchema) => {
   const response = await api.post('/auth/login', credentials);
-
   return loginResponseSchema.parseAsync(response.data);
 };
 
@@ -19,12 +18,14 @@ type UseLoginOptionsType = {
 export const useLogin = ({ mutationConfig }: UseLoginOptionsType = {}) => {
   const queryClient = useQueryClient();
 
+  const { onSuccess, ...restConfig } = mutationConfig || {};
+
   return useMutation({
     mutationFn: loginUser,
-    onSuccess: (data, variables, context) => {
+    onSuccess: (...args) => {
       queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-      mutationConfig?.onSuccess?.(data, variables, context);
+      onSuccess?.(...args);
     },
-    ...mutationConfig,
+    ...restConfig,
   });
 };

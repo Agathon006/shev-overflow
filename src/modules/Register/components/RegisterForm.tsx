@@ -12,13 +12,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { router } from '@/App';
 import { notify } from '@/utils/notify';
 
-import { useRegister } from '../api/registerUser';
-import {
-  RegisterSchema,
-  registerSchema,
-} from '../schemas/register';
+import { useRegister } from '../hooks/useRegister';
+import { RegisterSchema, registerSchema } from '../schemas/register';
 
 export const RegisterForm: React.FC = () => {
   const { t } = useTranslation();
@@ -32,9 +30,9 @@ export const RegisterForm: React.FC = () => {
 
   const { mutate, isPending } = useRegister({
     mutationConfig: {
-      onSuccess: (data) => {
-        console.log('Registration successful:', data);
-        
+      onSuccess: () => {
+        router.navigate({ to: '/auth/login' });
+
         notify({
           type: 'success',
           title: t('api.register-form.success'),

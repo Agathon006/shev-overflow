@@ -12,9 +12,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { router } from '@/App';
 import { notify } from '@/utils/notify';
 
-import { useLogin } from '../api/loginUser';
+import { useLogin } from '../hooks/useLogin';
 import { LoginSchema, loginSchema } from '../schemas/login';
 
 export const LoginForm: React.FC = () => {
@@ -29,8 +30,8 @@ export const LoginForm: React.FC = () => {
 
   const { mutate, isPending } = useLogin({
     mutationConfig: {
-      onSuccess: (data) => {
-        console.log('Login successful:', data);
+      onSuccess: () => {
+        router.navigate({ to: '/' });
 
         notify({
           type: 'success',

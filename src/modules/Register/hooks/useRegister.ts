@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/types/react-query';
@@ -21,14 +21,13 @@ type UseRegisterOptionsType = {
 export const useRegister = ({
   mutationConfig,
 }: UseRegisterOptionsType = {}) => {
-  const queryClient = useQueryClient();
+  const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
     mutationFn: registerUser,
-    onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-      mutationConfig?.onSuccess?.(data, variables, context);
+    onSuccess: (...args) => {
+      onSuccess?.(...args);
     },
-    ...mutationConfig,
+    ...restConfig,
   });
 };

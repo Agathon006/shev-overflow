@@ -11,9 +11,17 @@ import { Notifications } from '@/components/Notifications';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
-export const router = createRouter({ routeTree });
-
 const queryClient = new QueryClient();
+
+export const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+  },
+  defaultPreload: 'intent',
+  defaultPreloadStaleTime: 0,
+  scrollRestoration: true,
+});
 
 const App: React.FC = () => {
   return (

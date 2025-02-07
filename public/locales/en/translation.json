@@ -1,11 +1,17 @@
 {
   "backend": {
     "Incorrect password or username!": "Incorrect password or username!",
-    "User with this username already exists!": "User with this username already exists!"
+    "User with this username already exists!": "User with this username already exists!",
+    "No token provided!": "Login required!"
   },
   "api": {
     "error-title": "Error",
     "error-message": "Unexpected error occurred",
+    "header": {
+      "avatar": {
+        "logout": "Нou have logged out"
+      }
+    },
     "login-form": {
       "success": "Autorization successful"
     },
@@ -22,6 +28,7 @@
       "users": "Users",
       "questions": "Questions"
     },
+    "login-button": "Login",
     "avatar": {
       "account": "Account",
       "my-posts": "My posts",

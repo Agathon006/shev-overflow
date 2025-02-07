@@ -1,11 +1,17 @@
 {
   "backend": {
     "Incorrect password or username!": "Неправильное имя пользователя или пароль!",
-    "User with this username already exists!": "Пользователь с таким именем уже существует!"
+    "User with this username already exists!": "Пользователь с таким именем уже существует!",
+    "No token provided!": "Авторизируйтесь!"
   },
   "api": {
     "error-title": "Ошибка",
     "error-message": "Произошла непредвиденная ошибка",
+    "header": {
+      "avatar": {
+        "logout": "Вы вышли из аккаунта"
+      }
+    },
     "login-form": {
       "success": "Авторизация успешна"
     },
@@ -22,6 +28,7 @@
       "users": "Пользователи",
       "questions": "Вопросы"
     },
+    "login-button": "Войти",
     "avatar": {
       "account": "Аккаунт",
       "my-posts": "Мои посты",
