@@ -22,9 +22,7 @@ export const router = createRouter({
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,
-  defaultNotFoundComponent: () => {
-    return <Page404 />;
-  },
+  defaultNotFoundComponent: Page404,
 });
 
 const App: React.FC = () => {
