@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { router } from '@/App';
 import { notify } from '@/utils/notify';
 
-import { useLogin } from '../hooks/useLogin';
+import { useLogin } from '../api/login';
 import { LoginSchema, loginSchema } from '../schemas/login';
 
 export const LoginForm: React.FC = () => {

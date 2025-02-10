@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { authUserQueryOptions } from '@/api/auth';
 import { queryClient } from '@/App';
-import { authUserQueryOptions } from '@/hooks/useAuth';
 import { MutationConfigType } from '@/types/react-query';
 
 import { LoginSchema } from '../schemas/login';

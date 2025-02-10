@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { queryClient, router } from '@/App';
 import { notify } from '@/utils/notify';
 
-import { useLogout } from '../hooks/useLogout';
+import { useLogout } from '../api/logout';
 
 export const Avatar = () => {
   const { t } = useTranslation();

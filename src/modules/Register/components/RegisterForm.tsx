@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { router } from '@/App';
 import { notify } from '@/utils/notify';
 
-import { useRegister } from '../hooks/useRegister';
+import { useRegister } from '../api/register';
 import { RegisterSchema, registerSchema } from '../schemas/register';
 
 export const RegisterForm: React.FC = () => {

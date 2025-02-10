@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/api/auth';
 
 import { Avatar } from './Avatar';
 import { LanguageSwitcher } from './LanguageSwitcher';
