@@ -24,7 +24,6 @@ export const useAuth = ({ queryConfig }: UseAuthOptionsType = {}) => {
   return useQuery({
     queryKey: ['currentUser'],
     queryFn: authUser,
-    retry: false,
     ...queryConfig,
   });
 };

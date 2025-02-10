@@ -12,7 +12,18 @@ import { Page404 } from '@/components/Page404';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      staleTime: Infinity,
+      enabled: false,
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
 
 export const router = createRouter({
   routeTree,
