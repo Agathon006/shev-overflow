@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { useAuthContext } from '@/context/AuthContext';
+import { useAuth } from '@/api/auth';
 
 import { Avatar } from './Avatar';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -15,7 +15,7 @@ import { NavMenuMob } from './NavMenuMob';
 
 export const Header = () => {
   const { t } = useTranslation();
-  const { currentUser } = useAuthContext();
+  const { data: currentUser } = useAuth();
 
   return (
     <AppBar position="static">

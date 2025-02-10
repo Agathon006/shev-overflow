@@ -5,12 +5,12 @@ import { CssBaseline } from '@mui/material';
 import { Box, CircularProgress } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import React from 'react';
 
 import { Notifications } from '@/components/Notifications';
 import { Page404 } from '@/components/Page404';
-import { AuthProvider } from '@/context/AuthContext';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
@@ -21,6 +21,7 @@ export const queryClient = new QueryClient({
     queries: {
       retry: false,
       staleTime: Infinity,
+      refetchOnWindowFocus: false,
     },
     mutations: {
       retry: false,
@@ -40,7 +41,7 @@ export const router = createRouter({
 });
 
 const AppContent: React.FC = () => {
-  const { data: currentUser, isLoading } = useAuth();
+  const { isLoading } = useAuth();
 
   return isLoading ? (
     <Box
@@ -53,13 +54,11 @@ const AppContent: React.FC = () => {
       <CircularProgress />
     </Box>
   ) : (
-    <AuthProvider value={{ currentUser }}>
-      <ThemeProvider theme={defaultTheme}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-        <Notifications />
-      </ThemeProvider>
-    </AuthProvider>
+    <ThemeProvider theme={defaultTheme}>
+      <CssBaseline />
+      <RouterProvider router={router} />
+      <Notifications />
+    </ThemeProvider>
   );
 };
 
@@ -67,6 +66,7 @@ const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AppContent />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

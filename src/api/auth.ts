@@ -26,6 +26,7 @@ export const authUserQueryOptions = () => {
   return queryOptions({
     queryKey: ['currentUser'],
     queryFn: () => authUser(),
+    initialData: null,
   });
 };
 
