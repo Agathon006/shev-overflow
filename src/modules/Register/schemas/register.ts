@@ -6,11 +6,11 @@ export const registerSchema = z
     password: z
       .string()
       .min(8, 'login-form.errors.password-input.length')
-      .regex(/[A-Za-z]/, 'login-form.errors.password-input.letter'),
+      .regex(/[A-Za-z]/, 'login-form.errors.password-input.length'),
     confirmPassword: z
       .string()
       .min(8, 'login-form.errors.password-input.length')
-      .regex(/[A-Za-z]/, 'login-form.errors.password-input.letter'),
+      .regex(/[A-Za-z]/, 'login-form.errors.password-input.length'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'register-form.errors.confirm-password-input.match',

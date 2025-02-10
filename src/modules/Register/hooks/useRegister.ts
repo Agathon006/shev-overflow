@@ -6,16 +6,16 @@ import { MutationConfigType } from '@/types/react-query';
 import { RegisterSchema } from '../schemas/register';
 import { registerResponseSchema } from '../schemas/registerResponse';
 
+type UseRegisterOptionsType = {
+  mutationConfig?: MutationConfigType<typeof registerUser>;
+};
+
 export const registerUser = async (
   credentials: Omit<RegisterSchema, 'confirmPassword'>,
 ) => {
   const response = await api.post('/register', credentials);
 
   return registerResponseSchema.parseAsync(response.data);
-};
-
-type UseRegisterOptionsType = {
-  mutationConfig?: MutationConfigType<typeof registerUser>;
 };
 
 export const useRegister = ({

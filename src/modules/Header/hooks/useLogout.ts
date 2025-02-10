@@ -2,14 +2,15 @@ import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { queryClient } from '@/App';
+import { authUserQueryOptions } from '@/hooks/useAuth';
 import { MutationConfigType } from '@/types/react-query';
-
-export const logoutUser = async () => {
-  await api.post('/auth/logout');
-};
 
 type UseLogoutOptionsType = {
   mutationConfig?: MutationConfigType<typeof logoutUser>;
+};
+
+export const logoutUser = async () => {
+  await api.post('/auth/logout');
 };
 
 export const useLogout = ({ mutationConfig }: UseLogoutOptionsType = {}) => {
@@ -17,8 +18,8 @@ export const useLogout = ({ mutationConfig }: UseLogoutOptionsType = {}) => {
 
   return useMutation({
     mutationFn: logoutUser,
-    onSuccess: async (...args) => {
-      await queryClient.setQueryData(['currentUser'], null);
+    onSuccess: (...args) => {
+      queryClient.setQueryData(authUserQueryOptions().queryKey, null);
       onSuccess?.(...args);
     },
     ...restConfig,
