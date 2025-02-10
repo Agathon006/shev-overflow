@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '@/api/auth';
+import { useAuthContext } from '@/context/AuthContext';
 
 import { Avatar } from './Avatar';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -15,7 +15,7 @@ import { NavMenuMob } from './NavMenuMob';
 
 export const Header = () => {
   const { t } = useTranslation();
-  const { data: currentUser, isLoading } = useAuth();
+  const { currentUser } = useAuthContext();
 
   return (
     <AppBar position="static">
@@ -24,19 +24,18 @@ export const Header = () => {
           <Logo />
           <NavMenuMob />
           <NavMenu />
-          {!isLoading &&
-            (currentUser?.id ? (
-              <Avatar />
-            ) : (
-              <Button
-                component={Link}
-                to="/auth/login"
-                key="Login"
-                sx={{ my: 2, color: 'inherit', display: 'block' }}
-              >
-                {t('header.login-button')}
-              </Button>
-            ))}
+          {currentUser?.id ? (
+            <Avatar />
+          ) : (
+            <Button
+              component={Link}
+              to="/auth/login"
+              key="Login"
+              sx={{ my: 2, color: 'inherit', display: 'block' }}
+            >
+              {t('header.login-button')}
+            </Button>
+          )}
           <LanguageSwitcher />
         </Toolbar>
       </Container>
