@@ -2,20 +2,15 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 import { isAuthenticated } from '@/utils/isAuthenticated';
 
-export const Route = createFileRoute('/users/me/')({
+export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async () => {
     if (!isAuthenticated()) {
       throw redirect({
         to: '/auth/login',
         search: {
-          redirect: '/users/me/',
+          redirect: window.location.pathname,
         },
       });
     }
   },
-  component: RouteComponent,
 });
-
-function RouteComponent() {
-  return <img src="" alt="Account page" />;
-}
