@@ -6,7 +6,12 @@ const Authenticated = () => {
   const { data: currentUser } = useAuth();
 
   if (!currentUser) {
-    return <Navigate to="/auth/login" />;
+    return (
+      <Navigate
+        to="/auth/login"
+        search={{ redirect: window.location.pathname }}
+      />
+    );
   }
 
   return <Outlet />;

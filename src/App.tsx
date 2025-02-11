@@ -13,6 +13,8 @@ import { Page404 } from '@/components/Page404';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
+import { Spinner } from './components/Spinner';
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -31,6 +33,7 @@ export const router = createRouter({
     queryClient,
   },
   defaultNotFoundComponent: Page404,
+  defaultPendingComponent: Spinner,
 });
 
 const App: React.FC = () => {
