@@ -7,21 +7,19 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { notify } from '@/utils/notify';
 
-import { useRegister } from '../api/registerUser';
-import {
-  RegisterSchema,
-  registerSchema,
-} from '../schemas/register';
+import { useRegister } from '../api/register';
+import { RegisterSchema, registerSchema } from '../schemas/register';
 
 export const RegisterForm: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,9 +30,9 @@ export const RegisterForm: React.FC = () => {
 
   const { mutate, isPending } = useRegister({
     mutationConfig: {
-      onSuccess: (data) => {
-        console.log('Registration successful:', data);
-        
+      onSuccess: () => {
+        navigate({ to: '/auth/login' });
+
         notify({
           type: 'success',
           title: t('api.register-form.success'),

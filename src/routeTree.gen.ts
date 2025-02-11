@@ -11,20 +11,32 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as NotAuthenticatedImport } from './routes/_notAuthenticated'
+import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as IndexImport } from './routes/index'
-import { Route as UsersIndexImport } from './routes/users/index'
-import { Route as QuestionsIndexImport } from './routes/questions/index'
-import { Route as UsersUserIdImport } from './routes/users/$userId'
-import { Route as QuestionsCreateImport } from './routes/questions/create'
-import { Route as PostsCreateImport } from './routes/posts/create'
-import { Route as PostsPostIdImport } from './routes/posts/$postId'
-import { Route as AuthRegisterImport } from './routes/auth/register'
-import { Route as AuthLoginImport } from './routes/auth/login'
-import { Route as UsersMeIndexImport } from './routes/users/me/index'
-import { Route as UsersMePostsIndexImport } from './routes/users/me/posts/index'
-import { Route as UsersMePostsPostIdImport } from './routes/users/me/posts/$postId'
+import { Route as AuthenticatedUsersIndexImport } from './routes/_authenticated/users/index'
+import { Route as AuthenticatedQuestionsIndexImport } from './routes/_authenticated/questions/index'
+import { Route as NotAuthenticatedAuthRegisterImport } from './routes/_notAuthenticated/auth/register'
+import { Route as NotAuthenticatedAuthLoginImport } from './routes/_notAuthenticated/auth/login'
+import { Route as AuthenticatedUsersUserIdImport } from './routes/_authenticated/users/$userId'
+import { Route as AuthenticatedQuestionsCreateImport } from './routes/_authenticated/questions/create'
+import { Route as AuthenticatedPostsCreateImport } from './routes/_authenticated/posts/create'
+import { Route as AuthenticatedPostsPostIdImport } from './routes/_authenticated/posts/$postId'
+import { Route as AuthenticatedUsersMeIndexImport } from './routes/_authenticated/users/me/index'
+import { Route as AuthenticatedUsersMePostsIndexImport } from './routes/_authenticated/users/me/posts/index'
+import { Route as AuthenticatedUsersMePostsPostIdImport } from './routes/_authenticated/users/me/posts/$postId'
 
 // Create/Update Routes
+
+const NotAuthenticatedRoute = NotAuthenticatedImport.update({
+  id: '/_notAuthenticated',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthenticatedRoute = AuthenticatedImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -32,71 +44,76 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const UsersIndexRoute = UsersIndexImport.update({
+const AuthenticatedUsersIndexRoute = AuthenticatedUsersIndexImport.update({
   id: '/users/',
   path: '/users/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
-const QuestionsIndexRoute = QuestionsIndexImport.update({
-  id: '/questions/',
-  path: '/questions/',
-  getParentRoute: () => rootRoute,
-} as any)
+const AuthenticatedQuestionsIndexRoute =
+  AuthenticatedQuestionsIndexImport.update({
+    id: '/questions/',
+    path: '/questions/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
-const UsersUserIdRoute = UsersUserIdImport.update({
-  id: '/users/$userId',
-  path: '/users/$userId',
-  getParentRoute: () => rootRoute,
-} as any)
+const NotAuthenticatedAuthRegisterRoute =
+  NotAuthenticatedAuthRegisterImport.update({
+    id: '/auth/register',
+    path: '/auth/register',
+    getParentRoute: () => NotAuthenticatedRoute,
+  } as any)
 
-const QuestionsCreateRoute = QuestionsCreateImport.update({
-  id: '/questions/create',
-  path: '/questions/create',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PostsCreateRoute = PostsCreateImport.update({
-  id: '/posts/create',
-  path: '/posts/create',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PostsPostIdRoute = PostsPostIdImport.update({
-  id: '/posts/$postId',
-  path: '/posts/$postId',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthRegisterRoute = AuthRegisterImport.update({
-  id: '/auth/register',
-  path: '/auth/register',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AuthLoginRoute = AuthLoginImport.update({
+const NotAuthenticatedAuthLoginRoute = NotAuthenticatedAuthLoginImport.update({
   id: '/auth/login',
   path: '/auth/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => NotAuthenticatedRoute,
 } as any)
 
-const UsersMeIndexRoute = UsersMeIndexImport.update({
+const AuthenticatedUsersUserIdRoute = AuthenticatedUsersUserIdImport.update({
+  id: '/users/$userId',
+  path: '/users/$userId',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedQuestionsCreateRoute =
+  AuthenticatedQuestionsCreateImport.update({
+    id: '/questions/create',
+    path: '/questions/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+
+const AuthenticatedPostsCreateRoute = AuthenticatedPostsCreateImport.update({
+  id: '/posts/create',
+  path: '/posts/create',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedPostsPostIdRoute = AuthenticatedPostsPostIdImport.update({
+  id: '/posts/$postId',
+  path: '/posts/$postId',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
+const AuthenticatedUsersMeIndexRoute = AuthenticatedUsersMeIndexImport.update({
   id: '/users/me/',
   path: '/users/me/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
-const UsersMePostsIndexRoute = UsersMePostsIndexImport.update({
-  id: '/users/me/posts/',
-  path: '/users/me/posts/',
-  getParentRoute: () => rootRoute,
-} as any)
+const AuthenticatedUsersMePostsIndexRoute =
+  AuthenticatedUsersMePostsIndexImport.update({
+    id: '/users/me/posts/',
+    path: '/users/me/posts/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
-const UsersMePostsPostIdRoute = UsersMePostsPostIdImport.update({
-  id: '/users/me/posts/$postId',
-  path: '/users/me/posts/$postId',
-  getParentRoute: () => rootRoute,
-} as any)
+const AuthenticatedUsersMePostsPostIdRoute =
+  AuthenticatedUsersMePostsPostIdImport.update({
+    id: '/users/me/posts/$postId',
+    path: '/users/me/posts/$postId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -109,144 +126,204 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedImport
       parentRoute: typeof rootRoute
     }
-    '/auth/register': {
-      id: '/auth/register'
-      path: '/auth/register'
-      fullPath: '/auth/register'
-      preLoaderRoute: typeof AuthRegisterImport
+    '/_notAuthenticated': {
+      id: '/_notAuthenticated'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof NotAuthenticatedImport
       parentRoute: typeof rootRoute
     }
-    '/posts/$postId': {
-      id: '/posts/$postId'
+    '/_authenticated/posts/$postId': {
+      id: '/_authenticated/posts/$postId'
       path: '/posts/$postId'
       fullPath: '/posts/$postId'
-      preLoaderRoute: typeof PostsPostIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedPostsPostIdImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/posts/create': {
-      id: '/posts/create'
+    '/_authenticated/posts/create': {
+      id: '/_authenticated/posts/create'
       path: '/posts/create'
       fullPath: '/posts/create'
-      preLoaderRoute: typeof PostsCreateImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedPostsCreateImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/questions/create': {
-      id: '/questions/create'
+    '/_authenticated/questions/create': {
+      id: '/_authenticated/questions/create'
       path: '/questions/create'
       fullPath: '/questions/create'
-      preLoaderRoute: typeof QuestionsCreateImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedQuestionsCreateImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/users/$userId': {
-      id: '/users/$userId'
+    '/_authenticated/users/$userId': {
+      id: '/_authenticated/users/$userId'
       path: '/users/$userId'
       fullPath: '/users/$userId'
-      preLoaderRoute: typeof UsersUserIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedUsersUserIdImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/questions/': {
-      id: '/questions/'
+    '/_notAuthenticated/auth/login': {
+      id: '/_notAuthenticated/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof NotAuthenticatedAuthLoginImport
+      parentRoute: typeof NotAuthenticatedImport
+    }
+    '/_notAuthenticated/auth/register': {
+      id: '/_notAuthenticated/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof NotAuthenticatedAuthRegisterImport
+      parentRoute: typeof NotAuthenticatedImport
+    }
+    '/_authenticated/questions/': {
+      id: '/_authenticated/questions/'
       path: '/questions'
       fullPath: '/questions'
-      preLoaderRoute: typeof QuestionsIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedQuestionsIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/users/': {
-      id: '/users/'
+    '/_authenticated/users/': {
+      id: '/_authenticated/users/'
       path: '/users'
       fullPath: '/users'
-      preLoaderRoute: typeof UsersIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedUsersIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/users/me/': {
-      id: '/users/me/'
+    '/_authenticated/users/me/': {
+      id: '/_authenticated/users/me/'
       path: '/users/me'
       fullPath: '/users/me'
-      preLoaderRoute: typeof UsersMeIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedUsersMeIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/users/me/posts/$postId': {
-      id: '/users/me/posts/$postId'
+    '/_authenticated/users/me/posts/$postId': {
+      id: '/_authenticated/users/me/posts/$postId'
       path: '/users/me/posts/$postId'
       fullPath: '/users/me/posts/$postId'
-      preLoaderRoute: typeof UsersMePostsPostIdImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedUsersMePostsPostIdImport
+      parentRoute: typeof AuthenticatedImport
     }
-    '/users/me/posts/': {
-      id: '/users/me/posts/'
+    '/_authenticated/users/me/posts/': {
+      id: '/_authenticated/users/me/posts/'
       path: '/users/me/posts'
       fullPath: '/users/me/posts'
-      preLoaderRoute: typeof UsersMePostsIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthenticatedUsersMePostsIndexImport
+      parentRoute: typeof AuthenticatedImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedPostsPostIdRoute: typeof AuthenticatedPostsPostIdRoute
+  AuthenticatedPostsCreateRoute: typeof AuthenticatedPostsCreateRoute
+  AuthenticatedQuestionsCreateRoute: typeof AuthenticatedQuestionsCreateRoute
+  AuthenticatedUsersUserIdRoute: typeof AuthenticatedUsersUserIdRoute
+  AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute
+  AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
+  AuthenticatedUsersMeIndexRoute: typeof AuthenticatedUsersMeIndexRoute
+  AuthenticatedUsersMePostsPostIdRoute: typeof AuthenticatedUsersMePostsPostIdRoute
+  AuthenticatedUsersMePostsIndexRoute: typeof AuthenticatedUsersMePostsIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedPostsPostIdRoute: AuthenticatedPostsPostIdRoute,
+  AuthenticatedPostsCreateRoute: AuthenticatedPostsCreateRoute,
+  AuthenticatedQuestionsCreateRoute: AuthenticatedQuestionsCreateRoute,
+  AuthenticatedUsersUserIdRoute: AuthenticatedUsersUserIdRoute,
+  AuthenticatedQuestionsIndexRoute: AuthenticatedQuestionsIndexRoute,
+  AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
+  AuthenticatedUsersMeIndexRoute: AuthenticatedUsersMeIndexRoute,
+  AuthenticatedUsersMePostsPostIdRoute: AuthenticatedUsersMePostsPostIdRoute,
+  AuthenticatedUsersMePostsIndexRoute: AuthenticatedUsersMePostsIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
+interface NotAuthenticatedRouteChildren {
+  NotAuthenticatedAuthLoginRoute: typeof NotAuthenticatedAuthLoginRoute
+  NotAuthenticatedAuthRegisterRoute: typeof NotAuthenticatedAuthRegisterRoute
+}
+
+const NotAuthenticatedRouteChildren: NotAuthenticatedRouteChildren = {
+  NotAuthenticatedAuthLoginRoute: NotAuthenticatedAuthLoginRoute,
+  NotAuthenticatedAuthRegisterRoute: NotAuthenticatedAuthRegisterRoute,
+}
+
+const NotAuthenticatedRouteWithChildren =
+  NotAuthenticatedRoute._addFileChildren(NotAuthenticatedRouteChildren)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
-  '/posts/$postId': typeof PostsPostIdRoute
-  '/posts/create': typeof PostsCreateRoute
-  '/questions/create': typeof QuestionsCreateRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/questions': typeof QuestionsIndexRoute
-  '/users': typeof UsersIndexRoute
-  '/users/me': typeof UsersMeIndexRoute
-  '/users/me/posts/$postId': typeof UsersMePostsPostIdRoute
-  '/users/me/posts': typeof UsersMePostsIndexRoute
+  '': typeof NotAuthenticatedRouteWithChildren
+  '/posts/$postId': typeof AuthenticatedPostsPostIdRoute
+  '/posts/create': typeof AuthenticatedPostsCreateRoute
+  '/questions/create': typeof AuthenticatedQuestionsCreateRoute
+  '/users/$userId': typeof AuthenticatedUsersUserIdRoute
+  '/auth/login': typeof NotAuthenticatedAuthLoginRoute
+  '/auth/register': typeof NotAuthenticatedAuthRegisterRoute
+  '/questions': typeof AuthenticatedQuestionsIndexRoute
+  '/users': typeof AuthenticatedUsersIndexRoute
+  '/users/me': typeof AuthenticatedUsersMeIndexRoute
+  '/users/me/posts/$postId': typeof AuthenticatedUsersMePostsPostIdRoute
+  '/users/me/posts': typeof AuthenticatedUsersMePostsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
-  '/posts/$postId': typeof PostsPostIdRoute
-  '/posts/create': typeof PostsCreateRoute
-  '/questions/create': typeof QuestionsCreateRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/questions': typeof QuestionsIndexRoute
-  '/users': typeof UsersIndexRoute
-  '/users/me': typeof UsersMeIndexRoute
-  '/users/me/posts/$postId': typeof UsersMePostsPostIdRoute
-  '/users/me/posts': typeof UsersMePostsIndexRoute
+  '': typeof NotAuthenticatedRouteWithChildren
+  '/posts/$postId': typeof AuthenticatedPostsPostIdRoute
+  '/posts/create': typeof AuthenticatedPostsCreateRoute
+  '/questions/create': typeof AuthenticatedQuestionsCreateRoute
+  '/users/$userId': typeof AuthenticatedUsersUserIdRoute
+  '/auth/login': typeof NotAuthenticatedAuthLoginRoute
+  '/auth/register': typeof NotAuthenticatedAuthRegisterRoute
+  '/questions': typeof AuthenticatedQuestionsIndexRoute
+  '/users': typeof AuthenticatedUsersIndexRoute
+  '/users/me': typeof AuthenticatedUsersMeIndexRoute
+  '/users/me/posts/$postId': typeof AuthenticatedUsersMePostsPostIdRoute
+  '/users/me/posts': typeof AuthenticatedUsersMePostsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/auth/login': typeof AuthLoginRoute
-  '/auth/register': typeof AuthRegisterRoute
-  '/posts/$postId': typeof PostsPostIdRoute
-  '/posts/create': typeof PostsCreateRoute
-  '/questions/create': typeof QuestionsCreateRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/questions/': typeof QuestionsIndexRoute
-  '/users/': typeof UsersIndexRoute
-  '/users/me/': typeof UsersMeIndexRoute
-  '/users/me/posts/$postId': typeof UsersMePostsPostIdRoute
-  '/users/me/posts/': typeof UsersMePostsIndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_notAuthenticated': typeof NotAuthenticatedRouteWithChildren
+  '/_authenticated/posts/$postId': typeof AuthenticatedPostsPostIdRoute
+  '/_authenticated/posts/create': typeof AuthenticatedPostsCreateRoute
+  '/_authenticated/questions/create': typeof AuthenticatedQuestionsCreateRoute
+  '/_authenticated/users/$userId': typeof AuthenticatedUsersUserIdRoute
+  '/_notAuthenticated/auth/login': typeof NotAuthenticatedAuthLoginRoute
+  '/_notAuthenticated/auth/register': typeof NotAuthenticatedAuthRegisterRoute
+  '/_authenticated/questions/': typeof AuthenticatedQuestionsIndexRoute
+  '/_authenticated/users/': typeof AuthenticatedUsersIndexRoute
+  '/_authenticated/users/me/': typeof AuthenticatedUsersMeIndexRoute
+  '/_authenticated/users/me/posts/$postId': typeof AuthenticatedUsersMePostsPostIdRoute
+  '/_authenticated/users/me/posts/': typeof AuthenticatedUsersMePostsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/auth/login'
-    | '/auth/register'
+    | ''
     | '/posts/$postId'
     | '/posts/create'
     | '/questions/create'
     | '/users/$userId'
+    | '/auth/login'
+    | '/auth/register'
     | '/questions'
     | '/users'
     | '/users/me'
@@ -255,12 +332,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/auth/login'
-    | '/auth/register'
+    | ''
     | '/posts/$postId'
     | '/posts/create'
     | '/questions/create'
     | '/users/$userId'
+    | '/auth/login'
+    | '/auth/register'
     | '/questions'
     | '/users'
     | '/users/me'
@@ -269,48 +347,32 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/auth/login'
-    | '/auth/register'
-    | '/posts/$postId'
-    | '/posts/create'
-    | '/questions/create'
-    | '/users/$userId'
-    | '/questions/'
-    | '/users/'
-    | '/users/me/'
-    | '/users/me/posts/$postId'
-    | '/users/me/posts/'
+    | '/_authenticated'
+    | '/_notAuthenticated'
+    | '/_authenticated/posts/$postId'
+    | '/_authenticated/posts/create'
+    | '/_authenticated/questions/create'
+    | '/_authenticated/users/$userId'
+    | '/_notAuthenticated/auth/login'
+    | '/_notAuthenticated/auth/register'
+    | '/_authenticated/questions/'
+    | '/_authenticated/users/'
+    | '/_authenticated/users/me/'
+    | '/_authenticated/users/me/posts/$postId'
+    | '/_authenticated/users/me/posts/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthLoginRoute: typeof AuthLoginRoute
-  AuthRegisterRoute: typeof AuthRegisterRoute
-  PostsPostIdRoute: typeof PostsPostIdRoute
-  PostsCreateRoute: typeof PostsCreateRoute
-  QuestionsCreateRoute: typeof QuestionsCreateRoute
-  UsersUserIdRoute: typeof UsersUserIdRoute
-  QuestionsIndexRoute: typeof QuestionsIndexRoute
-  UsersIndexRoute: typeof UsersIndexRoute
-  UsersMeIndexRoute: typeof UsersMeIndexRoute
-  UsersMePostsPostIdRoute: typeof UsersMePostsPostIdRoute
-  UsersMePostsIndexRoute: typeof UsersMePostsIndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  NotAuthenticatedRoute: typeof NotAuthenticatedRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthLoginRoute: AuthLoginRoute,
-  AuthRegisterRoute: AuthRegisterRoute,
-  PostsPostIdRoute: PostsPostIdRoute,
-  PostsCreateRoute: PostsCreateRoute,
-  QuestionsCreateRoute: QuestionsCreateRoute,
-  UsersUserIdRoute: UsersUserIdRoute,
-  QuestionsIndexRoute: QuestionsIndexRoute,
-  UsersIndexRoute: UsersIndexRoute,
-  UsersMeIndexRoute: UsersMeIndexRoute,
-  UsersMePostsPostIdRoute: UsersMePostsPostIdRoute,
-  UsersMePostsIndexRoute: UsersMePostsIndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  NotAuthenticatedRoute: NotAuthenticatedRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -324,54 +386,77 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/auth/login",
-        "/auth/register",
-        "/posts/$postId",
-        "/posts/create",
-        "/questions/create",
-        "/users/$userId",
-        "/questions/",
-        "/users/",
-        "/users/me/",
-        "/users/me/posts/$postId",
-        "/users/me/posts/"
+        "/_authenticated",
+        "/_notAuthenticated"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/auth/login": {
-      "filePath": "auth/login.tsx"
+    "/_authenticated": {
+      "filePath": "_authenticated.tsx",
+      "children": [
+        "/_authenticated/posts/$postId",
+        "/_authenticated/posts/create",
+        "/_authenticated/questions/create",
+        "/_authenticated/users/$userId",
+        "/_authenticated/questions/",
+        "/_authenticated/users/",
+        "/_authenticated/users/me/",
+        "/_authenticated/users/me/posts/$postId",
+        "/_authenticated/users/me/posts/"
+      ]
     },
-    "/auth/register": {
-      "filePath": "auth/register.tsx"
+    "/_notAuthenticated": {
+      "filePath": "_notAuthenticated.tsx",
+      "children": [
+        "/_notAuthenticated/auth/login",
+        "/_notAuthenticated/auth/register"
+      ]
     },
-    "/posts/$postId": {
-      "filePath": "posts/$postId.tsx"
+    "/_authenticated/posts/$postId": {
+      "filePath": "_authenticated/posts/$postId.tsx",
+      "parent": "/_authenticated"
     },
-    "/posts/create": {
-      "filePath": "posts/create.tsx"
+    "/_authenticated/posts/create": {
+      "filePath": "_authenticated/posts/create.tsx",
+      "parent": "/_authenticated"
     },
-    "/questions/create": {
-      "filePath": "questions/create.tsx"
+    "/_authenticated/questions/create": {
+      "filePath": "_authenticated/questions/create.tsx",
+      "parent": "/_authenticated"
     },
-    "/users/$userId": {
-      "filePath": "users/$userId.tsx"
+    "/_authenticated/users/$userId": {
+      "filePath": "_authenticated/users/$userId.tsx",
+      "parent": "/_authenticated"
     },
-    "/questions/": {
-      "filePath": "questions/index.tsx"
+    "/_notAuthenticated/auth/login": {
+      "filePath": "_notAuthenticated/auth/login.tsx",
+      "parent": "/_notAuthenticated"
     },
-    "/users/": {
-      "filePath": "users/index.tsx"
+    "/_notAuthenticated/auth/register": {
+      "filePath": "_notAuthenticated/auth/register.tsx",
+      "parent": "/_notAuthenticated"
     },
-    "/users/me/": {
-      "filePath": "users/me/index.tsx"
+    "/_authenticated/questions/": {
+      "filePath": "_authenticated/questions/index.tsx",
+      "parent": "/_authenticated"
     },
-    "/users/me/posts/$postId": {
-      "filePath": "users/me/posts/$postId.tsx"
+    "/_authenticated/users/": {
+      "filePath": "_authenticated/users/index.tsx",
+      "parent": "/_authenticated"
     },
-    "/users/me/posts/": {
-      "filePath": "users/me/posts/index.tsx"
+    "/_authenticated/users/me/": {
+      "filePath": "_authenticated/users/me/index.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/users/me/posts/$postId": {
+      "filePath": "_authenticated/users/me/posts/$postId.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/users/me/posts/": {
+      "filePath": "_authenticated/users/me/posts/index.tsx",
+      "parent": "/_authenticated"
     }
   }
 }

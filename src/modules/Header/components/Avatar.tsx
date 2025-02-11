@@ -1,17 +1,39 @@
-import AvatarIcon from '@mui/material/Avatar';
+import { Avatar as MuiAvatar } from '@mui/material';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { queryClient } from '@/lib/react-query';
+import { notify } from '@/utils/notify';
+
+import { useLogout } from '../api/logout';
+
 export const Avatar = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const currentUser: { username: string } | null | undefined =
+    queryClient.getQueryData(['currentUser']);
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const { mutate } = useLogout({
+    mutationConfig: {
+      onSuccess: () => {
+        navigate({ to: '/auth/login' });
+
+        notify({
+          type: 'info',
+          title: t('api.header.avatar.logout'),
+        });
+      },
+    },
+  });
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -20,12 +42,24 @@ export const Avatar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleClickLogout = () => {
+    setAnchorElUser(null);
+    mutate();
+  };
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <AvatarIcon alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-        </IconButton>
+        <MuiAvatar
+          sx={(theme) => ({
+            bgcolor: theme.palette.secondary.main,
+            cursor: 'pointer',
+          })}
+          onClick={handleOpenUserMenu}
+          src="/broken-image.jpg"
+          alt={currentUser?.username}
+        />
       </Tooltip>
       <Menu
         sx={{ mt: '45px' }}
@@ -67,7 +101,7 @@ export const Avatar = () => {
           component={Link}
           to="/auth/login"
           key="Logout"
-          onClick={handleCloseUserMenu}
+          onClick={handleClickLogout}
         >
           <Typography sx={{ textAlign: 'center' }}>
             {t('header.avatar.logout')}

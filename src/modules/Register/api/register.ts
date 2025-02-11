@@ -1,10 +1,14 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
-import { MutationConfigType } from '@/types/react-query';
+import { MutationConfigType } from '@/lib/react-query';
 
 import { RegisterSchema } from '../schemas/register';
 import { registerResponseSchema } from '../schemas/registerResponse';
+
+type UseRegisterOptionsType = {
+  mutationConfig?: MutationConfigType<typeof registerUser>;
+};
 
 export const registerUser = async (
   credentials: Omit<RegisterSchema, 'confirmPassword'>,
@@ -14,21 +18,16 @@ export const registerUser = async (
   return registerResponseSchema.parseAsync(response.data);
 };
 
-type UseRegisterOptionsType = {
-  mutationConfig?: MutationConfigType<typeof registerUser>;
-};
-
 export const useRegister = ({
   mutationConfig,
 }: UseRegisterOptionsType = {}) => {
-  const queryClient = useQueryClient();
+  const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
     mutationFn: registerUser,
-    onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
-      mutationConfig?.onSuccess?.(data, variables, context);
+    onSuccess: (...args) => {
+      onSuccess?.(...args);
     },
-    ...mutationConfig,
+    ...restConfig,
   });
 };

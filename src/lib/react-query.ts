@@ -1,6 +1,24 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { UseMutationOptions } from '@tanstack/react-query';
+import {
+  DefaultOptions,
+  QueryClient,
+  UseMutationOptions,
+} from '@tanstack/react-query';
 
+export const queryConfig = {
+  queries: {
+    retry: false,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: true,
+    refetchOnReconnect: false,
+  },
+} satisfies DefaultOptions;
+
+export const queryClient = new QueryClient({
+  defaultOptions: queryConfig,
+});
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ApiFnReturnType<FnType extends (...args: any) => Promise<any>> =
   Awaited<ReturnType<FnType>>;
 

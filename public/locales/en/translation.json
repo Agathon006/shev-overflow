@@ -1,11 +1,17 @@
 {
   "backend": {
     "Incorrect password or username!": "Incorrect password or username!",
-    "User with this username already exists!": "User with this username already exists!"
+    "User with this username already exists!": "User with this username already exists!",
+    "No token provided!": "Login required!"
   },
   "api": {
     "error-title": "Error",
     "error-message": "Unexpected error occurred",
+    "header": {
+      "avatar": {
+        "logout": "Нou have logged out"
+      }
+    },
     "login-form": {
       "success": "Autorization successful"
     },
@@ -22,6 +28,7 @@
       "users": "Users",
       "questions": "Questions"
     },
+    "login-button": "Login",
     "avatar": {
       "account": "Account",
       "my-posts": "My posts",
@@ -47,7 +54,7 @@
         "length": "Username must be at least 5 characters"
       },
       "password-input": {
-        "length": "Password must be at least 5 characters"
+        "length": "Password must be at least 8 characters and have 1 latin letter"
       }
     }
   },
@@ -67,12 +74,16 @@
         "length": "Username must be at least 5 characters"
       },
       "password-input": {
-        "length": "Password must be at least 5 characters"
+        "length": "Password must be at least 8 characters and have 1 latin letter"
       },
       "confirm-password-input": {
-        "length": "Password must be at least 5 characters",
+        "length": "Password must be at least 8 characters and have 1 latin letter",
         "match": "Passwords don't match"
       }
     }
+  },
+  "page404": {
+    "title": "Page not found",
+    "button-text": "Go to main page"
   }
 }
