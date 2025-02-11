@@ -24,6 +24,8 @@ export const snippetsResponseSchema = z
   })
   .nullable();
 
+export type SnippetsResponseSchema = z.infer<typeof snippetsResponseSchema>;
+
 export const snippetsLinksResponseSchema = z
   .object({
     current: z.string(),
@@ -33,3 +35,7 @@ export const snippetsLinksResponseSchema = z
     previous: z.string(),
   })
   .nullable();
+
+export type SnippetsLinksResponseSchema = z.infer<
+  typeof snippetsResponseSchema
+>;

@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { SnippetCard } from '@/components/SnippetCard';
 
 import { useSnippets } from '../api/snippets';
+import { SnippetsResponseSchema } from '../schemas/getSnippetsResponse';
 
 export const SnippetList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -13,15 +14,18 @@ export const SnippetList = () => {
   const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
   const parentRef = useRef(null);
 
+  console.log(snippets);
+
   const rowVirtualizer = useVirtualizer({
     count: hasNextPage ? snippets.length + 1 : snippets.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 100,
+    estimateSize: () => 300,
     overscan: 5,
   });
 
   useEffect(() => {
     const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
+
     if (!lastItem) return;
 
     if (
@@ -39,6 +43,8 @@ export const SnippetList = () => {
     rowVirtualizer,
   ]);
 
+  console.log(rowVirtualizer);
+
   return (
     <Container ref={parentRef} maxWidth="xl">
       <Box
@@ -49,7 +55,7 @@ export const SnippetList = () => {
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
           const isLoaderRow = virtualRow.index >= snippets.length;
-          const snippet = snippets[virtualRow.index];
+          const snippet: SnippetsResponseSchema = snippets[virtualRow.index];
 
           return (
             <Box
@@ -63,7 +69,19 @@ export const SnippetList = () => {
                 transform: `translateY(${virtualRow.start}px)`,
               }}
             >
-              {isLoaderRow ? 'Loading more...' : <SnippetCard {...snippet} />}
+              {isLoaderRow ? (
+                'Loading more...'
+              ) : (
+                <SnippetCard
+                  username={snippet?.user.username}
+                  language={snippet?.language}
+                  code={snippet?.code}
+                  likes={snippet?.marks.filter((m) => m.type === 'like').length}
+                  dislikes={
+                    snippet?.marks.filter((m) => m.type === 'dislike').length
+                  }
+                />
+              )}
             </Box>
           );
         })}

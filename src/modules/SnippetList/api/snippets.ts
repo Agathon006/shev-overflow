@@ -12,9 +12,9 @@ type UseAuthOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
 };
 
-export const getSnippets = async ({ pageParam = 1 }) => {
+export const getSnippets = async (limit: number, nextOffset = 1) => {
   const response = await api.get('/snippets', {
-    params: { page: pageParam, limit: 10 },
+    params: { page: nextOffset, limit },
   });
   console.log(response);
 
@@ -27,16 +27,16 @@ export const getSnippets = async ({ pageParam = 1 }) => {
 
   return {
     snippets: response.data.data,
-    nextPage: response.data.links.next ? pageParam + 1 : null,
+    nextOffset: response.data.links.next ? nextOffset + 1 : null,
   };
 };
 
 export const SnippetsQueryOptions = () => {
   return infiniteQueryOptions({
     queryKey: ['snippets'],
-    queryFn: getSnippets,
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-    initialPageParam: 1,
+    queryFn: (ctx) => getSnippets(10, ctx.pageParam),
+    getNextPageParam: (lastGroup) => lastGroup.nextOffset,
+    initialPageParam: 0,
     staleTime: Infinity,
   });
 };
