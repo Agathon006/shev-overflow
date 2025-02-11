@@ -32,8 +32,8 @@ export type SnippetsResponseSchema = z.infer<typeof snippetsResponseSchema>;
 
 export const snippetsLinksResponseSchema = z.object({
   current: z.string(),
-  last: z.string(),
-  next: z.string(),
+  last: z.string().optional(),
+  next: z.string().optional(),
   first: z.string().optional(),
   previous: z.string().optional(),
 });

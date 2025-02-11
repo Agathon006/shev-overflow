@@ -82,6 +82,9 @@
       }
     }
   },
+  "snippet-list": {
+    "extra-content": "Loaging more..."
+  },
   "home-page": {
     "title": "Welcome to Shef Overflow!"
   },
