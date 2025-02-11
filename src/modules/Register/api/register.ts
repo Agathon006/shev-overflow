@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
-import { MutationConfigType } from '@/types/react-query';
+import { MutationConfigType } from '@/lib/react-query';
 
 import { RegisterSchema } from '../schemas/register';
 import { registerResponseSchema } from '../schemas/registerResponse';

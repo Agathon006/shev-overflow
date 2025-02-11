@@ -10,21 +10,14 @@ import React from 'react';
 
 import { Notifications } from '@/components/Notifications';
 import { Page404 } from '@/components/Page404';
+import { queryConfig } from '@/lib/react-query';
 import { routeTree } from '@/routeTree.gen';
 import { defaultTheme } from '@/theme';
 
 import { Spinner } from './components/Spinner';
 
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      staleTime: Infinity,
-      refetchOnWindowFocus: false,
-      refetchOnMount: true,
-      refetchOnReconnect: false,
-    },
-  },
+  defaultOptions: queryConfig,
 });
 
 export const router = createRouter({

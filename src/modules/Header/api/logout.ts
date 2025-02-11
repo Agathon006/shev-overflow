@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
 import { queryClient } from '@/App';
-import { MutationConfigType } from '@/types/react-query';
+import { MutationConfigType } from '@/lib/react-query';
 
 type UseLogoutOptionsType = {
   mutationConfig?: MutationConfigType<typeof logoutUser>;
