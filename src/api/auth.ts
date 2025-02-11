@@ -29,7 +29,7 @@ export const authUser = async () => {
 export const authUserQueryOptions = () => {
   return queryOptions({
     queryKey: ['currentUser'],
-    queryFn: () => authUser(),
+    queryFn: authUser,
   });
 };
 
