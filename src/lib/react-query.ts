@@ -1,4 +1,8 @@
-import { DefaultOptions, UseMutationOptions } from '@tanstack/react-query';
+import {
+  DefaultOptions,
+  QueryClient,
+  UseMutationOptions,
+} from '@tanstack/react-query';
 
 export const queryConfig = {
   queries: {
@@ -9,6 +13,10 @@ export const queryConfig = {
     refetchOnReconnect: false,
   },
 } satisfies DefaultOptions;
+
+export const queryClient = new QueryClient({
+  defaultOptions: queryConfig,
+});
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type ApiFnReturnType<FnType extends (...args: any) => Promise<any>> =

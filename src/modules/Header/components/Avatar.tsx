@@ -8,7 +8,8 @@ import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { queryClient, router } from '@/App';
+import { queryClient } from '@/lib/react-query';
+import { router } from '@/lib/react-router';
 import { notify } from '@/utils/notify';
 
 import { useLogout } from '../api/logout';
