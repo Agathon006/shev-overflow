@@ -82,6 +82,9 @@
       }
     }
   },
+  "home-page": {
+    "title": "Welcome to Shef Overflow!"
+  },
   "page404": {
     "title": "Page not found",
     "button-text": "Go to main page"

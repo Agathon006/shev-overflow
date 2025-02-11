@@ -64,6 +64,13 @@ export const defaultTheme = createTheme({
         }),
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          border: `1px solid ${theme.palette.customNeutral[500]}`,
+        }),
+      },
+    },
   },
 });
 
