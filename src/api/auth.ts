@@ -17,16 +17,19 @@ export const authResponseSchema = z
   .nullable();
 
 export const authUser = async () => {
-  const response = await api.get('/auth');
+  try {
+    const response = await api.get('/auth');
 
-  return authResponseSchema.parse(response.data);
+    return authResponseSchema.parse(response.data);
+  } catch {
+    return null;
+  }
 };
 
 export const authUserQueryOptions = () => {
   return queryOptions({
     queryKey: ['currentUser'],
     queryFn: () => authUser(),
-    initialData: null,
   });
 };
 

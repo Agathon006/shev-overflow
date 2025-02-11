@@ -1,13 +1,17 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute, Navigate, Outlet } from '@tanstack/react-router';
 
-import { isAuthenticated } from '@/utils/isAuthenticated';
+import { useAuth } from '@/api/auth';
+
+const NotAuthenticated = () => {
+  const { data: currentUser } = useAuth();
+
+  if (currentUser) {
+    return <Navigate to="/" />;
+  }
+
+  return <Outlet />;
+};
 
 export const Route = createFileRoute('/_notAuthenticated')({
-  beforeLoad: async () => {
-    if (isAuthenticated()) {
-      throw redirect({
-        to: '/',
-      });
-    }
-  },
+  component: NotAuthenticated,
 });
