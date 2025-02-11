@@ -7,12 +7,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { router } from '@/lib/react-router';
 import { notify } from '@/utils/notify';
 
 import { useLogin } from '../api/login';
@@ -20,6 +19,7 @@ import { LoginSchema, loginSchema } from '../schemas/login';
 
 export const LoginForm: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -35,12 +35,12 @@ export const LoginForm: React.FC = () => {
         const redirectUrl = searchParams.get('redirect');
 
         if (redirectUrl) {
-          router.navigate({
+          navigate({
             to: decodeURIComponent(redirectUrl),
             replace: true,
           });
         } else {
-          router.navigate({ to: '/' });
+          navigate({ to: '/' });
         }
 
         notify({

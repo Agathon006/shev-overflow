@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 export const Page404 = () => {
   const { t } = useTranslation();
+  
   return (
     <Box textAlign="center" mt={4}>
       <Typography variant="h4" gutterBottom>

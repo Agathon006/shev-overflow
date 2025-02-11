@@ -5,7 +5,7 @@ import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 
 type UseAuthOptionsType = {
-  queryConfig?: QueryConfigType<typeof authUser>;
+  queryConfig?: QueryConfigType<typeof getAuthUser>;
 };
 
 export const authResponseSchema = z
@@ -16,7 +16,7 @@ export const authResponseSchema = z
   })
   .nullable();
 
-export const authUser = async () => {
+export const getAuthUser = async () => {
   try {
     const response = await api.get('/auth');
 
@@ -29,7 +29,7 @@ export const authUser = async () => {
 export const authUserQueryOptions = () => {
   return queryOptions({
     queryKey: ['currentUser'],
-    queryFn: authUser,
+    queryFn: getAuthUser,
   });
 };
 
