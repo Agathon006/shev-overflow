@@ -1,6 +1,8 @@
 import { z } from 'zod';
 
-export const snippetsResponseSchema = z.array(
+import { userSchema } from '@/schemas/user';
+
+const snippetsSchema = z.array(
   z.object({
     id: z.string(),
     code: z.string(),
@@ -10,11 +12,7 @@ export const snippetsResponseSchema = z.array(
         z.object({
           id: z.string(),
           type: z.string(),
-          user: z.object({
-            id: z.string(),
-            role: z.string(),
-            username: z.string(),
-          }),
+          user: userSchema,
         }),
       )
       .nullable(),
@@ -26,17 +24,11 @@ export const snippetsResponseSchema = z.array(
         }),
       )
       .nullable(),
-    user: z.object({
-      id: z.string(),
-      role: z.string(),
-      username: z.string(),
-    }),
+    user: userSchema,
   }),
 );
 
-export type SnippetsResponseSchema = z.infer<typeof snippetsResponseSchema>;
-
-export const snippetsLinksResponseSchema = z.object({
+const snippetsLinksSchema = z.object({
   current: z.string(),
   last: z.string().optional(),
   next: z.string().optional(),
@@ -44,6 +36,7 @@ export const snippetsLinksResponseSchema = z.object({
   previous: z.string().optional(),
 });
 
-export type SnippetsLinksResponseSchema = z.infer<
-  typeof snippetsLinksResponseSchema
->;
+export const snippetsResponseSchema = z.object({
+  data: snippetsSchema,
+  links: snippetsLinksSchema,
+});

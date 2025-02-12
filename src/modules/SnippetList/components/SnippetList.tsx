@@ -80,7 +80,6 @@ export const SnippetList = () => {
           {items.map((virtualRow) => {
             const isLoaderRow = virtualRow.index >= snippets.length;
             const snippet = snippets[virtualRow.index];
-            if (!snippet) return null;
 
             return (
               <Box
@@ -92,18 +91,18 @@ export const SnippetList = () => {
                   t('snippet-list.extra-content')
                 ) : (
                   <SnippetCard
-                    username={snippet?.user.username}
-                    language={snippet?.language}
-                    code={snippet?.code}
+                    username={snippet.user.username}
+                    language={snippet.language}
+                    code={snippet.code}
                     likes={
-                      snippet?.marks?.filter((m) => m.type === 'like').length ??
+                      snippet.marks?.filter((m) => m.type === 'like').length ??
                       0
                     }
                     dislikes={
-                      snippet?.marks?.filter((m) => m.type === 'dislike')
+                      snippet.marks?.filter((m) => m.type === 'dislike')
                         .length ?? 0
                     }
-                    comments={snippet?.comments?.length ?? 0}
+                    comments={snippet.comments?.length ?? 0}
                   />
                 )}
               </Box>

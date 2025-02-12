@@ -3,10 +3,7 @@ import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 
-import {
-  snippetsLinksResponseSchema,
-  snippetsResponseSchema,
-} from '../schemas/getSnippetsResponse';
+import { snippetsResponseSchema } from '../schemas/getSnippetsResponse';
 
 type UseAuthOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
@@ -19,11 +16,11 @@ export const getSnippets = async (limit: number, nextOffset = 1) => {
     params: { page: nextOffset, limit },
   });
 
+  const validatedData = await snippetsResponseSchema.parseAsync(response.data);
+
   return {
-    snippets: snippetsResponseSchema.parse(response.data.data),
-    nextPage: snippetsLinksResponseSchema.parse(response.data.links)?.next
-      ? nextOffset + 1
-      : null,
+    snippets: validatedData.data,
+    nextPage: validatedData.links.next ? nextOffset + 1 : null,
   };
 };
 
