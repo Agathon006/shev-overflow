@@ -1,6 +1,8 @@
 import { TextField } from '@mui/material';
-import { useDeferredValue, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { useDebounce } from '@/hooks/useDebounce';
 
 type SnippetListSearchProps = {
   onSearchChange: (search: string) => void;
@@ -11,15 +13,11 @@ export const SnippetListSearch = ({
 }: SnippetListSearchProps) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
-  const deferredSearchTerm = useDeferredValue(searchTerm);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
   useEffect(() => {
-    onSearchChange(deferredSearchTerm);
-  }, [deferredSearchTerm, onSearchChange]);
+    onSearchChange(debouncedSearchTerm);
+  }, [debouncedSearchTerm, onSearchChange]);
 
   return (
     <TextField
@@ -27,7 +25,7 @@ export const SnippetListSearch = ({
       variant="outlined"
       fullWidth
       value={searchTerm}
-      onChange={handleChange}
+      onChange={(e) => setSearchTerm(e.target.value)}
       sx={{ marginBottom: 2 }}
     />
   );

@@ -49,16 +49,14 @@ export const SnippetList = () => {
     rowVirtualizer.getVirtualItems(),
   ]);
 
-  const handleSearchChange = (newSearchTerm: string) => {
-    setSearchTerm(newSearchTerm);
-  };
-
   const items = rowVirtualizer.getVirtualItems();
 
   return (
     <>
       <Container maxWidth="xl" sx={{ width: '100%' }}>
-        <SnippetListSearch onSearchChange={handleSearchChange} />
+        <SnippetListSearch
+          onSearchChange={(newSearchTerm) => setSearchTerm(newSearchTerm)}
+        />
       </Container>
       <Container
         ref={parentRef}
