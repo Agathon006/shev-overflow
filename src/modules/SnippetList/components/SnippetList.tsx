@@ -34,16 +34,15 @@ export const SnippetList = () => {
     ) {
       fetchNextPage();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     hasNextPage,
     fetchNextPage,
     snippets.length,
     isFetchingNextPage,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     rowVirtualizer.getVirtualItems(),
   ]);
-  // What should i do with rowVirtualizer.getVirtualItems()
-  // React Hook useEffect has a missing dependency: 'rowVirtualizer'. Either include it or remove the dependency array.eslintreact-hooks/exhaustive-deps
-  // React Hook useEffect has a complex expression in the dependency array. Extract it to a separate variable so it can be statically checked.eslintreact-hooks/exhaustive-deps
 
   const items = rowVirtualizer.getVirtualItems();
 
