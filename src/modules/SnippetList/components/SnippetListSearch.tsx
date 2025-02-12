@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import { useDeferredValue, useEffect, useState } from 'react';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 type SnippetListSearchProps = {
   onSearchChange: (search: string) => void;
@@ -9,7 +9,7 @@ type SnippetListSearchProps = {
 export const SnippetListSearch = ({
   onSearchChange,
 }: SnippetListSearchProps) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const deferredSearchTerm = useDeferredValue(searchTerm);
 
@@ -23,7 +23,7 @@ export const SnippetListSearch = ({
 
   return (
     <TextField
-      label="Search Snippets"
+      label={t('snippet-list.search.label')}
       variant="outlined"
       fullWidth
       value={searchTerm}

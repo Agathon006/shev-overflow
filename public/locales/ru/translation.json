@@ -83,7 +83,10 @@
     }
   },
   "snippet-list": {
-    "extra-content": "Загружается ещё..."
+    "extra-content": "Загружается ещё...",
+    "search": {
+      "label": "Искать сниппеты"
+    }
   },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
