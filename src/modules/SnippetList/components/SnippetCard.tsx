@@ -15,19 +15,18 @@ import {
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useSnippetMark } from '../api/snippetMark';
+import { SnippetsSchema } from '../schemas/snippetList';
 
 type SnippetCardType = {
-  id: string;
+  comments: number;
   searchTerm: string;
-  username: string;
-  language: string;
-  code: string;
   likes: number;
   likesActive: boolean;
   dislikes: number;
   dislikesActive: boolean;
-  comments: number;
-};
+} & Pick<SnippetsSchema[number], 'id' | 'language' | 'code'> & {
+    username: SnippetsSchema[number]['user']['username'];
+  };
 
 export const SnippetCard = ({
   id,

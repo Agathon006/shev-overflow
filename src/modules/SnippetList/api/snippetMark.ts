@@ -5,7 +5,7 @@ import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
 import { snippetMarkSchema } from '@/schemas/snippetMark';
 
-type useSnippetMarkOptionsType = {
+type SnippetMarkOptionsType = {
   mutationConfig?: MutationConfigType<typeof postSnippetMark>;
   searchTerm?: string;
 };
@@ -21,7 +21,7 @@ export const postSnippetMark = async ({ mark, id }: SnippetMarkParams) => {
 export const useSnippetMark = ({
   mutationConfig,
   searchTerm = '',
-}: useSnippetMarkOptionsType = {}) => {
+}: SnippetMarkOptionsType = {}) => {
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
