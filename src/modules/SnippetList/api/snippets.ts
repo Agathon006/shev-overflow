@@ -29,7 +29,7 @@ export const getSnippets = async (
   };
 };
 
-export const SnippetsQueryOptions = (searchTerm: string) => {
+export const snippetsQueryOptions = (searchTerm: string) => {
   return infiniteQueryOptions({
     queryKey: ['snippets', searchTerm],
     queryFn: ({ pageParam }) =>
@@ -46,6 +46,6 @@ export const useSnippets = ({
 }: UseAuthOptionsType = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
-    ...SnippetsQueryOptions(searchTerm),
+    ...snippetsQueryOptions(searchTerm),
   });
 };
