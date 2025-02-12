@@ -8,7 +8,7 @@ type UseAuthOptionsType = {
   queryConfig?: QueryConfigType<typeof getAuthUser>;
 };
 
-export const authResponseSchema = userSchema.nullable();
+export const authResponseSchema = userSchema;
 
 export const getAuthUser = async () => {
   try {
