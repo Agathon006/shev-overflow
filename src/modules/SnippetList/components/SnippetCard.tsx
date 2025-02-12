@@ -14,7 +14,11 @@ import {
 } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
+import { useSnippetMark } from '../api/snippetMark';
+
 type SnippetCardType = {
+  id: string;
+  searchTerm: string;
   username: string;
   language: string;
   code: string;
@@ -26,6 +30,8 @@ type SnippetCardType = {
 };
 
 export const SnippetCard = ({
+  id,
+  searchTerm,
   username = 'Someone',
   language = 'Some language',
   code = 'No code here...',
@@ -35,8 +41,22 @@ export const SnippetCard = ({
   dislikesActive = false,
   comments = 0,
 }: SnippetCardType) => {
+  const { mutate, isPending } = useSnippetMark({
+    searchTerm,
+  });
+
+  const handleMark = (mark: 'like' | 'dislike') => {
+    if (
+      (!likesActive && mark === 'like') ||
+      (!dislikesActive && mark === 'dislike')
+    ) {
+      mutate({ mark, id });
+    }
+  };
+
   return (
     <Card
+      id={id}
       sx={{
         width: '100%',
         margin: 'auto',
@@ -74,13 +94,21 @@ export const SnippetCard = ({
         }}
       >
         <Box>
-          <IconButton aria-label="like">
+          <IconButton
+            aria-label="like"
+            onClick={() => handleMark('like')}
+            disabled={isPending}
+          >
             <ThumbUpIcon color={likesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline" sx={{ mr: 1 }}>
             {likes}
           </Typography>
-          <IconButton aria-label="dislike">
+          <IconButton
+            aria-label="dislike"
+            onClick={() => handleMark('dislike')}
+            disabled={isPending}
+          >
             <ThumbDownIcon color={dislikesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline">

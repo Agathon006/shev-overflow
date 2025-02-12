@@ -3,13 +3,13 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetCard } from '@/components/SnippetCard';
 import { Spinner } from '@/components/Spinner';
 import { queryClient } from '@/lib/react-query';
 import { User } from '@/schemas/user';
 
 import { useSnippets } from '../api/snippets';
 import { SnippetsSchema } from '../schemas/snippetList';
+import { SnippetCard } from './SnippetCard';
 import { SnippetListSearch } from './SnippetListSearch';
 
 export const SnippetList = () => {
@@ -117,6 +117,8 @@ export const SnippetList = () => {
                       t('snippet-list.extra-content')
                     ) : (
                       <SnippetCard
+                        id={snippet.id}
+                        searchTerm={searchTerm}
                         username={snippet.user.username}
                         language={snippet.language}
                         code={snippet.code}

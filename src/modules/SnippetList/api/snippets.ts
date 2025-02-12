@@ -5,7 +5,7 @@ import { QueryConfigType } from '@/lib/react-query';
 
 import { SnipetListSchema } from '../schemas/snippetList';
 
-type UseAuthOptionsType = {
+type UseSnippetsOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
   searchTerm?: string;
 };
@@ -43,7 +43,7 @@ export const snippetsQueryOptions = (searchTerm: string) => {
 export const useSnippets = ({
   queryConfig,
   searchTerm = '',
-}: UseAuthOptionsType = {}) => {
+}: UseSnippetsOptionsType = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
     ...snippetsQueryOptions(searchTerm),
