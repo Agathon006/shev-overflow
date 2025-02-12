@@ -15,11 +15,11 @@ import {
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 type SnippetCardType = {
-  username?: string;
-  language?: string;
-  code?: string;
-  likes?: number;
-  dislikes?: number;
+  username: string;
+  language: string;
+  code: string;
+  likes: number;
+  dislikes: number;
   comments?: number;
 };
 

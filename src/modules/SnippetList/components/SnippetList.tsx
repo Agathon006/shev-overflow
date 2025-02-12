@@ -95,10 +95,12 @@ export const SnippetList = () => {
                     language={snippet?.language}
                     code={snippet?.code}
                     likes={
-                      snippet?.marks?.filter((m) => m.type === 'like').length
+                      snippet?.marks?.filter((m) => m.type === 'like').length ??
+                      0
                     }
                     dislikes={
-                      snippet?.marks?.filter((m) => m.type === 'dislike').length
+                      snippet?.marks?.filter((m) => m.type === 'dislike')
+                        .length ?? 0
                     }
                   />
                 )}

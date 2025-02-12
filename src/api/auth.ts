@@ -20,7 +20,7 @@ export const getAuthUser = async () => {
   try {
     const response = await api.get('/auth');
 
-    return authResponseSchema.parse(response.data);
+    return authResponseSchema.parseAsync(response.data);
   } catch {
     return null;
   }
