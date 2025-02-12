@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Alert, Box, Container } from '@mui/material';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -63,8 +63,13 @@ export const SnippetList = () => {
       <Container maxWidth="xl" sx={{ width: '100%' }}>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
       </Container>
+
       {isLoading && !snippets.length ? (
         <Spinner />
+      ) : snippets.length === 0 ? (
+        <Container maxWidth="xl" sx={{ mt: 4 }}>
+          <Alert severity="info">{t('snippet-list.no-snippets')}</Alert>
+        </Container>
       ) : (
         <Container
           ref={parentRef}
