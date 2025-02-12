@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
 import { Spinner } from '@/components/Spinner';
+import { useDebounce } from '@/hooks/useDebounce';
 
 import { useSnippets } from '../api/snippets';
 import { SnippetCard } from './SnippetCard';
@@ -15,10 +16,11 @@ export const SnippetList = () => {
 
   const { data: currentUser } = useAuth();
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
-      searchTerm,
+      debouncedSearchTerm,
     });
 
   const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
@@ -59,9 +61,7 @@ export const SnippetList = () => {
   return (
     <>
       <Container maxWidth="xl" sx={{ width: '100%' }}>
-        <SnippetListSearch
-          onSearchChange={(newSearchTerm) => setSearchTerm(newSearchTerm)}
-        />
+        <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
       </Container>
       {isLoading && !snippets.length ? (
         <Spinner />
