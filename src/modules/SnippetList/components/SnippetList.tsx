@@ -3,9 +3,8 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
 import { Spinner } from '@/components/Spinner';
-import { queryClient } from '@/lib/react-query';
-import { User } from '@/schemas/user';
 
 import { useSnippets } from '../api/snippets';
 import { SnippetCard } from './SnippetCard';
@@ -14,6 +13,7 @@ import { SnippetListSearch } from './SnippetListSearch';
 export const SnippetList = () => {
   const { t } = useTranslation();
 
+  const { data: currentUser } = useAuth();
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -55,9 +55,6 @@ export const SnippetList = () => {
   ]);
 
   const items = rowVirtualizer.getVirtualItems();
-  const currentUser: User | undefined = queryClient.getQueryData([
-    'currentUser',
-  ]);
 
   return (
     <>
