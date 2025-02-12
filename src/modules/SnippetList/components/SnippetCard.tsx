@@ -45,12 +45,6 @@ export const SnippetCard = ({
   });
 
   const handleMark = (mark: 'like' | 'dislike' | 'none') => {
-    if (
-      (likesActive && mark === 'like') ||
-      (dislikesActive && mark === 'dislike')
-    ) {
-      mark = 'none';
-    }
     mutate({ mark, id });
   };
 
@@ -96,7 +90,7 @@ export const SnippetCard = ({
         <Box>
           <IconButton
             aria-label="like"
-            onClick={() => handleMark('like')}
+            onClick={() => handleMark(likesActive ? 'none' : 'like')}
             disabled={isPending}
           >
             <ThumbUpIcon color={likesActive ? 'secondary' : 'inherit'} />
@@ -106,7 +100,7 @@ export const SnippetCard = ({
           </Typography>
           <IconButton
             aria-label="dislike"
-            onClick={() => handleMark('dislike')}
+            onClick={() => handleMark(dislikesActive ? 'none' : 'dislike')}
             disabled={isPending}
           >
             <ThumbDownIcon color={dislikesActive ? 'secondary' : 'inherit'} />
