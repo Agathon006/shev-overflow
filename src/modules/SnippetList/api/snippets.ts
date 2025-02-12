@@ -7,13 +7,18 @@ import { snippetsResponseSchema } from '../schemas/getSnippetsResponse';
 
 type UseAuthOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
+  searchTerm?: string;
 };
 
 const SNIPPETS_LIST_LIMIT = 10;
 
-export const getSnippets = async (limit: number, nextOffset = 1) => {
+export const getSnippets = async (
+  limit: number,
+  nextOffset = 1,
+  search = '',
+) => {
   const response = await api.get('/snippets', {
-    params: { page: nextOffset, limit },
+    params: { page: nextOffset, limit, search },
   });
 
   const validatedData = await snippetsResponseSchema.parseAsync(response.data);
@@ -24,19 +29,23 @@ export const getSnippets = async (limit: number, nextOffset = 1) => {
   };
 };
 
-export const SnippetsQueryOptions = () => {
+export const SnippetsQueryOptions = (searchTerm: string) => {
   return infiniteQueryOptions({
-    queryKey: ['snippets'],
-    queryFn: (ctx) => getSnippets(SNIPPETS_LIST_LIMIT, ctx.pageParam),
+    queryKey: ['snippets', searchTerm],
+    queryFn: ({ pageParam }) =>
+      getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
     initialPageParam: 0,
     staleTime: Infinity,
   });
 };
 
-export const useSnippets = ({ queryConfig }: UseAuthOptionsType = {}) => {
+export const useSnippets = ({
+  queryConfig,
+  searchTerm = '',
+}: UseAuthOptionsType = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
-    ...SnippetsQueryOptions(),
+    ...SnippetsQueryOptions(searchTerm),
   });
 };

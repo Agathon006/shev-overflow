@@ -7,10 +7,11 @@ import { SnippetCard } from '@/components/SnippetCard';
 
 import { useSnippets } from '../api/snippets';
 
-export const SnippetList = () => {
+export const SnippetList = ({ searchTerm }: { searchTerm: string }) => {
   const { t } = useTranslation();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useSnippets();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSnippets({
+    searchTerm,
+  });
 
   const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
   const parentRef = useRef(null);
@@ -52,7 +53,7 @@ export const SnippetList = () => {
       maxWidth="xl"
       sx={{
         width: '100%',
-        height: '80vh',
+        height: '75vh',
         overflow: 'auto',
         contain: 'strict',
       }}
