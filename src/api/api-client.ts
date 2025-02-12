@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import i18n from '@/i18n/i18n';
+import { router } from '@/lib/react-router';
 import { notify } from '@/utils/notify';
 
 export const api = axios.create({
@@ -25,6 +26,10 @@ api.interceptors.response.use(
       title: i18n.t('api.error-title'),
       message,
     });
+
+    if (error.response?.status === axios.HttpStatusCode.Unauthorized) {
+      router.navigate({ to: '/auth/login' });
+    }
 
     return Promise.reject(error);
   },
