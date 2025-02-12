@@ -20,7 +20,7 @@ type SnippetCardType = {
   code: string;
   likes: number;
   dislikes: number;
-  comments?: number;
+  comments: number;
 };
 
 export const SnippetCard = ({

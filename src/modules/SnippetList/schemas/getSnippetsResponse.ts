@@ -18,6 +18,14 @@ export const snippetsResponseSchema = z.array(
         }),
       )
       .nullable(),
+    comments: z
+      .array(
+        z.object({
+          id: z.string(),
+          content: z.string(),
+        }),
+      )
+      .nullable(),
     user: z.object({
       id: z.string(),
       role: z.string(),

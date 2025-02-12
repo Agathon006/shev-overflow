@@ -80,6 +80,7 @@ export const SnippetList = () => {
           {items.map((virtualRow) => {
             const isLoaderRow = virtualRow.index >= snippets.length;
             const snippet = snippets[virtualRow.index];
+            if (!snippet) return null;
 
             return (
               <Box
@@ -102,6 +103,7 @@ export const SnippetList = () => {
                       snippet?.marks?.filter((m) => m.type === 'dislike')
                         .length ?? 0
                     }
+                    comments={snippet?.comments?.length ?? 0}
                   />
                 )}
               </Box>
