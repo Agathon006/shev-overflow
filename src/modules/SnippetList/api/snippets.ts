@@ -2,8 +2,9 @@ import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
+import { linksSchema } from '@/schemas/links';
 
-import { SnipetListSchema } from '../schemas/snippet';
+import { snippetSchema } from '../schemas/snippet';
 
 type UseSnippetsOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
@@ -21,11 +22,14 @@ export const getSnippets = async (
     params: { page: nextOffset, limit, search },
   });
 
-  const validatedData = await SnipetListSchema.parseAsync(response.data);
+  const validatedSnippets = await snippetSchema
+    .array()
+    .parseAsync(response.data.data);
+  const validatedLinks = await linksSchema.parseAsync(response.data.links);
 
   return {
-    snippets: validatedData.data,
-    nextPage: validatedData.links.next ? nextOffset + 1 : null,
+    snippets: validatedSnippets,
+    nextPage: validatedLinks.next ? nextOffset + 1 : null,
   };
 };
 
