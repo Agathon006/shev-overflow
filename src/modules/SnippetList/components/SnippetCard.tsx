@@ -15,7 +15,7 @@ import {
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useSnippetMark } from '../api/snippetMark';
-import { SnippetsSchema } from '../schemas/snippetList';
+import { SnippetSchema } from '../schemas/snippet';
 
 type SnippetCardType = {
   comments: number;
@@ -24,8 +24,8 @@ type SnippetCardType = {
   likesActive: boolean;
   dislikes: number;
   dislikesActive: boolean;
-} & Pick<SnippetsSchema[number], 'id' | 'language' | 'code'> & {
-    username: SnippetsSchema[number]['user']['username'];
+} & Pick<SnippetSchema, 'id' | 'language' | 'code'> & {
+    username: SnippetSchema['user']['username'];
   };
 
 export const SnippetCard = ({

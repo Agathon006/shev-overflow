@@ -5,20 +5,18 @@ import { linksSchema } from '@/schemas/links';
 import { marksSchema } from '@/schemas/marks';
 import { userSchema } from '@/schemas/user';
 
-const snippetsSchema = z.array(
-  z.object({
-    id: z.string(),
-    code: z.string(),
-    language: z.string(),
-    marks: marksSchema,
-    comments: commentsSchema,
-    user: userSchema,
-  }),
-);
+const snippetSchema = z.object({
+  id: z.string(),
+  code: z.string(),
+  language: z.string(),
+  marks: marksSchema,
+  comments: commentsSchema,
+  user: userSchema,
+});
 
-export type SnippetsSchema = z.infer<typeof snippetsSchema>;
+export type SnippetSchema = z.infer<typeof snippetSchema>;
 
 export const SnipetListSchema = z.object({
-  data: snippetsSchema,
+  data: z.array(snippetSchema),
   links: linksSchema,
 });

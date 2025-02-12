@@ -3,7 +3,7 @@ import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 
-import { SnipetListSchema } from '../schemas/snippetList';
+import { SnipetListSchema } from '../schemas/snippet';
 
 type UseSnippetsOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
