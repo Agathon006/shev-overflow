@@ -19,7 +19,9 @@ type SnippetCardType = {
   language: string;
   code: string;
   likes: number;
+  likesActive: boolean;
   dislikes: number;
+  dislikesActive: boolean;
   comments: number;
 };
 
@@ -28,7 +30,9 @@ export const SnippetCard = ({
   language = 'Some language',
   code = 'No code here...',
   likes = 0,
+  likesActive = false,
   dislikes = 0,
+  dislikesActive = false,
   comments = 0,
 }: SnippetCardType) => {
   return (
@@ -71,13 +75,13 @@ export const SnippetCard = ({
       >
         <Box>
           <IconButton aria-label="like">
-            <ThumbUpIcon />
+            <ThumbUpIcon color={likesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline" sx={{ mr: 1 }}>
             {likes}
           </Typography>
           <IconButton aria-label="dislike">
-            <ThumbDownIcon />
+            <ThumbDownIcon color={dislikesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline">
             {dislikes}

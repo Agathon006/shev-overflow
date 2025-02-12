@@ -18,7 +18,7 @@ const snippetsSchema = z.array(
 
 export type SnippetsSchema = z.infer<typeof snippetsSchema>;
 
-export const snippetsResponseSchema = z.object({
+export const SnipetListSchema = z.object({
   data: snippetsSchema,
   links: linksSchema,
 });

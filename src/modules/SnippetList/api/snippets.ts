@@ -3,7 +3,7 @@ import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 
-import { snippetsResponseSchema } from '../schemas/getSnippetsResponse';
+import { SnipetListSchema } from '../schemas/snippetList';
 
 type UseAuthOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
@@ -21,7 +21,7 @@ export const getSnippets = async (
     params: { page: nextOffset, limit, search },
   });
 
-  const validatedData = await snippetsResponseSchema.parseAsync(response.data);
+  const validatedData = await SnipetListSchema.parseAsync(response.data);
 
   return {
     snippets: validatedData.data,

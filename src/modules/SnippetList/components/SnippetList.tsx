@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import { SnippetCard } from '@/components/SnippetCard';
 import { Spinner } from '@/components/Spinner';
+import { queryClient } from '@/lib/react-query';
+import { User } from '@/schemas/user';
 
 import { useSnippets } from '../api/snippets';
-import { SnippetsSchema } from '../schemas/getSnippetsResponse';
+import { SnippetsSchema } from '../schemas/snippetList';
 import { SnippetListSearch } from './SnippetListSearch';
 
 export const SnippetList = () => {
@@ -58,6 +60,9 @@ export const SnippetList = () => {
   ]);
 
   const items = rowVirtualizer.getVirtualItems();
+  const currentUser: User | undefined = queryClient.getQueryData([
+    'currentUser',
+  ]);
 
   return (
     <>
@@ -119,9 +124,19 @@ export const SnippetList = () => {
                           snippet.marks?.filter((m) => m.type === 'like')
                             .length ?? 0
                         }
+                        likesActive={
+                          !!snippet.marks
+                            ?.filter((m) => m.type === 'like')
+                            .find((mark) => mark.user.id === currentUser?.id)
+                        }
                         dislikes={
                           snippet.marks?.filter((m) => m.type === 'dislike')
                             .length ?? 0
+                        }
+                        dislikesActive={
+                          !!snippet.marks
+                            ?.filter((m) => m.type === 'dislike')
+                            .find((mark) => mark.user.id === currentUser?.id)
                         }
                         comments={snippet.comments?.length ?? 0}
                       />

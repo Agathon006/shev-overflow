@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { queryClient } from '@/lib/react-query';
+import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 
 import { useLogout } from '../api/logout';
@@ -17,8 +18,9 @@ export const Avatar = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const currentUser: { username: string } | null | undefined =
-    queryClient.getQueryData(['currentUser']);
+  const currentUser: User | undefined = queryClient.getQueryData([
+    'currentUser',
+  ]);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
