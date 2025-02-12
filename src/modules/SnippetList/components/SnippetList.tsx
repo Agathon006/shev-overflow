@@ -8,7 +8,6 @@ import { queryClient } from '@/lib/react-query';
 import { User } from '@/schemas/user';
 
 import { useSnippets } from '../api/snippets';
-import { SnippetsSchema } from '../schemas/snippetList';
 import { SnippetCard } from './SnippetCard';
 import { SnippetListSearch } from './SnippetListSearch';
 
@@ -16,12 +15,13 @@ export const SnippetList = () => {
   const { t } = useTranslation();
 
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [snippets, setSnippets] = useState<SnippetsSchema>([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
       searchTerm,
     });
+
+  const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
 
   const parentRef = useRef(null);
 
@@ -31,11 +31,6 @@ export const SnippetList = () => {
     estimateSize: () => 100,
     overscan: 5,
   });
-
-  useEffect(() => {
-    if (!isLoading)
-      setSnippets(data ? data.pages.flatMap((page) => page.snippets) : []);
-  }, [data, isLoading]);
 
   useEffect(() => {
     const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
