@@ -7,19 +7,20 @@ import { SnippetCard } from '@/components/SnippetCard';
 import { Spinner } from '@/components/Spinner';
 
 import { useSnippets } from '../api/snippets';
+import { SnippetsSchema } from '../schemas/getSnippetsResponse';
 import { SnippetListSearch } from './SnippetListSearch';
 
 export const SnippetList = () => {
   const { t } = useTranslation();
 
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [snippets, setSnippets] = useState<SnippetsSchema>([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
       searchTerm,
     });
 
-  const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
   const parentRef = useRef(null);
 
   const rowVirtualizer = useVirtualizer({
@@ -28,6 +29,11 @@ export const SnippetList = () => {
     estimateSize: () => 100,
     overscan: 5,
   });
+
+  useEffect(() => {
+    if (!isLoading)
+      setSnippets(data ? data.pages.flatMap((page) => page.snippets) : []);
+  }, [data, isLoading]);
 
   useEffect(() => {
     const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
@@ -60,7 +66,7 @@ export const SnippetList = () => {
           onSearchChange={(newSearchTerm) => setSearchTerm(newSearchTerm)}
         />
       </Container>
-      {isLoading ? (
+      {isLoading && !snippets.length ? (
         <Spinner />
       ) : (
         <Container

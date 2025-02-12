@@ -28,6 +28,8 @@ const snippetsSchema = z.array(
   }),
 );
 
+export type SnippetsSchema = z.infer<typeof snippetsSchema>;
+
 const snippetsLinksSchema = z.object({
   current: z.string(),
   last: z.string().optional(),
