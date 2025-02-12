@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { SnippetCard } from '@/components/SnippetCard';
+import { Spinner } from '@/components/Spinner';
 
 import { useSnippets } from '../api/snippets';
 import { SnippetListSearch } from './SnippetListSearch';
@@ -13,9 +14,10 @@ export const SnippetList = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSnippets({
-    searchTerm,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useSnippets({
+      searchTerm,
+    });
 
   const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
   const parentRef = useRef(null);
@@ -58,69 +60,73 @@ export const SnippetList = () => {
           onSearchChange={(newSearchTerm) => setSearchTerm(newSearchTerm)}
         />
       </Container>
-      <Container
-        ref={parentRef}
-        maxWidth="xl"
-        sx={{
-          width: '100%',
-          height: '75vh',
-          overflow: 'auto',
-          contain: 'strict',
-        }}
-      >
-        <Box
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Container
+          ref={parentRef}
+          maxWidth="xl"
           sx={{
-            height: rowVirtualizer.getTotalSize(),
             width: '100%',
-            position: 'relative',
+            height: '75vh',
+            overflow: 'auto',
+            contain: 'strict',
           }}
         >
           <Box
-            display={'flex'}
-            flexDirection={'column'}
-            gap={2}
             sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
+              height: rowVirtualizer.getTotalSize(),
               width: '100%',
-              transform: `translateY(${items[0]?.start ?? 0}px)`,
+              position: 'relative',
             }}
           >
-            {items.map((virtualRow) => {
-              const isLoaderRow = virtualRow.index >= snippets.length;
-              const snippet = snippets[virtualRow.index];
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              gap={2}
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                transform: `translateY(${items[0]?.start ?? 0}px)`,
+              }}
+            >
+              {items.map((virtualRow) => {
+                const isLoaderRow = virtualRow.index >= snippets.length;
+                const snippet = snippets[virtualRow.index];
 
-              return (
-                <Box
-                  key={virtualRow.index}
-                  data-index={virtualRow.index}
-                  ref={rowVirtualizer.measureElement}
-                >
-                  {isLoaderRow ? (
-                    t('snippet-list.extra-content')
-                  ) : (
-                    <SnippetCard
-                      username={snippet.user.username}
-                      language={snippet.language}
-                      code={snippet.code}
-                      likes={
-                        snippet.marks?.filter((m) => m.type === 'like')
-                          .length ?? 0
-                      }
-                      dislikes={
-                        snippet.marks?.filter((m) => m.type === 'dislike')
-                          .length ?? 0
-                      }
-                      comments={snippet.comments?.length ?? 0}
-                    />
-                  )}
-                </Box>
-              );
-            })}
+                return (
+                  <Box
+                    key={virtualRow.index}
+                    data-index={virtualRow.index}
+                    ref={rowVirtualizer.measureElement}
+                  >
+                    {isLoaderRow ? (
+                      t('snippet-list.extra-content')
+                    ) : (
+                      <SnippetCard
+                        username={snippet.user.username}
+                        language={snippet.language}
+                        code={snippet.code}
+                        likes={
+                          snippet.marks?.filter((m) => m.type === 'like')
+                            .length ?? 0
+                        }
+                        dislikes={
+                          snippet.marks?.filter((m) => m.type === 'dislike')
+                            .length ?? 0
+                        }
+                        comments={snippet.comments?.length ?? 0}
+                      />
+                    )}
+                  </Box>
+                );
+              })}
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      )}
     </>
   );
 };
