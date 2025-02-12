@@ -45,13 +45,14 @@ export const SnippetCard = ({
     searchTerm,
   });
 
-  const handleMark = (mark: 'like' | 'dislike') => {
+  const handleMark = (mark: 'like' | 'dislike' | 'none') => {
     if (
-      (!likesActive && mark === 'like') ||
-      (!dislikesActive && mark === 'dislike')
+      (likesActive && mark === 'like') ||
+      (dislikesActive && mark === 'dislike')
     ) {
-      mutate({ mark, id });
+      mark = 'none';
     }
+    mutate({ mark, id });
   };
 
   return (

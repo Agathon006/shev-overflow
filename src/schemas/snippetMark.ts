@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
 export const snippetMarkSchema = z.object({
-  mark: z.literal('like').or(z.literal('dislike')),
+  mark: z.literal('like').or(z.literal('dislike')).or(z.literal('none')),
 });
 

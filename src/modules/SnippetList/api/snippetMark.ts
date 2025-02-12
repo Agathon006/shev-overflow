@@ -10,7 +10,7 @@ type useSnippetMarkOptionsType = {
   searchTerm?: string;
 };
 
-type SnippetMarkParams = { mark: 'like' | 'dislike'; id: string };
+type SnippetMarkParams = { mark: 'like' | 'dislike' | 'none'; id: string };
 
 export const postSnippetMark = async ({ mark, id }: SnippetMarkParams) => {
   const response = await api.post(`/snippets/${id}/mark`, { mark });
