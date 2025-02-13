@@ -1,4 +1,5 @@
 import { infiniteQueryOptions, useInfiniteQuery } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
@@ -22,14 +23,16 @@ export const getSnippets = async (
     params: { page: nextOffset, limit, search },
   });
 
-  const validatedSnippets = await snippetSchema
-    .array()
-    .parseAsync(response.data.data);
-  const validatedLinks = await linksSchema.parseAsync(response.data.links);
+  const validated = await z
+    .object({
+      data: snippetSchema.array(),
+      links: linksSchema,
+    })
+    .parseAsync(response.data);
 
   return {
-    snippets: validatedSnippets,
-    nextPage: validatedLinks.next ? nextOffset + 1 : null,
+    snippets: validated.data,
+    nextPage: validated.links.next ? nextOffset + 1 : null,
   };
 };
 
