@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
-import { snippetMarkSchema } from '@/schemas/snippetMark';
+import { snippetMarkSchema } from '@/modules/Snippets/schemas/snippetMark';
 
 type SnippetMarkOptionsType = {
   mutationConfig?: MutationConfigType<typeof postSnippetMark>;

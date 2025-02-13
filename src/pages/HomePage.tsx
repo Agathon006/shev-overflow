@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetList } from '@/modules/SnippetList';
+import { SnippetList } from '@/modules/Snippets';
 
 export const HomePage = () => {
   const { t } = useTranslation();
