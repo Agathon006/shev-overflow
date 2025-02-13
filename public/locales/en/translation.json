@@ -106,7 +106,8 @@
   "comments": {
     "title": "Comments",
     "input": {
-      "placeholder": "Comment..."
+      "placeholder": "Comment...",
+      "success": "Comment sent"
     }
   },
   "home-page": {

@@ -3,22 +3,25 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
 import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
 
 export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();
   const parentRef = useRef(null);
+  const { data: currentUser } = useAuth();
 
   const rowVirtualizer = useVirtualizer({
     count: snippet.comments.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 80,
+    estimateSize: () => 88,
+    overscan: 5,
   });
 
   return (
     <Paper
       elevation={0}
-      sx={{ maxHeight: '60vh', overflow: 'auto' }}
+      sx={{ maxHeight: '50vh', overflow: 'auto' }}
       ref={parentRef}
     >
       <Typography variant="h6" gutterBottom>
@@ -35,26 +38,38 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
           return (
             <Box
               key={comment.id}
-              sx={(theme) => ({
+              data-index={virtualRow.index}
+              ref={rowVirtualizer.measureElement}
+              sx={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
                 width: '100%',
                 transform: `translateY(${virtualRow.start}px)`,
-                p: 1,
-                backgroundColor: theme.palette.customNeutral[100],
-              })}
+                pb: 2,
+              }}
             >
-              <Typography
-                variant="subtitle2"
-                color="primary"
+              <Box
                 sx={(theme) => ({
-                  color: theme.palette.primary.dark,
+                  p: 1,
+                  backgroundColor:
+                    comment.user?.id === currentUser?.id
+                      ? theme.palette.primary.light
+                      : theme.palette.customNeutral[100],
+                  borderRadius: 3,
+                  wordBreak: 'break-word',
                 })}
               >
-                {comment.user?.username ?? 'Anonymous'}
-              </Typography>
-              <Typography variant="body2">{comment.content}</Typography>
+                <Typography
+                  variant="subtitle2"
+                  sx={(theme) => ({
+                    color: theme.palette.primary.dark,
+                  })}
+                >
+                  {comment.user?.username ?? 'Anonymous'}
+                </Typography>
+                <Typography variant="body2">{comment.content}</Typography>
+              </Box>
             </Box>
           );
         })}
