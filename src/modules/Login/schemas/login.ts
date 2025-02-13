@@ -5,7 +5,11 @@ export const loginSchema = z.object({
   password: z
     .string()
     .min(8, 'login-form.errors.password-input.length')
-    .regex(/[A-Za-z]/, 'login-form.errors.password-input.length'),
+    .regex(/[A-Za-z]/, 'login-form.errors.password-input.latin')
+    .regex(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      'login-form.errors.password-input.special',
+    ),
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
