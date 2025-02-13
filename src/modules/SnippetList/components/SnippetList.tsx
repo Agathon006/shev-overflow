@@ -55,18 +55,26 @@ export const SnippetList = () => {
 
   const items = rowVirtualizer.getVirtualItems();
 
+  let placeholderContent = null;
+
+  if (isLoading && !snippets.length) {
+    placeholderContent = <Spinner />;
+  } else if (snippets.length === 0) {
+    placeholderContent = (
+      <Container maxWidth="xl" sx={{ mt: 4 }}>
+        <Alert severity="info">{t('snippet-list.no-snippets')}</Alert>
+      </Container>
+    );
+  }
+
   return (
     <>
       <Container maxWidth="xl" sx={{ width: '100%' }}>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
       </Container>
 
-      {isLoading && !snippets.length ? (
-        <Spinner />
-      ) : snippets.length === 0 ? (
-        <Container maxWidth="xl" sx={{ mt: 4 }}>
-          <Alert severity="info">{t('snippet-list.no-snippets')}</Alert>
-        </Container>
+      {placeholderContent !== null ? (
+        placeholderContent
       ) : (
         <Container
           ref={parentRef}
