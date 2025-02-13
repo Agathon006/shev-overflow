@@ -3,7 +3,11 @@
     "Incorrect password or username!": "Incorrect password or username!",
     "User with this username already exists!": "User with this username already exists!",
     "Validation failed!": "Validation failed!",
-    "No token provided!": "Login required!"
+    "No token provided!": "Login required!",
+    "Snippet not found!": "Snippet not found!",
+    "Snippet already has mark \"dislike\" from this user.": "Snippet already has mark \"dislike\" from this user.",
+    "Snippet already has mark \"like\" from this user.": "Snippet already has mark \"like\" from this user.",
+    "Unable to remove mark cause it does not exist on the snippet": "Unable to remove mark cause it does not exist on the snippet"
   },
   "api": {
     "error-title": "Error",

@@ -7,12 +7,14 @@ import { LinkProps } from '@tanstack/react-router';
 declare module '@mui/material/ButtonBase' {
   interface ButtonBaseOwnProps {
     to?: LinkProps['to'];
+    params?: LinkProps['params'];
   }
 }
 
 declare module '@mui/material/OverridableComponent' {
   interface CommonProps {
     to?: LinkProps['to'];
+    params?: LinkProps['params'];
   }
 }
 

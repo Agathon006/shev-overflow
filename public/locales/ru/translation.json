@@ -3,7 +3,11 @@
     "Incorrect password or username!": "Неправильное имя пользователя или пароль!",
     "User with this username already exists!": "Пользователь с таким именем уже существует!",
     "Validation failed!": "Валидация не прошла!",
-    "No token provided!": "Авторизируйтесь!"
+    "No token provided!": "Авторизируйтесь!",
+    "Snippet not found!": "Сниппет не найден!",
+    "Snippet already has mark \"dislike\" from this user.": "Сниппет уже имеет отметку \"dislike\" от этого пользователя.",
+    "Snippet already has mark \"like\" from this user.": "Сниппет уже имеет отметку \"like\" от этого пользователя.",
+    "Unable to remove mark cause it does not exist on the snippet": "Невозможно удалить отметку, так как она не существует на сниппете"
   },
   "api": {
     "error-title": "Ошибка",

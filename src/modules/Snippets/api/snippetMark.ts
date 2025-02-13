@@ -7,7 +7,8 @@ import { snippetMarkSchema } from '@/modules/Snippets/schemas/snippetMark';
 
 type SnippetMarkOptionsType = {
   mutationConfig?: MutationConfigType<typeof postSnippetMark>;
-  searchTerm?: string;
+  searchTerm?: null | string;
+  snippetId?: string;
 };
 
 type SnippetMarkParams = { mark: 'like' | 'dislike' | 'none'; id: string };
@@ -20,7 +21,8 @@ export const postSnippetMark = async ({ mark, id }: SnippetMarkParams) => {
 
 export const useSnippetMark = ({
   mutationConfig,
-  searchTerm = '',
+  searchTerm = null,
+  snippetId,
 }: SnippetMarkOptionsType = {}) => {
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
@@ -28,7 +30,10 @@ export const useSnippetMark = ({
     mutationFn: postSnippetMark,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
-        queryKey: ['snippets', searchTerm],
+        queryKey:
+          searchTerm !== null
+            ? ['snippets', searchTerm]
+            : ['snippet', snippetId],
       });
       onSuccess?.(...args);
     },

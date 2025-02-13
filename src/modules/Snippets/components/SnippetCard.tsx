@@ -12,6 +12,7 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import { Link } from '@tanstack/react-router';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
@@ -19,13 +20,14 @@ import { useAuth } from '@/api/auth';
 import { useSnippetMark } from '../api/snippetMark';
 import { SnippetSchema } from '../schemas/snippet';
 
-type SnippetCardProps = { snippet: SnippetSchema; searchTerm: string };
+type SnippetCardProps = { snippet: SnippetSchema; searchTerm?: string };
 
 export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
   const { data: currentUser } = useAuth();
 
   const { mutate, isPending } = useSnippetMark({
     searchTerm,
+    snippetId: snippet.id,
   });
 
   const likesActive = !!snippet.marks
@@ -104,6 +106,9 @@ export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
         <Box display="flex" alignItems="center">
           <IconButton
             aria-label="comments"
+            component={Link}
+            to="/posts/$postId"
+            params={{ postId: snippet.id }}
             sx={{
               cursor: 'pointer',
               '&:hover': {
