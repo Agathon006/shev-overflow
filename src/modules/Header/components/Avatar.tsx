@@ -8,12 +8,13 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 
 import { useLogout } from '../api/logout';
 
 type AvatarProps = {
-  username: string;
+  username: User['username'];
 };
 
 export const Avatar = ({ username }: AvatarProps) => {
