@@ -109,6 +109,7 @@ export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
             component={Link}
             to="/posts/$postId"
             params={{ postId: snippet.id }}
+            disabled={searchTerm === undefined}
             sx={{
               cursor: 'pointer',
               '&:hover': {

@@ -103,6 +103,9 @@
     "no-snippets": "No snippets found",
     "extra-content": "Loaging more..."
   },
+  "comments": {
+    "title": "Comments"
+  },
   "home-page": {
     "title": "Welcome to Shef Overflow!"
   },

@@ -103,6 +103,9 @@
     "no-snippets": "Сниппеты не найдены",
     "extra-content": "Загружается ещё..."
   },
+  "comments": {
+    "title": "Комментарии"
+  },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
   },
