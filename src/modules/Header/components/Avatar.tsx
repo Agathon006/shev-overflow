@@ -8,17 +8,18 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { queryClient } from '@/lib/react-query';
+import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 
 import { useLogout } from '../api/logout';
 
-export const Avatar = () => {
+type AvatarProps = {
+  username: User['username'];
+};
+
+export const Avatar = ({ username }: AvatarProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const currentUser: { username: string } | null | undefined =
-    queryClient.getQueryData(['currentUser']);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -58,7 +59,7 @@ export const Avatar = () => {
           })}
           onClick={handleOpenUserMenu}
           src="/broken-image.jpg"
-          alt={currentUser?.username}
+          alt={username}
         />
       </Tooltip>
       <Menu

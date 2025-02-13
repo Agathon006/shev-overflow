@@ -25,7 +25,7 @@ export const Header = () => {
           <NavMenuMob />
           <NavMenu />
           {currentUser?.id ? (
-            <Avatar />
+            <Avatar username={currentUser?.username} />
           ) : (
             <Button
               component={Link}

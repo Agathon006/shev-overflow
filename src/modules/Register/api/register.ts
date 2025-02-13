@@ -2,9 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
+import { userSchema } from '@/schemas/user';
 
 import { RegisterSchema } from '../schemas/register';
-import { registerResponseSchema } from '../schemas/registerResponse';
 
 type UseRegisterOptionsType = {
   mutationConfig?: MutationConfigType<typeof registerUser>;
@@ -15,7 +15,7 @@ export const registerUser = async (
 ) => {
   const response = await api.post('/register', credentials);
 
-  return registerResponseSchema.parseAsync(response.data);
+  return userSchema.parseAsync(response.data);
 };
 
 export const useRegister = ({

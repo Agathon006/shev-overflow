@@ -4,9 +4,9 @@ import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
 import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
+import { userSchema } from '@/schemas/user';
 
 import { LoginSchema } from '../schemas/login';
-import { loginResponseSchema } from '../schemas/loginResponse';
 
 type UseLoginOptionsType = {
   mutationConfig?: MutationConfigType<typeof loginUser>;
@@ -14,7 +14,8 @@ type UseLoginOptionsType = {
 
 export const loginUser = async (credentials: LoginSchema) => {
   const response = await api.post('/auth/login', credentials);
-  return loginResponseSchema.parseAsync(response.data);
+  
+  return userSchema.parseAsync(response.data);
 };
 
 export const useLogin = ({ mutationConfig }: UseLoginOptionsType = {}) => {
