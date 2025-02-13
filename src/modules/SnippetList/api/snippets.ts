@@ -9,7 +9,7 @@ import { snippetSchema } from '../schemas/snippet';
 
 type UseSnippetsOptionsType = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
-  debouncedSearchTerm?: string;
+  searchTerm?: string;
 };
 
 const SNIPPETS_LIST_LIMIT = 10;
@@ -36,11 +36,11 @@ export const getSnippets = async (
   };
 };
 
-export const snippetsQueryOptions = (debouncedSearchTerm: string) => {
+export const snippetsQueryOptions = (searchTerm: string) => {
   return infiniteQueryOptions({
-    queryKey: ['snippets', debouncedSearchTerm],
+    queryKey: ['snippets', searchTerm],
     queryFn: ({ pageParam }) =>
-      getSnippets(SNIPPETS_LIST_LIMIT, pageParam, debouncedSearchTerm),
+      getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
     initialPageParam: 0,
     staleTime: Infinity,
@@ -49,10 +49,10 @@ export const snippetsQueryOptions = (debouncedSearchTerm: string) => {
 
 export const useSnippets = ({
   queryConfig,
-  debouncedSearchTerm = '',
+  searchTerm = '',
 }: UseSnippetsOptionsType = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
-    ...snippetsQueryOptions(debouncedSearchTerm),
+    ...snippetsQueryOptions(searchTerm),
   });
 };
