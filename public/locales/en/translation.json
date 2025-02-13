@@ -104,7 +104,10 @@
     "extra-content": "Loaging more..."
   },
   "comments": {
-    "title": "Comments"
+    "title": "Comments",
+    "input": {
+      "placeholder": "Comment..."
+    }
   },
   "home-page": {
     "title": "Welcome to Shef Overflow!"

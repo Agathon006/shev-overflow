@@ -104,7 +104,10 @@
     "extra-content": "Загружается ещё..."
   },
   "comments": {
-    "title": "Комментарии"
+    "title": "Комментарии",
+    "input": {
+      "placeholder": "Прокомментировать..."
+    }
   },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"

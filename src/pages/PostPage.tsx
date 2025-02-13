@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
-import { CommentsList } from '@/modules/Comments';
+import { CommentInput, CommentsList } from '@/modules/Comments';
 import { SnippetCard } from '@/modules/Snippets';
 import { useSnippetById } from '@/modules/Snippets/api/snippetById';
 import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
@@ -32,6 +32,7 @@ export const PostPage = ({ postId }: PostPageProps) => {
         }}
       >
         <SnippetCard snippet={snippet} />
+        <CommentInput snippet={snippet} />
         <CommentsList snippet={snippet} />
       </Container>
     );
