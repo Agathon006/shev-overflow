@@ -3,7 +3,6 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '@/api/auth';
 import { Spinner } from '@/components/Spinner';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -13,8 +12,6 @@ import { SnippetListSearch } from './SnippetListSearch';
 
 export const SnippetList = () => {
   const { t } = useTranslation();
-
-  const { data: currentUser } = useAuth();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTerm);
 
@@ -113,32 +110,7 @@ export const SnippetList = () => {
                     {isLoaderRow ? (
                       t('snippet-list.extra-content')
                     ) : (
-                      <SnippetCard
-                        id={snippet.id}
-                        searchTerm={searchTerm}
-                        username={snippet.user.username}
-                        language={snippet.language}
-                        code={snippet.code}
-                        likes={
-                          snippet.marks?.filter((m) => m.type === 'like')
-                            .length ?? 0
-                        }
-                        likesActive={
-                          !!snippet.marks
-                            ?.filter((m) => m.type === 'like')
-                            .find((mark) => mark.user.id === currentUser?.id)
-                        }
-                        dislikes={
-                          snippet.marks?.filter((m) => m.type === 'dislike')
-                            .length ?? 0
-                        }
-                        dislikesActive={
-                          !!snippet.marks
-                            ?.filter((m) => m.type === 'dislike')
-                            .find((mark) => mark.user.id === currentUser?.id)
-                        }
-                        comments={snippet.comments?.length ?? 0}
-                      />
+                      <SnippetCard snippet={snippet} searchTerm={searchTerm} />
                     )}
                   </Box>
                 );

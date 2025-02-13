@@ -14,43 +14,35 @@ import {
 } from '@mui/material';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
+import { useAuth } from '@/api/auth';
+
 import { useSnippetMark } from '../api/snippetMark';
 import { SnippetSchema } from '../schemas/snippet';
 
-type SnippetCardType = {
-  comments: number;
-  searchTerm: string;
-  likes: number;
-  likesActive: boolean;
-  dislikes: number;
-  dislikesActive: boolean;
-} & Pick<SnippetSchema, 'id' | 'language' | 'code'> & {
-    username: SnippetSchema['user']['username'];
-  };
+type SnippetCardProps = { snippet: SnippetSchema; searchTerm: string };
 
-export const SnippetCard = ({
-  id,
-  searchTerm,
-  username = 'Someone',
-  language = 'Some language',
-  code = 'No code here...',
-  likes = 0,
-  likesActive = false,
-  dislikes = 0,
-  dislikesActive = false,
-  comments = 0,
-}: SnippetCardType) => {
+export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
+  const { data: currentUser } = useAuth();
+
   const { mutate, isPending } = useSnippetMark({
     searchTerm,
   });
 
+  const likesActive = !!snippet.marks
+    ?.filter((m) => m.type === 'like')
+    .find((mark) => mark.user.id === currentUser?.id);
+
+  const dislikesActive = !!snippet.marks
+    ?.filter((m) => m.type === 'dislike')
+    .find((mark) => mark.user.id === currentUser?.id);
+
   const handleMark = (mark: 'like' | 'dislike' | 'none') => {
-    mutate({ mark, id });
+    mutate({ mark, id: snippet.id });
   };
 
   return (
     <Card
-      id={id}
+      id={snippet.id}
       sx={{
         width: '100%',
         margin: 'auto',
@@ -62,21 +54,21 @@ export const SnippetCard = ({
             <PersonIcon />
           </Avatar>
         }
-        title={username}
+        title={snippet.user.username ?? 'Someone'}
         action={
           <Box display="flex" alignItems="center">
             <CodeIcon sx={{ mr: 0.5 }} />
-            <Typography variant="body2">{language}</Typography>
+            <Typography variant="body2">{snippet.language}</Typography>
           </Box>
         }
       />
       <CardContent>
         <SyntaxHighlighter
-          language={language}
+          language={snippet.language ?? 'Some language'}
           wrapLines={true}
           showLineNumbers={true}
         >
-          {code}
+          {snippet.code ?? 'No code here...'}
         </SyntaxHighlighter>
       </CardContent>
       <Box
@@ -96,7 +88,7 @@ export const SnippetCard = ({
             <ThumbUpIcon color={likesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline" sx={{ mr: 1 }}>
-            {likes}
+            {snippet.marks?.filter((m) => m.type === 'like').length ?? 0}
           </Typography>
           <IconButton
             aria-label="dislike"
@@ -106,7 +98,7 @@ export const SnippetCard = ({
             <ThumbDownIcon color={dislikesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline">
-            {dislikes}
+            {snippet.marks?.filter((m) => m.type === 'dislike').length ?? 0}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center">
@@ -121,7 +113,9 @@ export const SnippetCard = ({
           >
             <ChatBubbleOutlineIcon />
           </IconButton>
-          <Typography variant="body2">{comments}</Typography>
+          <Typography variant="body2">
+            {snippet.comments?.length ?? 0}
+          </Typography>
         </Box>
       </Box>
     </Card>
