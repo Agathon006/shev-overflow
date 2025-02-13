@@ -20,7 +20,7 @@ export const SnippetList = () => {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
-      debouncedSearchTerm,
+      searchTerm: debouncedSearchTerm,
     });
 
   const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
