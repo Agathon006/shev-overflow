@@ -2,6 +2,7 @@
   "backend": {
     "Incorrect password or username!": "Incorrect password or username!",
     "User with this username already exists!": "User with this username already exists!",
+    "Validation failed!": "Validation failed!",
     "No token provided!": "Login required!"
   },
   "api": {
@@ -55,7 +56,8 @@
       },
       "password-input": {
         "length": "Password must be at least 8 characters",
-        "latin": "Password must contain at least 1 latin letter",
+        "big-latin": "Password must contain at least 1 big latin letter",
+        "small-latin": "Password must contain at least 1 small latin letter",
         "special": "Password must contain at least 1 special character"
       }
     }
@@ -77,12 +79,14 @@
       },
       "password-input": {
         "length": "Password must be at least 8 characters",
-        "latin": "Password must contain at least 1 latin letter",
+        "big-latin": "Password must contain at least 1 big latin letter",
+        "small-latin": "Password must contain at least 1 small latin letter",
         "special": "Password must contain at least 1 special character"
       },
       "confirm-password-input": {
         "length": "Password must be at least 8 characters and have 1 latin letter",
-        "latin": "Password must contain at least 1 latin letter",
+        "big-latin": "Password must contain at least 1 big latin letter",
+        "small-latin": "Password must contain at least 1 small latin letter",
         "special": "Password must contain at least 1 special character",
         "match": "Passwords don't match"
       }

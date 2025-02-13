@@ -6,7 +6,8 @@ export const registerSchema = z
     password: z
       .string()
       .min(8, 'register-form.errors.password-input.length')
-      .regex(/[A-Za-z]/, 'register-form.errors.password-input.latin')
+      .regex(/[A-Z]/, 'login-form.errors.password-input.big-latin')
+      .regex(/[a-z]/, 'login-form.errors.password-input.small-latin')
       .regex(
         /[!@#$%^&*(),.?":{}|<>]/,
         'register-form.errors.password-input.special',
@@ -14,7 +15,8 @@ export const registerSchema = z
     confirmPassword: z
       .string()
       .min(8, 'register-form.errors.password-input.length')
-      .regex(/[A-Za-z]/, 'register-form.errors.password-input.latin')
+      .regex(/[A-Z]/, 'login-form.errors.password-input.big-latin')
+      .regex(/[a-z]/, 'login-form.errors.password-input.small-latin')
       .regex(
         /[!@#$%^&*(),.?":{}|<>]/,
         'register-form.errors.password-input.special',
