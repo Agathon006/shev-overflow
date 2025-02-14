@@ -17,9 +17,11 @@ import { usePatchComment } from '../api/patchComment';
 
 export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();
-  const parentRef = useRef(null);
   const [editingCommentId, setEditingCommentId] = useState<null | string>(null);
   const [editedContent, setEditedContent] = useState('');
+  const parentRef = useRef(null);
+
+  const { data: currentUser } = useAuth();
 
   const { mutate: mutateDelete, isPending: deleteIsPending } = useDeleteComment(
     {
@@ -34,6 +36,7 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
       },
     },
   );
+
   const { mutate: mutatePatch, isPending: patchIsPending } = usePatchComment({
     snippetId: snippet.id,
     mutationConfig: {
@@ -48,7 +51,6 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
       },
     },
   });
-  const { data: currentUser } = useAuth();
 
   const rowVirtualizer = useVirtualizer({
     count: snippet.comments.length,
