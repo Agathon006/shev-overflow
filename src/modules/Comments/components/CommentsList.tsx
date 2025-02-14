@@ -1,15 +1,22 @@
-import { Box, Paper, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import { Box, IconButton, Paper, TextField, Typography } from '@mui/material';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
 import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
+import { CommentSchema } from '@/schemas/comment';
 
 export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();
   const parentRef = useRef(null);
   const { data: currentUser } = useAuth();
+  const [editingCommentId, setEditingCommentId] = useState<null | string>(null);
+  const [editedContent, setEditedContent] = useState('');
 
   const rowVirtualizer = useVirtualizer({
     count: snippet.comments.length,
@@ -17,6 +24,16 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
     estimateSize: () => 88,
     overscan: 5,
   });
+
+  const handleEdit = (comment: CommentSchema) => {
+    setEditingCommentId(comment.id);
+    setEditedContent(comment.content);
+  };
+
+  const handleCancel = () => {
+    setEditingCommentId(null);
+    setEditedContent('');
+  };
 
   return (
     <Paper
@@ -35,6 +52,9 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
       >
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
           const comment = snippet.comments[virtualRow.index];
+          const isEditing = editingCommentId === comment.id;
+          const isCurrentUser = comment.user?.id === currentUser?.id;
+
           return (
             <Box
               key={comment.id}
@@ -52,23 +72,71 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
               <Box
                 sx={(theme) => ({
                   p: 1,
-                  backgroundColor:
-                    comment.user?.id === currentUser?.id
-                      ? theme.palette.primary.light
-                      : theme.palette.customNeutral[100],
+                  backgroundColor: isCurrentUser
+                    ? theme.palette.primary.light
+                    : theme.palette.customNeutral[100],
                   borderRadius: 3,
                   wordBreak: 'break-word',
+                  position: 'relative',
                 })}
               >
-                <Typography
-                  variant="subtitle2"
-                  sx={(theme) => ({
-                    color: theme.palette.primary.dark,
-                  })}
-                >
+                {isCurrentUser && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 4,
+                      right: 4,
+                      display: 'flex',
+                      gap: 1,
+                    }}
+                  >
+                    {isEditing ? (
+                      <>
+                        <IconButton
+                          onClick={() => console.log('Save edit')}
+                          sx={{ p: 0.5, color: 'secondary.dark' }}
+                        >
+                          <SaveIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                        <IconButton
+                          onClick={handleCancel}
+                          sx={{ p: 0.5, color: 'error.main' }}
+                        >
+                          <CloseIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                      </>
+                    ) : (
+                      <>
+                        <IconButton
+                          onClick={() => handleEdit(comment)}
+                          sx={{ p: 0.5 }}
+                        >
+                          <EditIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => console.log('Delete comment')}
+                          sx={{ p: 0.5, color: 'error.main' }}
+                        >
+                          <DeleteIcon sx={{ fontSize: 16 }} />
+                        </IconButton>
+                      </>
+                    )}
+                  </Box>
+                )}
+                <Typography variant="subtitle2" sx={{ color: 'primary.dark' }}>
                   {comment.user?.username ?? 'Anonymous'}
                 </Typography>
-                <Typography variant="body2">{comment.content}</Typography>
+                {isEditing ? (
+                  <TextField
+                    multiline
+                    fullWidth
+                    variant="outlined"
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                  />
+                ) : (
+                  <Typography variant="body2">{comment.content}</Typography>
+                )}
               </Box>
             </Box>
           );
