@@ -1,62 +1,62 @@
 import SendIcon from '@mui/icons-material/Send';
 import { Box, Button, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { SnippetSchema } from '@/modules/Snippets';
+import { CommentSchema } from '@/schemas/comment';
 import { notify } from '@/utils/notify';
 
 import { useComment } from '../api/createComment';
 
+type CommentFormValues = {
+  content: CommentSchema['content'];
+};
+
 export const CommentInput = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();
-  const [comment, setComment] = useState('');
   const { mutate, isPending } = useComment({
     snippetId: snippet.id,
     mutationConfig: {
       onSuccess: () => {
-        setComment('');
-
-        notify({
-          type: 'success',
-          title: t('comments.input.success'),
-        });
+        reset();
+        notify({ type: 'success', title: t('comments.input.success') });
       },
     },
   });
 
-  const handleSend = () => {
-    mutate({ content: comment, snippetId: snippet.id });
-  };
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<CommentFormValues>();
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      if (comment.trim()) {
-        handleSend();
-      }
-    }
+  const onSubmit = (data: CommentFormValues) => {
+    mutate({ content: data.content, snippetId: snippet.id });
   };
 
   return (
-    <Box sx={{ position: 'relative', width: '100%' }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      sx={{ position: 'relative', width: '100%' }}
+    >
       <TextField
-        disabled={isPending}
+        {...register('content', { required: true })}
+        disabled={isPending || isSubmitting}
         fullWidth
         multiline
         minRows={2}
         variant="outlined"
         placeholder={t('comments.input.placeholder')}
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        onKeyDown={handleKeyPress}
         sx={{ pr: 6 }}
       />
       <Button
-        disabled={isPending || comment.trim() === ''}
+        type="submit"
+        disabled={isPending || isSubmitting}
         variant="contained"
         color="primary"
-        onClick={handleSend}
         sx={{
           position: 'absolute',
           top: 2,
