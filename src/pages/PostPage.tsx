@@ -1,4 +1,5 @@
 import { Container } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
@@ -10,6 +11,8 @@ type PostPageProps = {
 };
 
 export const PostPage = ({ postId }: PostPageProps) => {
+  const queryClient = useQueryClient();
+
   const { data: snippet, isLoading } = useSnippetById({ id: postId });
 
   if (isLoading) {
@@ -32,7 +35,12 @@ export const PostPage = ({ postId }: PostPageProps) => {
         gap: 2,
       }}
     >
-      <SnippetCard snippet={snippet} />
+      <SnippetCard
+        snippet={snippet}
+        onMark={() => {
+          queryClient.invalidateQueries({ queryKey: ['snippet', postId] });
+        }}
+      />
       <CommentInput snippet={snippet} />
       <CommentsList snippet={snippet} />
     </Container>

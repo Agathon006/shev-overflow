@@ -1,4 +1,5 @@
 import { Alert, Box, Container } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,8 @@ export const SnippetList = () => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTerm);
+
+  const queryClient = useQueryClient();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
@@ -120,7 +123,14 @@ export const SnippetList = () => {
                     {isLoaderRow ? (
                       t('snippet-list.extra-content')
                     ) : (
-                      <SnippetCard snippet={snippet} searchTerm={searchTerm} />
+                      <SnippetCard
+                        snippet={snippet}
+                        onMark={() => {
+                          queryClient.invalidateQueries({
+                            queryKey: ['snippets', debouncedSearchTerm],
+                          });
+                        }}
+                      />
                     )}
                   </Box>
                 );

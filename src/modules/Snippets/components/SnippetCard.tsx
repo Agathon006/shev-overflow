@@ -20,26 +20,32 @@ import { useAuth } from '@/api/auth';
 import { useSnippetMark } from '../api/createSnippetMark';
 import { SnippetSchema } from '../schemas/snippet';
 
-type SnippetCardProps = { snippet: SnippetSchema; searchTerm?: string };
+type SnippetCardProps = {
+  snippet: SnippetSchema;
+  onMark: (mark: 'like' | 'dislike' | 'none') => void;
+};
 
-export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
+export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   const { data: currentUser } = useAuth();
 
-  const { mutate, isPending } = useSnippetMark({
-    searchTerm,
-    snippetId: snippet.id,
-  });
+  const { mutate, isPending } = useSnippetMark();
 
-  const likesActive = !!snippet.marks
-    ?.filter((m) => m.type === 'like')
-    .find((mark) => mark.user.id === currentUser?.id);
-
-  const dislikesActive = !!snippet.marks
-    ?.filter((m) => m.type === 'dislike')
-    .find((mark) => mark.user.id === currentUser?.id);
+  const likesActive = snippet.marks?.some(
+    (m) => m.type === 'like' && m.user.id === currentUser?.id,
+  );
+  const dislikesActive = snippet.marks?.some(
+    (m) => m.type === 'dislike' && m.user.id === currentUser?.id,
+  );
 
   const handleMark = (mark: 'like' | 'dislike' | 'none') => {
-    mutate({ mark, id: snippet.id });
+    mutate(
+      { mark, id: snippet.id },
+      {
+        onSuccess: () => {
+          onMark(mark);
+        },
+      },
+    );
   };
 
   return (
@@ -109,7 +115,6 @@ export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
             component={Link}
             to="/posts/$postId"
             params={{ postId: snippet.id }}
-            disabled={searchTerm === undefined}
             sx={{
               cursor: 'pointer',
               '&:hover': {
