@@ -13,6 +13,7 @@ import { CommentSchema } from '@/schemas/comment';
 import { notify } from '@/utils/notify';
 
 import { useDeleteComment } from '../api/deleteComment';
+import { usePatchComment } from '../api/patchComment';
 
 export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();
@@ -20,13 +21,29 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const [editingCommentId, setEditingCommentId] = useState<null | string>(null);
   const [editedContent, setEditedContent] = useState('');
 
-  const { mutate, isPending } = useDeleteComment({
+  const { mutate: mutateDelete, isPending: deleteIsPending } = useDeleteComment(
+    {
+      snippetId: snippet.id,
+      mutationConfig: {
+        onSuccess: () => {
+          notify({
+            type: 'info',
+            title: t('comments.deleted'),
+          });
+        },
+      },
+    },
+  );
+  const { mutate: mutatePatch, isPending: patchIsPending } = usePatchComment({
     snippetId: snippet.id,
     mutationConfig: {
       onSuccess: () => {
+        setEditingCommentId(null);
+        setEditedContent('');
+
         notify({
           type: 'info',
-          title: t('comments.deleted'),
+          title: t('comments.edited'),
         });
       },
     },
@@ -46,7 +63,11 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   };
 
   const handleDelete = (id: string) => {
-    mutate({ commentId: id });
+    mutateDelete({ commentId: id });
+  };
+
+  const handleSave = (id: string, content: string) => {
+    mutatePatch({ commentId: id, content });
   };
 
   const handleCancel = () => {
@@ -112,12 +133,14 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
                     {isEditing ? (
                       <>
                         <IconButton
-                          onClick={() => console.log('Save edit')}
+                          disabled={patchIsPending}
+                          onClick={() => handleSave(comment.id, editedContent)}
                           sx={{ p: 0.5, color: 'secondary.dark' }}
                         >
                           <SaveIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <IconButton
+                          disabled={patchIsPending}
                           onClick={handleCancel}
                           sx={{ p: 0.5, color: 'error.main' }}
                         >
@@ -127,14 +150,14 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
                     ) : (
                       <>
                         <IconButton
-                          disabled={isPending}
+                          disabled={deleteIsPending}
                           onClick={() => handleEdit(comment)}
                           sx={{ p: 0.5 }}
                         >
                           <EditIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <IconButton
-                          disabled={isPending}
+                          disabled={deleteIsPending}
                           onClick={() => handleDelete(comment.id)}
                           sx={{ p: 0.5, color: 'error.main' }}
                         >

@@ -1,31 +1,38 @@
 import { useMutation } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
-import { commentSchema } from '@/schemas/comment';
 
-type deleteCommentOptionsType = {
-  mutationConfig?: MutationConfigType<typeof deleteComment>;
+type patchCommentOptionsType = {
+  mutationConfig?: MutationConfigType<typeof patchComment>;
   snippetId?: string;
 };
 
-type deleteCommentParams = { commentId: string };
+type patchCommentParams = { commentId: string; content: string };
 
-export const deleteComment = async ({ commentId }: deleteCommentParams) => {
-  const response = await api.delete(`/comments/${commentId}`);
+export const patchComment = async ({
+  content,
+  commentId,
+}: patchCommentParams) => {
+  const response = await api.patch(`/comments/${commentId}`, { content });
 
-  return commentSchema.omit({ id: true }).parseAsync(response.data);
+  return z
+    .object({
+      updatedCount: z.string(),
+    })
+    .parseAsync(response.data);
 };
 
-export const useDeleteComment = ({
+export const usePatchComment = ({
   mutationConfig,
   snippetId,
-}: deleteCommentOptionsType) => {
+}: patchCommentOptionsType) => {
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: deleteComment,
+    mutationFn: patchComment,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
         queryKey: ['snippet', snippetId],

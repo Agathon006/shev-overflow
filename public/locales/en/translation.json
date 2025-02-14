@@ -8,7 +8,8 @@
     "Snippet already has mark \"dislike\" from this user.": "Snippet already has mark \"dislike\" from this user.",
     "Snippet already has mark \"like\" from this user.": "Snippet already has mark \"like\" from this user.",
     "Unable to remove mark cause it does not exist on the snippet": "Unable to remove mark cause it does not exist on the snippet",
-    "Unable to delete! Comment not found!": "Unable to delete! Comment not found!"
+    "Unable to delete! Comment not found!": "Unable to delete! Comment not found!",
+    "Internal server error": "Internal server error"
   },
   "api": {
     "error-title": "Error",
@@ -107,6 +108,7 @@
   "comments": {
     "title": "Comments",
     "deleted": "Comment successfully deleted",
+    "edited": "Comment successfully edited",
     "input": {
       "placeholder": "Comment...",
       "success": "Comment sent"
