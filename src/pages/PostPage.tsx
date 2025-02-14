@@ -3,9 +3,7 @@ import { Container } from '@mui/material';
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
 import { CommentInput, CommentsList } from '@/modules/Comments';
-import { SnippetCard } from '@/modules/Snippets';
-import { useSnippetById } from '@/modules/Snippets/api/snippetById';
-import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
+import { SnippetCard, SnippetSchema, useSnippetById } from '@/modules/Snippets';
 
 type PostPageProps = {
   postId: SnippetSchema['id'];

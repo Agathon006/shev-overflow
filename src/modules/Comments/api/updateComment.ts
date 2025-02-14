@@ -4,18 +4,22 @@ import { z } from 'zod';
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
 import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
+import { CommentSchema } from '@/schemas/comment';
 
-type patchCommentOptionsType = {
+type PatchCommentOptions = {
   mutationConfig?: MutationConfigType<typeof patchComment>;
   snippetId: SnippetSchema['id'];
 };
 
-type patchCommentParams = { commentId: string; content: string };
+type PatchCommentParams = {
+  commentId: CommentSchema['id'];
+  content: CommentSchema['content'];
+};
 
 export const patchComment = async ({
   content,
   commentId,
-}: patchCommentParams) => {
+}: PatchCommentParams) => {
   const response = await api.patch(`/comments/${commentId}`, { content });
 
   return z
@@ -28,7 +32,7 @@ export const patchComment = async ({
 export const usePatchComment = ({
   mutationConfig,
   snippetId,
-}: patchCommentOptionsType) => {
+}: PatchCommentOptions) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 

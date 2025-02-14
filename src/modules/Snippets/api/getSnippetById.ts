@@ -3,11 +3,11 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 
-import { snippetSchema } from '../schemas/snippet';
+import { SnippetSchema, snippetSchema } from '../schemas/snippet';
 
-type UseSnippetsOptionsType = {
+type GetSnippetByIdOptions = {
   queryConfig?: QueryConfigType<typeof getSnippetById>;
-  id: string;
+  id: SnippetSchema['id'];
 };
 
 export const getSnippetById = async (id: string) => {
@@ -24,7 +24,7 @@ export const snippetByIdQueryOptions = (id: string) => {
 };
 
 export const useSnippetById = (
-  { queryConfig, id }: UseSnippetsOptionsType = { id: '' },
+  { queryConfig, id }: GetSnippetByIdOptions = { id: '' },
 ) => {
   return useQuery({
     ...queryConfig,

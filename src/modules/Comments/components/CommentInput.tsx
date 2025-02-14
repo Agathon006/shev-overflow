@@ -3,10 +3,10 @@ import { Box, Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
+import { SnippetSchema } from '@/modules/Snippets';
 import { notify } from '@/utils/notify';
 
-import { useComment } from '../api/comment';
+import { useComment } from '../api/createComment';
 
 export const CommentInput = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();

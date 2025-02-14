@@ -8,12 +8,12 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
+import { SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema } from '@/schemas/comment';
 import { notify } from '@/utils/notify';
 
 import { useDeleteComment } from '../api/deleteComment';
-import { usePatchComment } from '../api/patchComment';
+import { usePatchComment } from '../api/updateComment';
 
 export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();

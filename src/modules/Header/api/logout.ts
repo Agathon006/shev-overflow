@@ -4,7 +4,7 @@ import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
 import { MutationConfigType } from '@/lib/react-query';
 
-type UseLogoutOptionsType = {
+type LogoutOptions = {
   mutationConfig?: MutationConfigType<typeof logoutUser>;
 };
 
@@ -12,7 +12,7 @@ export const logoutUser = async () => {
   await api.post('/auth/logout');
 };
 
-export const useLogout = ({ mutationConfig }: UseLogoutOptionsType = {}) => {
+export const useLogout = ({ mutationConfig }: LogoutOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 

@@ -17,7 +17,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
 
-import { useSnippetMark } from '../api/snippetMark';
+import { useSnippetMark } from '../api/createSnippetMark';
 import { SnippetSchema } from '../schemas/snippet';
 
 type SnippetCardProps = { snippet: SnippetSchema; searchTerm?: string };

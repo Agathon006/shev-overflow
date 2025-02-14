@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Spinner } from '@/components/Spinner';
 import { useDebounce } from '@/hooks/useDebounce';
 
-import { useSnippets } from '../api/snippets';
+import { useSnippets } from '../api/getSnippets';
 import { SnippetCard } from './SnippetCard';
 import { SnippetListSearch } from './SnippetListSearch';
 

@@ -7,17 +7,17 @@ import { userSchema } from '@/schemas/user';
 
 import { LoginSchema } from '../schemas/login';
 
-type UseLoginOptionsType = {
+type LoginOptions = {
   mutationConfig?: MutationConfigType<typeof loginUser>;
 };
 
 export const loginUser = async (credentials: LoginSchema) => {
   const response = await api.post('/auth/login', credentials);
-  
+
   return userSchema.parseAsync(response.data);
 };
 
-export const useLogin = ({ mutationConfig }: UseLoginOptionsType = {}) => {
+export const useLogin = ({ mutationConfig }: LoginOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 

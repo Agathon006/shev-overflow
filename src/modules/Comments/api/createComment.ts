@@ -5,28 +5,34 @@ import { MutationConfigType } from '@/lib/react-query';
 import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema, commentSchema } from '@/schemas/comment';
 
-type commentOptionsType = {
-  mutationConfig?: MutationConfigType<typeof postComment>;
+type CreateCommentOptions = {
+  mutationConfig?: MutationConfigType<typeof createComment>;
   content?: CommentSchema['content'];
   snippetId: SnippetSchema['id'];
 };
 
-type commentParams = { content: string; snippetId: string };
+type CreateCommentParams = {
+  content: CommentSchema['content'];
+  snippetId: SnippetSchema['id'];
+};
 
-export const postComment = async ({ content, snippetId }: commentParams) => {
+export const createComment = async ({
+  content,
+  snippetId,
+}: CreateCommentParams) => {
   const response = await api.post('/comments', { content, snippetId });
 
   return commentSchema.parseAsync(response.data);
 };
 
 export const useComment = (
-  { mutationConfig, snippetId }: commentOptionsType = { snippetId: '' },
+  { mutationConfig, snippetId }: CreateCommentOptions = { snippetId: '' },
 ) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: postComment,
+    mutationFn: createComment,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
