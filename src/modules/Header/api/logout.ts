@@ -1,8 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
-import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
 
 type UseLogoutOptionsType = {
@@ -14,6 +13,7 @@ export const logoutUser = async () => {
 };
 
 export const useLogout = ({ mutationConfig }: UseLogoutOptionsType = {}) => {
+  const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({

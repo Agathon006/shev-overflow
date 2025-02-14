@@ -1,7 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
-import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
 import { snippetMarkSchema } from '@/modules/Snippets/schemas/snippetMark';
 
@@ -24,6 +23,7 @@ export const useSnippetMark = ({
   searchTerm = null,
   snippetId,
 }: SnippetMarkOptionsType = {}) => {
+  const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({

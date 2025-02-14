@@ -1,7 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
-import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
 import { commentSchema } from '@/schemas/comment';
 
@@ -22,6 +21,7 @@ export const useDeleteComment = ({
   mutationConfig,
   snippetId,
 }: deleteCommentOptionsType) => {
+  const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({

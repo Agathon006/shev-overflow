@@ -1,8 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { api } from '@/api/api-client';
-import { queryClient } from '@/lib/react-query';
 import { MutationConfigType } from '@/lib/react-query';
 
 type patchCommentOptionsType = {
@@ -29,6 +28,7 @@ export const usePatchComment = ({
   mutationConfig,
   snippetId,
 }: patchCommentOptionsType) => {
+  const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
