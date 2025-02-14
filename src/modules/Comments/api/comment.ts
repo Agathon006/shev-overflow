@@ -2,12 +2,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
-import { commentSchema } from '@/schemas/comment';
+import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
+import { CommentSchema, commentSchema } from '@/schemas/comment';
 
 type commentOptionsType = {
   mutationConfig?: MutationConfigType<typeof postComment>;
-  content?: string;
-  snippetId?: string;
+  content?: CommentSchema['content'];
+  snippetId: SnippetSchema['id'];
 };
 
 type commentParams = { content: string; snippetId: string };
@@ -18,10 +19,9 @@ export const postComment = async ({ content, snippetId }: commentParams) => {
   return commentSchema.parseAsync(response.data);
 };
 
-export const useComment = ({
-  mutationConfig,
-  snippetId,
-}: commentOptionsType = {}) => {
+export const useComment = (
+  { mutationConfig, snippetId }: commentOptionsType = { snippetId: '' },
+) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
@@ -29,7 +29,7 @@ export const useComment = ({
     mutationFn: postComment,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
-        queryKey: ['snippet', snippetId],
+        queryKey: snippetByIdQueryOptions(snippetId).queryKey,
       });
       onSuccess?.(...args);
     },

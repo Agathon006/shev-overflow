@@ -2,11 +2,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
+import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
 import { commentSchema } from '@/schemas/comment';
 
 type deleteCommentOptionsType = {
   mutationConfig?: MutationConfigType<typeof deleteComment>;
-  snippetId?: string;
+  snippetId: SnippetSchema['id'];
 };
 
 type deleteCommentParams = { commentId: string };
@@ -28,7 +29,7 @@ export const useDeleteComment = ({
     mutationFn: deleteComment,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
-        queryKey: ['snippet', snippetId],
+        queryKey: snippetByIdQueryOptions(snippetId).queryKey,
       });
       onSuccess?.(...args);
     },

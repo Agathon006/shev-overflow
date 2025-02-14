@@ -3,10 +3,11 @@ import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
+import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
 
 type patchCommentOptionsType = {
   mutationConfig?: MutationConfigType<typeof patchComment>;
-  snippetId?: string;
+  snippetId: SnippetSchema['id'];
 };
 
 type patchCommentParams = { commentId: string; content: string };
@@ -35,7 +36,7 @@ export const usePatchComment = ({
     mutationFn: patchComment,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
-        queryKey: ['snippet', snippetId],
+        queryKey: snippetByIdQueryOptions(snippetId).queryKey,
       });
       onSuccess?.(...args);
     },
