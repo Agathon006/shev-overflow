@@ -10,13 +10,28 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/api/auth';
 import { SnippetSchema } from '@/modules/Snippets/schemas/snippet';
 import { CommentSchema } from '@/schemas/comment';
+import { notify } from '@/utils/notify';
+
+import { useDeleteComment } from '../api/deleteComment';
 
 export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const { t } = useTranslation();
   const parentRef = useRef(null);
-  const { data: currentUser } = useAuth();
   const [editingCommentId, setEditingCommentId] = useState<null | string>(null);
   const [editedContent, setEditedContent] = useState('');
+
+  const { mutate, isPending } = useDeleteComment({
+    snippetId: snippet.id,
+    mutationConfig: {
+      onSuccess: () => {
+        notify({
+          type: 'info',
+          title: t('comments.deleted'),
+        });
+      },
+    },
+  });
+  const { data: currentUser } = useAuth();
 
   const rowVirtualizer = useVirtualizer({
     count: snippet.comments.length,
@@ -28,6 +43,10 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
   const handleEdit = (comment: CommentSchema) => {
     setEditingCommentId(comment.id);
     setEditedContent(comment.content);
+  };
+
+  const handleDelete = (id: string) => {
+    mutate({ commentId: id });
   };
 
   const handleCancel = () => {
@@ -108,13 +127,15 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
                     ) : (
                       <>
                         <IconButton
+                          disabled={isPending}
                           onClick={() => handleEdit(comment)}
                           sx={{ p: 0.5 }}
                         >
                           <EditIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <IconButton
-                          onClick={() => console.log('Delete comment')}
+                          disabled={isPending}
+                          onClick={() => handleDelete(comment.id)}
                           sx={{ p: 0.5, color: 'error.main' }}
                         >
                           <DeleteIcon sx={{ fontSize: 16 }} />
