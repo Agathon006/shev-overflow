@@ -29,7 +29,7 @@ export const PostPage = ({ postId }: PostPageProps) => {
       sx={{
         width: '100%',
         marginTop: 2,
-        marginBottom: 2,
+        marginBottom: 10,
         display: 'flex',
         flexDirection: 'column',
         gap: 2,
