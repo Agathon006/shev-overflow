@@ -127,7 +127,18 @@
     "dislikes": "Dislikes: ",
     "questions": "Questions: ",
     "correct-answers": "Correct answers: ",
-    "regular-answers": "Regular answers: "
+    "regular-answers": "Regular answers: ",
+    "credentials-changer": {
+      "title": "Edit your profile",
+      "change-username-title": "Change your username:",
+      "change-password-title": "Change your password:",
+      "button-span-save": "save",
+      "button-span-change-password": "change password",
+      "new-username-placeholder": "New username",
+      "old-password-placeholder": "Old password",
+      "new-password-placeholder": "New password",
+      "new-password-confirm-placeholder": "Confirm password"
+    }
   },
   "home-page": {
     "title": "Welcome to Shef Overflow!"
