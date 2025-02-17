@@ -117,8 +117,23 @@
       "edit-error": "Comment not edited"
     }
   },
+  "user-profile": {
+    "id": "Id: ",
+    "role": "Role: ",
+    "rating": "Rating: ",
+    "snippets": "Snippets: ",
+    "comments": "Comments: ",
+    "likes": "Likes: ",
+    "dislikes": "Dislikes: ",
+    "questions": "Questions: ",
+    "correct-answers": "Correct answers: ",
+    "regular-answers": "Regular answers: "
+  },
   "home-page": {
     "title": "Welcome to Shef Overflow!"
+  },
+  "account-page": {
+    "title": "Welcome, "
   },
   "page404": {
     "title": "Page not found",

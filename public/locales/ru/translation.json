@@ -117,8 +117,23 @@
       "edit-error": "Комментарий не отредактирован"
     }
   },
+  "user-profile": {
+    "id": "Id: ",
+    "role": "Роль: ",
+    "rating": "Рейтинг: ",
+    "snippets": "Сниппеты: ",
+    "comments": "Комментарии: ",
+    "likes": "Лайки: ",
+    "dislikes": "Дизлайки: ",
+    "questions": "Вопросы: ",
+    "correct-answers": "Корректные ответы: ",
+    "regular-answers": "Ответы: "
+  },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
+  },
+  "account-page": {
+    "title": "Добро пожаловать, "
   },
   "page404": {
     "title": "Страница не найдена",
