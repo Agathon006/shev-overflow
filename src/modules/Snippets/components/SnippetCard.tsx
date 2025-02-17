@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
@@ -30,12 +31,20 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
 
   const { mutate, isPending } = useSnippetMark();
 
-  const likesActive = snippet.marks?.some(
-    (m) => m.type === 'like' && m.user.id === currentUser?.id,
+  const [likesActive, setLikesActive] = useState(
+    snippet.marks?.some(
+      (m) => m.type === 'like' && m.user.id === currentUser?.id,
+    ),
   );
-  const dislikesActive = snippet.marks?.some(
-    (m) => m.type === 'dislike' && m.user.id === currentUser?.id,
+  const [dislikesActive, setDislikesActive] = useState(
+    snippet.marks?.some(
+      (m) => m.type === 'dislike' && m.user.id === currentUser?.id,
+    ),
   );
+  const [snippetMarks, setSnippetMarks] = useState({
+    likes: snippet.marks?.filter((m) => m.type === 'like').length ?? 0,
+    dislikes: snippet.marks?.filter((m) => m.type === 'dislike').length ?? 0,
+  });
 
   const handleMark = (mark: 'like' | 'dislike' | 'none') => {
     mutate(
@@ -43,6 +52,35 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
       {
         onSuccess: () => {
           onMark(mark);
+          if (mark === 'like') {
+            setLikesActive(true);
+            setDislikesActive(false);
+            setSnippetMarks({
+              likes: snippetMarks.likes + 1,
+              dislikes: snippetMarks.dislikes - 1,
+            });
+          } else if (mark === 'dislike') {
+            setLikesActive(false);
+            setDislikesActive(true);
+            setSnippetMarks({
+              likes: snippetMarks.likes - 1,
+              dislikes: snippetMarks.dislikes + 1,
+            });
+          } else {
+            if (likesActive) {
+              setLikesActive(false);
+              setSnippetMarks({
+                likes: snippetMarks.likes - 1,
+                dislikes: snippetMarks.dislikes,
+              });
+            } else if (dislikesActive) {
+              setDislikesActive(false);
+              setSnippetMarks({
+                likes: snippetMarks.likes,
+                dislikes: snippetMarks.dislikes - 1,
+              });
+            }
+          }
         },
       },
     );
@@ -96,7 +134,7 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
             <ThumbUpIcon color={likesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline" sx={{ mr: 1 }}>
-            {snippet.marks?.filter((m) => m.type === 'like').length ?? 0}
+            {snippetMarks.likes}
           </Typography>
           <IconButton
             aria-label="dislike"
@@ -106,7 +144,7 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
             <ThumbDownIcon color={dislikesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline">
-            {snippet.marks?.filter((m) => m.type === 'dislike').length ?? 0}
+            {snippetMarks.dislikes}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center">
