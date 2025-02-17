@@ -3,11 +3,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import { Box, IconButton, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
 import { SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema } from '@/schemas/comment';
+import { notify } from '@/utils/notify';
 
 import { useDeleteComment } from '../api/deleteComment';
 import { usePatchComment } from '../api/updateComment';
@@ -18,35 +21,52 @@ type CommentItemProps = {
 };
 
 export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
+  const { t } = useTranslation();
   const { data: currentUser } = useAuth();
   const isCurrentUser = comment.user?.id === currentUser?.id;
+  const [isEditing, setIsEditing] = useState(false);
 
   const { mutate: deleteComment, isPending: deleteIsPending } =
-    useDeleteComment({
-      snippetId,
-    });
+    useDeleteComment({ snippetId });
 
   const { mutate: updateComment, isPending: updateIsPending } = usePatchComment(
     {
       snippetId,
+      mutationConfig: {
+        onSuccess: () => {
+          notify({ type: 'success', title: t('comments.input.edit-success') });
+          setIsEditing(false);
+        },
+        onError: () => {
+          notify({ type: 'error', title: t('comments.input.edit-error') });
+        },
+      },
     },
   );
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitting },
-  } = useForm<{ content: string }>({
-    defaultValues: { content: comment.content },
-  });
+  const { register, handleSubmit, watch, reset } = useForm<{ content: string }>(
+    {
+      defaultValues: { content: comment.content },
+    },
+  );
 
   const onSubmit = (data: { content: string }) => {
-    updateComment(
-      { commentId: comment.id, content: data.content },
-      { onSuccess: () => reset({ content: data.content }) },
-    );
+    updateComment({ commentId: comment.id, content: data.content });
   };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancel = () => {
+    reset();
+    setIsEditing(false);
+  };
+
+  const isSaveDisabled =
+    watch('content').trim() === '' ||
+    watch('content') === comment.content ||
+    updateIsPending;
 
   return (
     <Box
@@ -70,18 +90,18 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
             gap: 1,
           }}
         >
-          {isSubmitting ? (
+          {isEditing ? (
             <>
               <IconButton
-                disabled={updateIsPending}
-                type="submit"
+                disabled={isSaveDisabled}
+                onClick={handleSubmit(onSubmit)}
                 sx={{ p: 0.5, color: 'secondary.dark' }}
               >
                 <SaveIcon sx={{ fontSize: 16 }} />
               </IconButton>
               <IconButton
                 disabled={updateIsPending}
-                onClick={() => reset()}
+                onClick={handleCancel}
                 sx={{ p: 0.5, color: 'error.main' }}
               >
                 <CloseIcon sx={{ fontSize: 16 }} />
@@ -91,7 +111,7 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
             <>
               <IconButton
                 disabled={deleteIsPending}
-                onClick={handleSubmit(onSubmit)}
+                onClick={handleEdit}
                 sx={{ p: 0.5 }}
               >
                 <EditIcon sx={{ fontSize: 16 }} />
@@ -112,12 +132,13 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
         {comment.user?.username ?? 'Anonymous'}
       </Typography>
 
-      {isSubmitting ? (
+      {isEditing ? (
         <TextField
           {...register('content')}
           multiline
           fullWidth
           variant="outlined"
+          disabled={updateIsPending}
         />
       ) : (
         <Typography variant="body2">{comment.content}</Typography>

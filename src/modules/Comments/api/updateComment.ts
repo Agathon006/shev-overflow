@@ -24,7 +24,7 @@ export const patchComment = async ({
 
   return z
     .object({
-      updatedCount: z.string(),
+      updatedCount: z.number(),
     })
     .parseAsync(response.data);
 };

@@ -111,7 +111,10 @@
     "edited": "Comment successfully edited",
     "input": {
       "placeholder": "Comment...",
-      "success": "Comment sent"
+      "success": "Comment sent",
+      "error": "Comment not sent",
+      "edit-success": "Comment edited",
+      "edit-error": "Comment not edited"
     }
   },
   "home-page": {
