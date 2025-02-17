@@ -8,10 +8,13 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { LocalSpinner } from '@/components/Spinner';
+import { useLogout } from '@/modules/Header';
 import { User } from '@/schemas/user';
+import { notify } from '@/utils/notify';
 
 import { useUserStatisticById } from '../api/getUserStatisticById';
 
@@ -23,6 +26,21 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
   const { t } = useTranslation();
 
   const { data, isLoading } = useUserStatisticById({ id: userId });
+
+  const navigate = useNavigate();
+
+  const { mutate } = useLogout({
+    mutationConfig: {
+      onSuccess: () => {
+        navigate({ to: '/auth/login' });
+
+        notify({
+          type: 'info',
+          title: t('api.header.avatar.logout'),
+        });
+      },
+    },
+  });
 
   if (isLoading)
     return (
@@ -107,10 +125,18 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
               </Box>
             </Box>
             <Box mt={2}>
-              <Button variant="contained" color="warning" sx={{ mr: 2 }}>
+              <Button
+                key="Logout"
+                variant="contained"
+                color="warning"
+                sx={{ mr: 2 }}
+                component={Link}
+                to="/auth/login"
+                onClick={() => mutate()}
+              >
                 <LogoutIcon />
               </Button>
-              <Button variant="contained" color="error">
+              <Button key="Delete" variant="contained" color="error">
                 <DeleteIcon />
               </Button>
             </Box>
