@@ -1,11 +1,9 @@
 import { z } from 'zod';
 
 import { passwordSchema } from '@/schemas/password';
-import { usernameSchema } from '@/schemas/username';
 
-export const credentialsSchema = z
+export const changePasswordSchema = z
   .object({
-    username: usernameSchema,
     oldPassword: passwordSchema,
     newPassword: passwordSchema,
     confirmPassword: passwordSchema,
@@ -15,4 +13,4 @@ export const credentialsSchema = z
     path: ['confirmPassword'],
   });
 
-export type CredentialsSchema = z.infer<typeof credentialsSchema>;
+export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;

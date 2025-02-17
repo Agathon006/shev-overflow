@@ -26,7 +26,12 @@ export const AccountPage = () => {
       ) : (
         <Typography textAlign={'center'} variant="h4">
           {t('account-page.title')}
-          <Typography color="secondary" variant="h4" display="inline">
+          <Typography
+            component="span"
+            sx={{ fontSize: 'inherit', fontWeight: 'inherit' }}
+            color="secondary"
+            display="inline"
+          >
             {currentUser?.username}
           </Typography>
         </Typography>
