@@ -32,6 +32,13 @@ export const CommentInput = ({ snippet }: { snippet: SnippetSchema }) => {
     formState: { isSubmitting },
   } = useForm<CommentFormValues>();
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+  };
+
   const onSubmit = (data: CommentFormValues) => {
     mutate({ content: data.content, snippetId: snippet.id });
   };
@@ -50,6 +57,7 @@ export const CommentInput = ({ snippet }: { snippet: SnippetSchema }) => {
         minRows={2}
         variant="outlined"
         placeholder={t('comments.input.placeholder')}
+        onKeyDown={handleKeyDown}
         sx={{ pr: 6 }}
       />
       <Button
