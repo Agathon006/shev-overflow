@@ -161,6 +161,7 @@
     "language-title": "Язык вашего сниппета",
     "code-title": "Код вашего сниппета",
     "create-post-button-span": "Создать пост",
+    "select-language-placeholder": "Выберите язык",
     "error": {
       "language-message": "Пожалуйста, выберите язык",
       "code-message": "Пожалуйста, введите код"

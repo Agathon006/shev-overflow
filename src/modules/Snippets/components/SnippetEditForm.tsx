@@ -11,18 +11,15 @@ import {
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { snippetEditSchema } from '../schemas/snippetEdit';
+import { LocalSpinner } from '@/components/Spinner';
 
-const languages = [
-  { value: 'javascript', label: 'JavaScript' },
-  { value: 'python', label: 'Python' },
-  { value: 'java', label: 'Java' },
-  { value: 'go', label: 'Go' },
-  { value: 'ruby', label: 'Ruby' },
-];
+import { useSnippetsLanguages } from '../api/getSnippetsLanguages';
+import { snippetEditSchema } from '../schemas/snippetEdit';
 
 export const SnippetEditForm = () => {
   const { t } = useTranslation();
+
+  const { data: languages, isLoading } = useSnippetsLanguages();
 
   const {
     control,
@@ -39,6 +36,8 @@ export const SnippetEditForm = () => {
 
   const language = watch('language');
 
+  if (isLoading) return <LocalSpinner />;
+
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack direction="column" spacing={2} mb={3} mx={4}>
@@ -49,10 +48,19 @@ export const SnippetEditForm = () => {
           name="language"
           control={control}
           render={({ field }) => (
-            <Select {...field} fullWidth defaultValue={languages[0].value}>
-              {languages.map((lang) => (
-                <MenuItem key={lang.value} value={lang.value}>
-                  {lang.label}
+            <Select
+              {...field}
+              fullWidth
+              value={field.value ?? ''}
+              onChange={(event) => field.onChange(event.target.value)}
+              displayEmpty
+            >
+              <MenuItem value="" disabled>
+                {t('create-post-page.select-language-placeholder')}
+              </MenuItem>
+              {languages?.map((lang) => (
+                <MenuItem key={lang} value={lang}>
+                  {lang}
                 </MenuItem>
               ))}
             </Select>
@@ -69,22 +77,20 @@ export const SnippetEditForm = () => {
         <Controller
           name="code"
           control={control}
-          render={({ field }) => (
+          render={({ field: { onChange, value } }) => (
             <MonacoEditor
-              {...field}
               height="400px"
               language={language}
               theme="vs-dark"
+              value={value}
+              onChange={(val) => onChange(val)}
               options={{
                 selectOnLineNumbers: true,
                 automaticLayout: true,
                 lineNumbers: 'on',
                 minimap: { enabled: false },
-                padding: {
-                  top: 10,
-                },
+                padding: { top: 10 },
               }}
-              onChange={(value) => field.onChange(value)}
             />
           )}
         />

@@ -161,6 +161,7 @@
     "language-title": "Language of your snippet",
     "code-title": "Code of your snippet",
     "create-post-button-span": "Create post",
+    "select-language-placeholder": "Select language",
     "error": {
       "language-message": "Please select language",
       "code-message": "Please enter code"
