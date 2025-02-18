@@ -3,6 +3,9 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { notify } from '@/utils/notify';
+
+import { useUpdateUserName } from '../api/updateUserName';
 import {
   ChangeUsernameSchema,
   changeUsernameSchema,
@@ -11,6 +14,7 @@ import {
 export const UsernameChanger = () => {
   const { t } = useTranslation();
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -18,8 +22,20 @@ export const UsernameChanger = () => {
     resolver: zodResolver(changeUsernameSchema),
   });
 
+  const { mutate, isPending } = useUpdateUserName({
+    mutationConfig: {
+      onSuccess: () => {
+        reset();
+        notify({
+          type: 'success',
+          title: t('user-profile.credentials-changer.username-changed'),
+        });
+      },
+    },
+  });
+
   const onSubmit = (data: ChangeUsernameSchema) => {
-    console.log('Username updated:', data);
+    mutate(data);
   };
 
   return (
@@ -29,6 +45,7 @@ export const UsernameChanger = () => {
       </Typography>
       <TextField
         {...register('username')}
+        disabled={isPending}
         fullWidth
         margin="normal"
         label={t('user-profile.credentials-changer.new-username-placeholder')}
@@ -37,7 +54,7 @@ export const UsernameChanger = () => {
           errors.username?.message ? t(String(errors.username.message)) : ''
         }
       />
-      <Button type="submit" fullWidth variant="contained">
+      <Button disabled={isPending} type="submit" fullWidth variant="contained">
         {t('user-profile.credentials-changer.button-span-save')}
       </Button>
     </Box>

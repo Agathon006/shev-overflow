@@ -11,12 +11,13 @@ import {
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
 import { LocalSpinner } from '@/components/Spinner';
 import { useLogout } from '@/modules/Header';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 
-import { useDeleteUserById } from '../api/deleteUserById';
+import { useDeleteUser } from '../api/deleteUser';
 import { useUserStatisticById } from '../api/getUserStatisticById';
 
 type UserProfileCardProps = {
@@ -28,7 +29,10 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
 
   const navigate = useNavigate();
 
-  const { data, isLoading } = useUserStatisticById({ id: userId });
+  const { data: userData, isLoading: isLoadingUserData } = useAuth();
+
+  const { data: statisticData, isLoading: isLoadingStatisticData } =
+    useUserStatisticById({ id: userId });
 
   const { mutate: mutateLogout, isPending: isUserLogoutPending } = useLogout({
     mutationConfig: {
@@ -44,7 +48,7 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
   });
 
   const { mutate: mutateDeleteUser, isPending: isUserDeletionPending } =
-    useDeleteUserById({
+    useDeleteUser({
       mutationConfig: {
         onSuccess: () => {
           navigate({ to: '/auth/login' });
@@ -57,7 +61,7 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
       },
     });
 
-  if (isLoading)
+  if (isLoadingUserData || isLoadingStatisticData)
     return (
       <Card sx={{ width: 800, margin: 'auto', boxShadow: 3 }}>
         <CardContent>
@@ -73,35 +77,35 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
           <Box width="50%">
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.rating')}
-              {data?.statistic.rating}
+              {statisticData?.statistic.rating}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.snippets')}
-              {data?.statistic.snippetsCount}
+              {statisticData?.statistic.snippetsCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.comments')}
-              {data?.statistic.commentsCount}
+              {statisticData?.statistic.commentsCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.likes')}
-              {data?.statistic.likesCount}
+              {statisticData?.statistic.likesCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.dislikes')}
-              {data?.statistic.dislikesCount}
+              {statisticData?.statistic.dislikesCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.questions')}
-              {data?.statistic.questionsCount}
+              {statisticData?.statistic.questionsCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.correct-answers')}
-              {data?.statistic.correctAnswersCount}
+              {statisticData?.statistic.correctAnswersCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
               {t('user-profile.regular-answers')}
-              {data?.statistic.regularAnswersCount}
+              {statisticData?.statistic.regularAnswersCount}
             </Typography>
           </Box>
           <Box
@@ -125,16 +129,16 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
                 justifyContent="space-around"
               >
                 <Typography variant="h5" justifySelf="flex-start">
-                  {data?.username}
+                  {userData?.username}
                 </Typography>
                 <Box>
                   <Typography variant="body2" color="text.secondary">
                     {t('user-profile.id')}
-                    {data?.id}
+                    {userData?.id}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {t('user-profile.role')}
-                    {data?.role}
+                    {userData?.role}
                   </Typography>
                 </Box>
               </Box>

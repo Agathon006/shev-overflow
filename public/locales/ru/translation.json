@@ -140,7 +140,9 @@
       "new-username-placeholder": "Новый никнейм",
       "old-password-placeholder": "Старый пароль",
       "new-password-placeholder": "Новый пароль",
-      "new-password-confirm-placeholder": "Подвердите пароль"
+      "new-password-confirm-placeholder": "Подвердите пароль",
+      "username-changed": "Никнейм успешно изменён",
+      "password-changed": "Пароль успешно изменён"
     }
   },
   "home-page": {

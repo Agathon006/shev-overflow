@@ -140,7 +140,9 @@
       "new-username-placeholder": "New username",
       "old-password-placeholder": "Old password",
       "new-password-placeholder": "New password",
-      "new-password-confirm-placeholder": "Confirm password"
+      "new-password-confirm-placeholder": "Confirm password",
+      "username-changed": "Username successfully changed",
+      "password-changed": "Password successfully changed"
     }
   },
   "home-page": {

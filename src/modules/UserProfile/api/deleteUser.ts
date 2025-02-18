@@ -4,22 +4,22 @@ import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
 import { MutationConfigType } from '@/lib/react-query';
 
-type DeleteUserByIdOptions = {
-  mutationConfig?: MutationConfigType<typeof deleteUserById>;
+type DeleteUserOptions = {
+  mutationConfig?: MutationConfigType<typeof deleteUser>;
 };
 
-export const deleteUserById = async () => {
+export const deleteUser = async () => {
   await api.delete('/me');
 };
 
-export const useDeleteUserById = ({
+export const useDeleteUser = ({
   mutationConfig,
-}: DeleteUserByIdOptions = {}) => {
+}: DeleteUserOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: deleteUserById,
+    mutationFn: deleteUser,
     onSuccess: (...args) => {
       queryClient.setQueryData(authUserQueryOptions().queryKey, null);
       onSuccess?.(...args);
