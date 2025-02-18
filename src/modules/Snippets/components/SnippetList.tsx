@@ -4,6 +4,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
 import { Spinner } from '@/components/Spinner';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -11,19 +12,28 @@ import { useSnippets } from '../api/getSnippets';
 import { SnippetCard } from './SnippetCard';
 import { SnippetListSearch } from './SnippetListSearch';
 
-export const SnippetList = () => {
+type SnippetListProps = {
+  onlyCurrentUserPosts?: boolean;
+};
+
+export const SnippetList = ({ onlyCurrentUserPosts }: SnippetListProps) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTerm);
 
   const queryClient = useQueryClient();
 
+  const { data: currentUser } = useAuth();
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
       searchTerm: debouncedSearchTerm,
     });
 
-  const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
+  const rawSnippets = data ? data.pages.flatMap((page) => page.snippets) : [];
+  const snippets = onlyCurrentUserPosts
+    ? rawSnippets.filter((snippet) => snippet.user?.id === currentUser?.id)
+    : rawSnippets;
 
   const parentRef = useRef(null);
 

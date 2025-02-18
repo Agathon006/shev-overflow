@@ -152,6 +152,10 @@
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
   },
+  "my-posts-page": {
+    "title": "Мои посты",
+    "create-post": "Создать пост"
+  },
   "account-page": {
     "title": "Добро пожаловать, "
   },

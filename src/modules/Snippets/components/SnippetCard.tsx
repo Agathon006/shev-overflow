@@ -1,5 +1,7 @@
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CodeIcon from '@mui/icons-material/Code';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import PersonIcon from '@mui/icons-material/Person';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -27,9 +29,9 @@ type SnippetCardProps = {
 };
 
 export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
-  const { data: currentUser } = useAuth();
-
   const { mutate, isPending } = useSnippetMark();
+  const { data: currentUser } = useAuth();
+  const isCurrentUser = snippet.user?.id === currentUser?.id;
 
   const [likesActive, setLikesActive] = useState(
     snippet.marks?.some(
@@ -103,10 +105,13 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   return (
     <Card
       id={snippet.id}
-      sx={{
+      sx={(theme) => ({
         width: '100%',
         margin: 'auto',
-      }}
+        backgroundColor: isCurrentUser
+          ? theme.palette.primary.light
+          : theme.palette.customNeutral[100],
+      })}
     >
       <CardHeader
         avatar={
@@ -139,6 +144,34 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
           alignItems: 'center',
         }}
       >
+        {isCurrentUser && (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 4,
+              right: 4,
+              display: 'flex',
+              gap: 1,
+            }}
+          >
+            <>
+              <IconButton
+                // disabled={deleteIsPending}
+                // onClick={handleEdit}
+                sx={{ p: 0.5 }}
+              >
+                <EditIcon sx={{ fontSize: 16 }} />
+              </IconButton>
+              <IconButton
+                // disabled={deleteIsPending}
+                // onClick={() => deleteComment({ commentId: comment.id })}
+                sx={{ p: 0.5, color: 'error.main' }}
+              >
+                <DeleteIcon sx={{ fontSize: 16 }} />
+              </IconButton>
+            </>
+          </Box>
+        )}
         <Box>
           <IconButton
             aria-label="like"
