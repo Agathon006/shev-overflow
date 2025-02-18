@@ -11,24 +11,20 @@ export const MyPostsPage = () => {
   return (
     <Box sx={{ marginTop: 2, marginBottom: 2 }}>
       <Stack
+        position={'relative'}
         direction="row"
         justifyContent="space-between"
         alignItems="center"
         mb={2}
         mx={4}
       >
-        <Typography
-          variant="h4"
-          align="center"
-          gutterBottom
-          sx={{ flexGrow: 1 }}
-        >
+        <Typography variant="h4" align="center" sx={{ flexGrow: 1 }}>
           {t('my-posts-page.title')}
         </Typography>
         <Button
           variant="contained"
           endIcon={<AddIcon />}
-          sx={{ ml: 2 }}
+          sx={{ position: 'absolute', right: 0, top: 2 }}
           component={Link}
           to="/posts/create"
         >
