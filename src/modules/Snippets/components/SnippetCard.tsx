@@ -14,13 +14,16 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
+import { notify } from '@/utils/notify';
 
 import { useSnippetMark } from '../api/createSnippetMark';
+import { useDeleteSnippet } from '../api/deleteSnippet';
 import { SnippetSchema } from '../schemas/snippet';
 
 type SnippetCardProps = {
@@ -29,9 +32,24 @@ type SnippetCardProps = {
 };
 
 export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const { mutate, isPending } = useSnippetMark();
   const { data: currentUser } = useAuth();
   const isCurrentUser = snippet.user?.id === currentUser?.id;
+
+  const { mutate: deleteSnippet, isPending: deleteIsPending } =
+    useDeleteSnippet({
+      snippetId: snippet.id,
+      mutationConfig: {
+        onSuccess: () => {
+          if (window.location.pathname.startsWith('/posts/')) {
+            navigate({ to: '/users/me/posts' });
+          }
+          notify({ type: 'info', title: t('snippet-list.delete-success') });
+        },
+      },
+    });
 
   const [likesActive, setLikesActive] = useState(
     snippet.marks?.some(
@@ -129,15 +147,15 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
             {isCurrentUser && (
               <>
                 <IconButton
-                  // disabled={deleteIsPending}
+                  disabled={deleteIsPending}
                   // onClick={handleEdit}
                   sx={{ p: 0.5 }}
                 >
                   <EditIcon sx={{ fontSize: 20 }} />
                 </IconButton>
                 <IconButton
-                  // disabled={deleteIsPending}
-                  // onClick={() => deleteComment({ commentId: comment.id })}
+                  disabled={deleteIsPending}
+                  onClick={() => deleteSnippet({ snippetId: snippet.id })}
                   sx={{ p: 0.5, color: 'error.main' }}
                 >
                   <DeleteIcon sx={{ fontSize: 20 }} />

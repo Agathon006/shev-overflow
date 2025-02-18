@@ -10,7 +10,8 @@
     "Unable to remove mark cause it does not exist on the snippet": "Невозможно удалить отметку, так как она не существует на сниппете",
     "Unable to delete! Comment not found!": "Невозможно удалить! Комментария нет!",
     "Internal server error": "Внутренняя ошибка сервера",
-    "Old password is incorrect!": "Старый пароль неправильный!"
+    "Old password is incorrect!": "Старый пароль неправильный!",
+    "Unable to delete! Snippet not found!": "Невозможно удалить! Сниппет не найден!"
   },
   "api": {
     "error-title": "Ошибка",
@@ -109,6 +110,8 @@
     "search": {
       "label": "Искать сниппеты"
     },
+    "edit-success": "Сниппет отредактирован",
+    "delete-success": "Сниппет удален",
     "no-snippets": "Сниппеты не найдены",
     "extra-content": "Загружается ещё..."
   },
@@ -121,7 +124,7 @@
       "success": "Комментарий отправлен",
       "error": "Комментарий не отправлен",
       "edit-success": "Комментарий отредактирован",
-      "edit-error": "Комментарий не отредактирован"
+      "delete-success": "Комментарий удален"
     },
     "no-comments": "Комментариев пока нет"
   },

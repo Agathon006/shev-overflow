@@ -43,7 +43,7 @@ export const snippetsQueryOptions = (searchTerm: string) => {
       getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
     initialPageParam: 0,
-    staleTime: Infinity,
+    staleTime: searchTerm ? 0 : 1000 * 60 * 5,
   });
 };
 

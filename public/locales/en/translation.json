@@ -10,7 +10,8 @@
     "Unable to remove mark cause it does not exist on the snippet": "Unable to remove mark cause it does not exist on the snippet",
     "Unable to delete! Comment not found!": "Unable to delete! Comment not found!",
     "Internal server error": "Internal server error",
-    "Old password is incorrect!": "Old password is incorrect!"
+    "Old password is incorrect!": "Old password is incorrect!",
+    "Unable to delete! Snippet not found!": "Unable to delete! Snippet not found!"
   },
   "api": {
     "error-title": "Error",
@@ -109,6 +110,8 @@
     "search": {
       "label": "Search Snippets"
     },
+    "edit-success": "Snippet edited",
+    "delete-success": "Snippet deleted",
     "no-snippets": "No snippets found",
     "extra-content": "Loaging more..."
   },
@@ -121,7 +124,7 @@
       "success": "Comment sent",
       "error": "Comment not sent",
       "edit-success": "Comment edited",
-      "edit-error": "Comment not edited"
+      "delete-success": "Comment deleted"
     },
     "no-comments": "No comments yet"
   },
