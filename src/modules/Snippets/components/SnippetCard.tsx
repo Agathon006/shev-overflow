@@ -55,17 +55,31 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
           if (mark === 'like') {
             setLikesActive(true);
             setDislikesActive(false);
-            setSnippetMarks({
-              likes: snippetMarks.likes + 1,
-              dislikes: snippetMarks.dislikes - 1,
-            });
+            if (dislikesActive) {
+              setSnippetMarks({
+                likes: snippetMarks.likes + 1,
+                dislikes: snippetMarks.dislikes - 1,
+              });
+            } else {
+              setSnippetMarks({
+                likes: snippetMarks.likes + 1,
+                dislikes: snippetMarks.dislikes,
+              });
+            }
           } else if (mark === 'dislike') {
             setLikesActive(false);
             setDislikesActive(true);
-            setSnippetMarks({
-              likes: snippetMarks.likes - 1,
-              dislikes: snippetMarks.dislikes + 1,
-            });
+            if (likesActive) {
+              setSnippetMarks({
+                likes: snippetMarks.likes - 1,
+                dislikes: snippetMarks.dislikes + 1,
+              });
+            } else {
+              setSnippetMarks({
+                likes: snippetMarks.likes,
+                dislikes: snippetMarks.dislikes + 1,
+              });
+            }
           } else {
             if (likesActive) {
               setLikesActive(false);

@@ -13,7 +13,7 @@ import { CommentSchema } from '@/schemas/comment';
 import { notify } from '@/utils/notify';
 
 import { useDeleteComment } from '../api/deleteComment';
-import { usePatchComment } from '../api/updateComment';
+import { useUpdateComment } from '../api/updateComment';
 
 type CommentItemProps = {
   comment: CommentSchema;
@@ -29,8 +29,8 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
   const { mutate: deleteComment, isPending: deleteIsPending } =
     useDeleteComment({ snippetId });
 
-  const { mutate: updateComment, isPending: updateIsPending } = usePatchComment(
-    {
+  const { mutate: updateComment, isPending: updateIsPending } =
+    useUpdateComment({
       snippetId,
       mutationConfig: {
         onSuccess: () => {
@@ -41,8 +41,7 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
           notify({ type: 'error', title: t('comments.input.edit-error') });
         },
       },
-    },
-  );
+    });
 
   const { register, handleSubmit, watch, reset } = useForm<{ content: string }>(
     {
