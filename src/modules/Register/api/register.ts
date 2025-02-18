@@ -19,13 +19,8 @@ export const registerUser = async (
 };
 
 export const useRegister = ({ mutationConfig }: RegisterOptions = {}) => {
-  const { onSuccess, ...restConfig } = mutationConfig || {};
-
   return useMutation({
     mutationFn: registerUser,
-    onSuccess: (...args) => {
-      onSuccess?.(...args);
-    },
-    ...restConfig,
+    ...mutationConfig,
   });
 };

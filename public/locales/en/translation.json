@@ -28,6 +28,9 @@
     },
     "account-page": {
       "account-deletion": "Account was successfully deleted"
+    },
+    "create-post-page": {
+      "created-post": "Post successfully created"
     }
   },
   "header": {
@@ -119,7 +122,8 @@
       "error": "Comment not sent",
       "edit-success": "Comment edited",
       "edit-error": "Comment not edited"
-    }
+    },
+    "no-comments": "No comments yet"
   },
   "user-profile": {
     "id": "Id: ",

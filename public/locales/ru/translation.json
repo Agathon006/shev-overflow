@@ -28,6 +28,9 @@
     },
     "account-page": {
       "account-deletion": "Аккаунт был успешно удалён"
+    },
+    "create-post-page": {
+      "created-post": "Пост успешно создан"
     }
   },
   "header": {
@@ -119,7 +122,8 @@
       "error": "Комментарий не отправлен",
       "edit-success": "Комментарий отредактирован",
       "edit-error": "Комментарий не отредактирован"
-    }
+    },
+    "no-comments": "Комментариев пока нет"
   },
   "user-profile": {
     "id": "Id: ",
@@ -162,6 +166,7 @@
     "code-title": "Код вашего сниппета",
     "create-post-button-span": "Создать пост",
     "select-language-placeholder": "Выберите язык",
+    "created-post": "Пост успешно создан",
     "error": {
       "language-message": "Пожалуйста, выберите язык",
       "code-message": "Пожалуйста, введите код"

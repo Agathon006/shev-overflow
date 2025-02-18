@@ -8,30 +8,47 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { LocalSpinner } from '@/components/Spinner';
+import { notify } from '@/utils/notify';
 
+import { useCreateSnippet } from '../api/createSnippet';
 import { useSnippetsLanguages } from '../api/getSnippetsLanguages';
-import { snippetEditSchema } from '../schemas/snippetEdit';
+import { SnippetEditSchema, snippetEditSchema } from '../schemas/snippetEdit';
 
 export const SnippetEditForm = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { data: languages, isLoading } = useSnippetsLanguages();
+
+  const { mutate, isPending } = useCreateSnippet({
+    mutationConfig: {
+      onSuccess: (snippet) => {
+        navigate({ to: `/posts/${snippet.id}` });
+
+        notify({
+          type: 'success',
+          title: t('api.create-post-page.created-post'),
+        });
+      },
+    },
+  });
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({
+  } = useForm<SnippetEditSchema>({
     resolver: zodResolver(snippetEditSchema),
   });
 
-  const onSubmit = (data: unknown) => {
-    console.log('Form submitted with data: ', data);
+  const onSubmit = (data: SnippetEditSchema) => {
+    mutate(data);
   };
 
   const language = watch('language');
@@ -50,6 +67,7 @@ export const SnippetEditForm = () => {
           render={({ field }) => (
             <Select
               {...field}
+              disabled={isPending}
               fullWidth
               value={field.value ?? ''}
               onChange={(event) => field.onChange(event.target.value)}
@@ -90,6 +108,7 @@ export const SnippetEditForm = () => {
                 lineNumbers: 'on',
                 minimap: { enabled: false },
                 padding: { top: 10 },
+                readOnly: isPending,
               }}
             />
           )}
@@ -101,7 +120,7 @@ export const SnippetEditForm = () => {
         )}
       </Stack>
       <Stack direction="row" justifyContent="center">
-        <Button variant="contained" type="submit">
+        <Button disabled={isPending} variant="contained" type="submit">
           {t('create-post-page.create-post-button-span')}
         </Button>
       </Stack>

@@ -123,7 +123,27 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
         action={
           <Box display="flex" alignItems="center">
             <CodeIcon sx={{ mr: 0.5 }} />
-            <Typography variant="body2">{snippet.language}</Typography>
+            <Typography variant="body2" sx={{ mr: 2 }}>
+              {snippet.language}
+            </Typography>
+            {isCurrentUser && (
+              <>
+                <IconButton
+                  // disabled={deleteIsPending}
+                  // onClick={handleEdit}
+                  sx={{ p: 0.5 }}
+                >
+                  <EditIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+                <IconButton
+                  // disabled={deleteIsPending}
+                  // onClick={() => deleteComment({ commentId: comment.id })}
+                  sx={{ p: 0.5, color: 'error.main' }}
+                >
+                  <DeleteIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+              </>
+            )}
           </Box>
         }
       />
@@ -139,39 +159,12 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
       <Box
         sx={{
           padding: 1,
+          position: 'relative',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
-        {isCurrentUser && (
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 4,
-              right: 4,
-              display: 'flex',
-              gap: 1,
-            }}
-          >
-            <>
-              <IconButton
-                // disabled={deleteIsPending}
-                // onClick={handleEdit}
-                sx={{ p: 0.5 }}
-              >
-                <EditIcon sx={{ fontSize: 16 }} />
-              </IconButton>
-              <IconButton
-                // disabled={deleteIsPending}
-                // onClick={() => deleteComment({ commentId: comment.id })}
-                sx={{ p: 0.5, color: 'error.main' }}
-              >
-                <DeleteIcon sx={{ fontSize: 16 }} />
-              </IconButton>
-            </>
-          </Box>
-        )}
         <Box>
           <IconButton
             aria-label="like"
