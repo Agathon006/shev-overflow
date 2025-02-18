@@ -1,35 +1,39 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
 
 import { SnippetSchema } from '../schemas/snippet';
-import { snippetStatisticSchema } from '../schemas/snippetStatistic';
+import { SnippetEditSchema } from '../schemas/snippetEdit';
 import { snippetByIdQueryOptions } from './getSnippetById';
 import { snippetsQueryOptions } from './getSnippets';
 
-type DeleteSnippetOptions = {
-  mutationConfig?: MutationConfigType<typeof deleteSnippet>;
+type EditSnippetOptions = {
+  mutationConfig?: MutationConfigType<typeof editSnippet>;
   snippetId: SnippetSchema['id'];
 };
 
-type DeleteSnippetParams = { snippetId: SnippetSchema['id'] };
+type EditSnippetParams = SnippetEditSchema & { snippetId: SnippetSchema['id'] };
 
-export const deleteSnippet = async ({ snippetId }: DeleteSnippetParams) => {
-  const response = await api.delete(`/snippets/${snippetId}`);
+export const editSnippet = async ({
+  snippetId,
+  ...newSnippet
+}: EditSnippetParams) => {
+  const response = await api.patch(`/snippets/${snippetId}`, newSnippet);
 
-  return snippetStatisticSchema.omit({ id: true }).parseAsync(response.data);
+  return z.object({ updatedCount: z.number() }).parseAsync(response.data);
 };
 
-export const useDeleteSnippet = ({
+export const useEditSnippet = ({
   mutationConfig,
   snippetId,
-}: DeleteSnippetOptions) => {
+}: EditSnippetOptions) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: deleteSnippet,
+    mutationFn: editSnippet,
     onSuccess: async (...args) => {
       queryClient.removeQueries({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,

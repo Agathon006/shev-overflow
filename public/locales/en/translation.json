@@ -32,6 +32,9 @@
     },
     "create-post-page": {
       "created-post": "Post successfully created"
+    },
+    "edit-post-page": {
+      "edited-post": "Post successfully edited"
     }
   },
   "header": {
@@ -115,6 +118,17 @@
     "no-snippets": "No snippets found",
     "extra-content": "Loaging more..."
   },
+  "snippet-edit-form": {
+    "language-title": "Language of your snippet",
+    "code-title": "Code of your snippet",
+    "create-post-button-span": "Create post",
+    "edit-post-button-span": "Save",
+    "select-language-placeholder": "Select language",
+    "error": {
+      "language-message": "Please select language",
+      "code-message": "Please enter code"
+    }
+  },
   "comments": {
     "title": "Comments",
     "deleted": "Comment successfully deleted",
@@ -164,15 +178,10 @@
     "create-post": "Create post"
   },
   "create-post-page": {
-    "title": "Create new snippet!",
-    "language-title": "Language of your snippet",
-    "code-title": "Code of your snippet",
-    "create-post-button-span": "Create post",
-    "select-language-placeholder": "Select language",
-    "error": {
-      "language-message": "Please select language",
-      "code-message": "Please enter code"
-    }
+    "title": "Create new snippet!"
+  },
+  "edit-post-page": {
+    "title": "Edit your snippet"
   },
   "account-page": {
     "title": "Welcome, "

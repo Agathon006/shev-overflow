@@ -148,7 +148,9 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
               <>
                 <IconButton
                   disabled={deleteIsPending}
-                  // onClick={handleEdit}
+                  component={Link}
+                  to="/users/me/posts/$postId"
+                  params={{ postId: snippet.id }}
                   sx={{ p: 0.5 }}
                 >
                   <EditIcon sx={{ fontSize: 20 }} />

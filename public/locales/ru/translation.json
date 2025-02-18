@@ -27,11 +27,12 @@
     "register-form": {
       "success": "Регистрация успешна"
     },
+    "snippet-edit-form": {
+      "created-post": "Пост успешно создан",
+      "edited-post": "Пост успешно изменен"
+    },
     "account-page": {
       "account-deletion": "Аккаунт был успешно удалён"
-    },
-    "create-post-page": {
-      "created-post": "Пост успешно создан"
     }
   },
   "header": {
@@ -115,6 +116,18 @@
     "no-snippets": "Сниппеты не найдены",
     "extra-content": "Загружается ещё..."
   },
+  "snippet-edit-form": {
+    "language-title": "Язык вашего сниппета",
+    "code-title": "Код вашего сниппета",
+    "create-post-button-span": "Создать пост",
+    "edit-post-button-span": "Сохранить",
+    "select-language-placeholder": "Выберите язык",
+    "created-post": "Пост успешно создан",
+    "error": {
+      "language-message": "Пожалуйста, выберите язык",
+      "code-message": "Пожалуйста, введите код"
+    }
+  },
   "comments": {
     "title": "Комментарии",
     "deleted": "Комментарий успешно удален",
@@ -164,16 +177,10 @@
     "create-post": "Создать пост"
   },
   "create-post-page": {
-    "title": "Создать новый сниппет!",
-    "language-title": "Язык вашего сниппета",
-    "code-title": "Код вашего сниппета",
-    "create-post-button-span": "Создать пост",
-    "select-language-placeholder": "Выберите язык",
-    "created-post": "Пост успешно создан",
-    "error": {
-      "language-message": "Пожалуйста, выберите язык",
-      "code-message": "Пожалуйста, введите код"
-    }
+    "title": "Создать новый сниппет!"
+  },
+  "edit-post-page": {
+    "title": "Редактировать пост"
   },
   "account-page": {
     "title": "Добро пожаловать, "

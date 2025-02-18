@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -16,50 +17,93 @@ import { LocalSpinner } from '@/components/Spinner';
 import { notify } from '@/utils/notify';
 
 import { useCreateSnippet } from '../api/createSnippet';
+import { useEditSnippet } from '../api/editSnippet';
+import { useSnippetById } from '../api/getSnippetById';
 import { useSnippetsLanguages } from '../api/getSnippetsLanguages';
+import { SnippetSchema } from '../schemas/snippet';
 import { SnippetEditSchema, snippetEditSchema } from '../schemas/snippetEdit';
 
-export const SnippetEditForm = () => {
+type SnippetEditFormProps = {
+  snippetId?: SnippetSchema['id'];
+};
+
+export const SnippetEditForm = ({ snippetId }: SnippetEditFormProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { data: languages, isLoading } = useSnippetsLanguages();
+  const { data: languages, isLoading: isLanguagesLoading } =
+    useSnippetsLanguages();
 
-  const { mutate, isPending } = useCreateSnippet({
+  const { data: snippet, isLoading: isSnippetLoading } = useSnippetById({
+    id: snippetId ?? '',
+  });
+
+  const { mutate: createSnippet, isPending: isCreating } = useCreateSnippet({
     mutationConfig: {
-      onSuccess: (snippet) => {
-        navigate({ to: `/posts/${snippet.id}` });
-
+      onSuccess: (newSnippet) => {
+        navigate({ to: `/posts/${newSnippet.id}` });
         notify({
           type: 'success',
-          title: t('api.create-post-page.created-post'),
+          title: t('api.snippet-edit-form.created-post'),
         });
       },
     },
   });
+
+  const { mutate: editSnippet, isPending: isEditing } = useEditSnippet({
+    snippetId: snippet?.id ?? '',
+    mutationConfig: {
+      onSuccess: () => {
+        navigate({ to: `/posts/${snippetId}` });
+        notify({
+          type: 'success',
+          title: t('api.snippet-edit-form.edited-post'),
+        });
+      },
+    },
+  });
+
+  const isPending = isCreating || isEditing;
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm<SnippetEditSchema>({
     resolver: zodResolver(snippetEditSchema),
+    defaultValues: snippetId ? undefined : { language: '', code: '' },
   });
 
+  useEffect(() => {
+    if (snippet) {
+      reset({
+        language: snippet.language,
+        code: snippet.code,
+      });
+    }
+  }, [snippet, reset]);
+
   const onSubmit = (data: SnippetEditSchema) => {
-    mutate(data);
+    if (snippetId) {
+      editSnippet({ snippetId, ...data });
+    } else {
+      createSnippet(data);
+    }
   };
 
   const language = watch('language');
 
-  if (isLoading) return <LocalSpinner />;
+  if (isLanguagesLoading || (snippetId && isSnippetLoading)) {
+    return <LocalSpinner />;
+  }
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack direction="column" spacing={2} mb={3} mx={4}>
         <Typography variant="h6">
-          {t('create-post-page.language-title')}
+          {t('snippet-edit-form.language-title')}
         </Typography>
         <Controller
           name="language"
@@ -74,7 +118,7 @@ export const SnippetEditForm = () => {
               displayEmpty
             >
               <MenuItem value="" disabled>
-                {t('create-post-page.select-language-placeholder')}
+                {t('snippet-edit-form.select-language-placeholder')}
               </MenuItem>
               {languages?.map((lang) => (
                 <MenuItem key={lang} value={lang}>
@@ -86,12 +130,14 @@ export const SnippetEditForm = () => {
         />
         {errors.language && (
           <Typography color="error">
-            {t('create-post-page.error.language-message')}
+            {t('snippet-edit-form.error.language-message')}
           </Typography>
         )}
       </Stack>
       <Stack direction="column" spacing={2} mb={3} mx={4}>
-        <Typography variant="h6">{t('create-post-page.code-title')}</Typography>
+        <Typography variant="h6">
+          {t('snippet-edit-form.code-title')}
+        </Typography>
         <Controller
           name="code"
           control={control}
@@ -115,13 +161,15 @@ export const SnippetEditForm = () => {
         />
         {errors.code && (
           <Typography color="error">
-            {t('create-post-page.error.code-message')}
+            {t('snippet-edit-form.error.code-message')}
           </Typography>
         )}
       </Stack>
       <Stack direction="row" justifyContent="center">
         <Button disabled={isPending} variant="contained" type="submit">
-          {t('create-post-page.create-post-button-span')}
+          {snippetId
+            ? t('snippet-edit-form.edit-post-button-span')
+            : t('snippet-edit-form.create-post-button-span')}
         </Button>
       </Stack>
     </Box>
