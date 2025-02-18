@@ -6,20 +6,20 @@ import { MutationConfigType } from '@/lib/react-query';
 import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema } from '@/schemas/comment';
 
-type PatchCommentOptions = {
-  mutationConfig?: MutationConfigType<typeof patchComment>;
+type UpdateCommentOptions = {
+  mutationConfig?: MutationConfigType<typeof updateComment>;
   snippetId: SnippetSchema['id'];
 };
 
-type PatchCommentParams = {
+type UpdateCommentParams = {
   commentId: CommentSchema['id'];
   content: CommentSchema['content'];
 };
 
-export const patchComment = async ({
+export const updateComment = async ({
   content,
   commentId,
-}: PatchCommentParams) => {
+}: UpdateCommentParams) => {
   const response = await api.patch(`/comments/${commentId}`, { content });
 
   return z
@@ -29,15 +29,15 @@ export const patchComment = async ({
     .parseAsync(response.data);
 };
 
-export const usePatchComment = ({
+export const useUpdateComment = ({
   mutationConfig,
   snippetId,
-}: PatchCommentOptions) => {
+}: UpdateCommentOptions) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: patchComment,
+    mutationFn: updateComment,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
