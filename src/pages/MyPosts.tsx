@@ -1,9 +1,9 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Stack, Typography } from '@mui/material';
+import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { SnippetList } from '@/modules/Snippets';
-import { Link } from '@tanstack/react-router';
 
 export const MyPostsPage = () => {
   const { t } = useTranslation();
