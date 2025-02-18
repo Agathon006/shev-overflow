@@ -24,6 +24,9 @@
     },
     "register-form": {
       "success": "Регистрация успешна"
+    },
+    "account-page": {
+      "account-deletion": "Аккаунт был успешно удалён"
     }
   },
   "header": {

@@ -98,12 +98,7 @@ export const Avatar = ({ username }: AvatarProps) => {
             {t('header.avatar.my-posts')}
           </Typography>
         </MenuItem>
-        <MenuItem
-          component={Link}
-          to="/auth/login"
-          key="Logout"
-          onClick={handleClickLogout}
-        >
+        <MenuItem key="Logout" onClick={handleClickLogout}>
           <Typography sx={{ textAlign: 'center' }}>
             {t('header.avatar.logout')}
           </Typography>

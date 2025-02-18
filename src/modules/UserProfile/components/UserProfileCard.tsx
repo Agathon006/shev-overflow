@@ -8,7 +8,7 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { LocalSpinner } from '@/components/Spinner';
@@ -16,6 +16,7 @@ import { useLogout } from '@/modules/Header';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 
+import { useDeleteUserById } from '../api/deleteUserById';
 import { useUserStatisticById } from '../api/getUserStatisticById';
 
 type UserProfileCardProps = {
@@ -25,11 +26,11 @@ type UserProfileCardProps = {
 export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
   const { t } = useTranslation();
 
-  const { data, isLoading } = useUserStatisticById({ id: userId });
-
   const navigate = useNavigate();
 
-  const { mutate } = useLogout({
+  const { data, isLoading } = useUserStatisticById({ id: userId });
+
+  const { mutate: mutateLogout, isPending: isUserLogoutPending } = useLogout({
     mutationConfig: {
       onSuccess: () => {
         navigate({ to: '/auth/login' });
@@ -41,6 +42,20 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
       },
     },
   });
+
+  const { mutate: mutateDeleteUser, isPending: isUserDeletionPending } =
+    useDeleteUserById({
+      mutationConfig: {
+        onSuccess: () => {
+          navigate({ to: '/auth/login' });
+
+          notify({
+            type: 'info',
+            title: t('api.account-page.account-deletion'),
+          });
+        },
+      },
+    });
 
   if (isLoading)
     return (
@@ -126,17 +141,22 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
             </Box>
             <Box mt={2}>
               <Button
+                disabled={isUserLogoutPending || isUserDeletionPending}
                 key="Logout"
                 variant="contained"
                 color="warning"
                 sx={{ mr: 2 }}
-                component={Link}
-                to="/auth/login"
-                onClick={() => mutate()}
+                onClick={() => mutateLogout()}
               >
                 <LogoutIcon />
               </Button>
-              <Button key="Delete" variant="contained" color="error">
+              <Button
+                disabled={isUserLogoutPending || isUserDeletionPending}
+                key="Delete"
+                variant="contained"
+                color="error"
+                onClick={() => mutateDeleteUser()}
+              >
                 <DeleteIcon />
               </Button>
             </Box>

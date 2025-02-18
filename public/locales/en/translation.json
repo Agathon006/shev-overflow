@@ -24,6 +24,9 @@
     },
     "register-form": {
       "success": "Registration successful"
+    },
+    "account-page": {
+      "account-deletion": "Account was successfully deleted"
     }
   },
   "header": {
