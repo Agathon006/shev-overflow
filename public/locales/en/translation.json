@@ -156,6 +156,16 @@
     "title": "My posts",
     "create-post": "Create post"
   },
+  "create-post-page": {
+    "title": "Create new snippet!",
+    "language-title": "Language of your snippet",
+    "code-title": "Code of your snippet",
+    "create-post-button-span": "Create post",
+    "error": {
+      "language-message": "Please select language",
+      "code-message": "Please enter code"
+    }
+  },
   "account-page": {
     "title": "Welcome, "
   },
