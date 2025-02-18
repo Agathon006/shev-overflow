@@ -53,10 +53,10 @@ export const Avatar = ({ username }: AvatarProps) => {
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <MuiAvatar
-          sx={(theme) => ({
-            bgcolor: theme.palette.secondary.main,
+          sx={{
+            bgcolor: 'secondary.main',
             cursor: 'pointer',
-          })}
+          }}
           onClick={handleOpenUserMenu}
           src="/broken-image.jpg"
           alt={username}

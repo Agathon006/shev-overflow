@@ -4,7 +4,7 @@ import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 import { userSchema } from '@/schemas/user';
 
-type UseAuthOptionsType = {
+type UseAuthOptions = {
   queryConfig?: QueryConfigType<typeof getAuthUser>;
 };
 
@@ -27,7 +27,7 @@ export const authUserQueryOptions = () => {
   });
 };
 
-export const useAuth = ({ queryConfig }: UseAuthOptionsType = {}) => {
+export const useAuth = ({ queryConfig }: UseAuthOptions = {}) => {
   return useQuery({
     ...queryConfig,
     ...authUserQueryOptions(),

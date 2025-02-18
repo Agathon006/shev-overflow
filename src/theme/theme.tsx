@@ -9,9 +9,9 @@ export const defaultTheme = createTheme({
   },
   palette: {
     primary: {
-      light: '#ffe4a1',
+      light: '#fff2d0',
       main: '#ffcc70',
-      dark: '#e6b35d',
+      dark: '#d39f45',
     },
     secondary: {
       light: '#a1c4ff',

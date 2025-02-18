@@ -12,32 +12,92 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
 
-import { useSnippetMark } from '../api/snippetMark';
+import { useSnippetMark } from '../api/createSnippetMark';
 import { SnippetSchema } from '../schemas/snippet';
 
-type SnippetCardProps = { snippet: SnippetSchema; searchTerm: string };
+type SnippetCardProps = {
+  snippet: SnippetSchema;
+  onMark: (mark: 'like' | 'dislike' | 'none') => void;
+};
 
-export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
+export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   const { data: currentUser } = useAuth();
 
-  const { mutate, isPending } = useSnippetMark({
-    searchTerm,
+  const { mutate, isPending } = useSnippetMark();
+
+  const [likesActive, setLikesActive] = useState(
+    snippet.marks?.some(
+      (m) => m.type === 'like' && m.user.id === currentUser?.id,
+    ),
+  );
+  const [dislikesActive, setDislikesActive] = useState(
+    snippet.marks?.some(
+      (m) => m.type === 'dislike' && m.user.id === currentUser?.id,
+    ),
+  );
+  const [snippetMarks, setSnippetMarks] = useState({
+    likes: snippet.marks?.filter((m) => m.type === 'like').length ?? 0,
+    dislikes: snippet.marks?.filter((m) => m.type === 'dislike').length ?? 0,
   });
 
-  const likesActive = !!snippet.marks
-    ?.filter((m) => m.type === 'like')
-    .find((mark) => mark.user.id === currentUser?.id);
-
-  const dislikesActive = !!snippet.marks
-    ?.filter((m) => m.type === 'dislike')
-    .find((mark) => mark.user.id === currentUser?.id);
-
   const handleMark = (mark: 'like' | 'dislike' | 'none') => {
-    mutate({ mark, id: snippet.id });
+    mutate(
+      { mark, id: snippet.id },
+      {
+        onSuccess: () => {
+          onMark(mark);
+          if (mark === 'like') {
+            setLikesActive(true);
+            setDislikesActive(false);
+            if (dislikesActive) {
+              setSnippetMarks({
+                likes: snippetMarks.likes + 1,
+                dislikes: snippetMarks.dislikes - 1,
+              });
+            } else {
+              setSnippetMarks({
+                likes: snippetMarks.likes + 1,
+                dislikes: snippetMarks.dislikes,
+              });
+            }
+          } else if (mark === 'dislike') {
+            setLikesActive(false);
+            setDislikesActive(true);
+            if (likesActive) {
+              setSnippetMarks({
+                likes: snippetMarks.likes - 1,
+                dislikes: snippetMarks.dislikes + 1,
+              });
+            } else {
+              setSnippetMarks({
+                likes: snippetMarks.likes,
+                dislikes: snippetMarks.dislikes + 1,
+              });
+            }
+          } else {
+            if (likesActive) {
+              setLikesActive(false);
+              setSnippetMarks({
+                likes: snippetMarks.likes - 1,
+                dislikes: snippetMarks.dislikes,
+              });
+            } else if (dislikesActive) {
+              setDislikesActive(false);
+              setSnippetMarks({
+                likes: snippetMarks.likes,
+                dislikes: snippetMarks.dislikes - 1,
+              });
+            }
+          }
+        },
+      },
+    );
   };
 
   return (
@@ -88,7 +148,7 @@ export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
             <ThumbUpIcon color={likesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline" sx={{ mr: 1 }}>
-            {snippet.marks?.filter((m) => m.type === 'like').length ?? 0}
+            {snippetMarks.likes}
           </Typography>
           <IconButton
             aria-label="dislike"
@@ -98,12 +158,15 @@ export const SnippetCard = ({ snippet, searchTerm }: SnippetCardProps) => {
             <ThumbDownIcon color={dislikesActive ? 'secondary' : 'inherit'} />
           </IconButton>
           <Typography variant="body2" display="inline">
-            {snippet.marks?.filter((m) => m.type === 'dislike').length ?? 0}
+            {snippetMarks.dislikes}
           </Typography>
         </Box>
         <Box display="flex" alignItems="center">
           <IconButton
             aria-label="comments"
+            component={Link}
+            to="/posts/$postId"
+            params={{ postId: snippet.id }}
             sx={{
               cursor: 'pointer',
               '&:hover': {

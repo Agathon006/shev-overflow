@@ -7,7 +7,7 @@ import { linksSchema } from '@/schemas/links';
 
 import { snippetSchema } from '../schemas/snippet';
 
-type UseSnippetsOptionsType = {
+type GetSnippetsOptions = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
   searchTerm?: string;
 };
@@ -50,7 +50,7 @@ export const snippetsQueryOptions = (searchTerm: string) => {
 export const useSnippets = ({
   queryConfig,
   searchTerm = '',
-}: UseSnippetsOptionsType = {}) => {
+}: GetSnippetsOptions = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
     ...snippetsQueryOptions(searchTerm),

@@ -6,7 +6,7 @@ import { userSchema } from '@/schemas/user';
 
 import { RegisterSchema } from '../schemas/register';
 
-type UseRegisterOptionsType = {
+type RegisterOptions = {
   mutationConfig?: MutationConfigType<typeof registerUser>;
 };
 
@@ -18,9 +18,7 @@ export const registerUser = async (
   return userSchema.parseAsync(response.data);
 };
 
-export const useRegister = ({
-  mutationConfig,
-}: UseRegisterOptionsType = {}) => {
+export const useRegister = ({ mutationConfig }: RegisterOptions = {}) => {
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({

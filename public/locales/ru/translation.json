@@ -3,7 +3,13 @@
     "Incorrect password or username!": "Неправильное имя пользователя или пароль!",
     "User with this username already exists!": "Пользователь с таким именем уже существует!",
     "Validation failed!": "Валидация не прошла!",
-    "No token provided!": "Авторизируйтесь!"
+    "No token provided!": "Авторизируйтесь!",
+    "Snippet not found!": "Сниппет не найден!",
+    "Snippet already has mark \"dislike\" from this user.": "Сниппет уже имеет отметку \"dislike\" от этого пользователя.",
+    "Snippet already has mark \"like\" from this user.": "Сниппет уже имеет отметку \"like\" от этого пользователя.",
+    "Unable to remove mark cause it does not exist on the snippet": "Невозможно удалить отметку, так как она не существует на сниппете",
+    "Unable to delete! Comment not found!": "Невозможно удалить! Комментария нет!",
+    "Internal server error": "Внутренняя ошибка сервера"
   },
   "api": {
     "error-title": "Ошибка",
@@ -98,6 +104,18 @@
     },
     "no-snippets": "Сниппеты не найдены",
     "extra-content": "Загружается ещё..."
+  },
+  "comments": {
+    "title": "Комментарии",
+    "deleted": "Комментарий успешно удален",
+    "edited": "Комментарий успешно отредактирован",
+    "input": {
+      "placeholder": "Прокомментировать...",
+      "success": "Комментарий отправлен",
+      "error": "Комментарий не отправлен",
+      "edit-success": "Комментарий отредактирован",
+      "edit-error": "Комментарий не отредактирован"
+    }
   },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
