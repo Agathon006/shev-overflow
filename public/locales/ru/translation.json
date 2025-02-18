@@ -9,7 +9,8 @@
     "Snippet already has mark \"like\" from this user.": "Сниппет уже имеет отметку \"like\" от этого пользователя.",
     "Unable to remove mark cause it does not exist on the snippet": "Невозможно удалить отметку, так как она не существует на сниппете",
     "Unable to delete! Comment not found!": "Невозможно удалить! Комментария нет!",
-    "Internal server error": "Внутренняя ошибка сервера"
+    "Internal server error": "Внутренняя ошибка сервера",
+    "Old password is incorrect!": "Старый пароль неправильный!"
   },
   "api": {
     "error-title": "Ошибка",
@@ -143,6 +144,9 @@
       "new-password-confirm-placeholder": "Подвердите пароль",
       "username-changed": "Никнейм успешно изменён",
       "password-changed": "Пароль успешно изменён"
+    },
+    "errors": {
+      "new-password-same-as-old": "Новый пароль совпадает со старым"
     }
   },
   "home-page": {

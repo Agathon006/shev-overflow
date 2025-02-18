@@ -3,33 +3,36 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
 import { MutationConfigType } from '@/lib/react-query';
-import { Username } from '@/schemas/username';
+import { Password } from '@/schemas/password';
 
-type UpdateUsernameProps = { username: Username };
-
-type UpdateUserNameOptions = {
-  mutationConfig?: MutationConfigType<typeof updateUserName>;
+type UpdateUserPasswordProps = {
+  oldPassword: Password;
+  newPassword: Password;
 };
 
-export const updateUserName = async (data: UpdateUsernameProps) => {
-  await api.patch('/me', data);
+type UpdateUserPasswordOptions = {
+  mutationConfig?: MutationConfigType<typeof updateUserPassword>;
+};
+
+export const updateUserPassword = async (data: UpdateUserPasswordProps) => {
+  await api.patch('/me/password', data);
   return data;
 };
 
-export const useUpdateUserName = ({
+export const useUpdateUserPassword = ({
   mutationConfig,
-}: UpdateUserNameOptions = {}) => {
+}: UpdateUserPasswordOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: updateUserName,
+    mutationFn: updateUserPassword,
     onSuccess: (data, ...args) => {
       queryClient.setQueryData(authUserQueryOptions().queryKey, (oldData) => {
         if (!oldData) return oldData;
         return {
           ...oldData,
-          username: data.username,
+          password: data.newPassword,
         };
       });
       onSuccess?.(data, ...args);

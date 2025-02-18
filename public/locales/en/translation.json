@@ -9,7 +9,8 @@
     "Snippet already has mark \"like\" from this user.": "Snippet already has mark \"like\" from this user.",
     "Unable to remove mark cause it does not exist on the snippet": "Unable to remove mark cause it does not exist on the snippet",
     "Unable to delete! Comment not found!": "Unable to delete! Comment not found!",
-    "Internal server error": "Internal server error"
+    "Internal server error": "Internal server error",
+    "Old password is incorrect!": "Old password is incorrect!"
   },
   "api": {
     "error-title": "Error",
@@ -143,6 +144,9 @@
       "new-password-confirm-placeholder": "Confirm password",
       "username-changed": "Username successfully changed",
       "password-changed": "Password successfully changed"
+    },
+    "errors": {
+      "new-password-same-as-old": "New password can't be the same as old"
     }
   },
   "home-page": {

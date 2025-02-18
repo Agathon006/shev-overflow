@@ -11,6 +11,10 @@ export const changePasswordSchema = z
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: 'register-form.errors.confirm-password-input.match',
     path: ['confirmPassword'],
+  })
+  .refine((data) => data.oldPassword !== data.newPassword, {
+    message: 'user-profile.errors.new-password-same-as-old',
+    path: ['newPassword'],
   });
 
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;

@@ -3,6 +3,9 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { notify } from '@/utils/notify';
+
+import { useUpdateUserPassword } from '../api/updateUserPassword';
 import {
   ChangePasswordSchema,
   changePasswordSchema,
@@ -11,13 +14,31 @@ import {
 export const PasswordChanger = () => {
   const { t } = useTranslation();
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ChangePasswordSchema>({ resolver: zodResolver(changePasswordSchema) });
+  } = useForm<ChangePasswordSchema>({
+    resolver: zodResolver(changePasswordSchema),
+  });
+
+  const { mutate, isPending } = useUpdateUserPassword({
+    mutationConfig: {
+      onSuccess: () => {
+        reset();
+        notify({
+          type: 'success',
+          title: t('user-profile.credentials-changer.password-changed'),
+        });
+      },
+    },
+  });
 
   const onSubmit = (data: ChangePasswordSchema) => {
-    console.log('Password updated:', data);
+    mutate({
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+    });
   };
 
   return (
@@ -27,6 +48,7 @@ export const PasswordChanger = () => {
       </Typography>
       <TextField
         {...register('oldPassword')}
+        disabled={isPending}
         type="password"
         fullWidth
         margin="normal"
@@ -40,6 +62,7 @@ export const PasswordChanger = () => {
       />
       <TextField
         {...register('newPassword')}
+        disabled={isPending}
         type="password"
         fullWidth
         margin="normal"
@@ -53,6 +76,7 @@ export const PasswordChanger = () => {
       />
       <TextField
         {...register('confirmPassword')}
+        disabled={isPending}
         type="password"
         fullWidth
         margin="normal"
