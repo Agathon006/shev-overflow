@@ -71,40 +71,43 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
     );
 
   return (
-    <Card sx={{ width: 800, margin: 'auto', boxShadow: 3 }}>
+    <Card sx={{ maxWidth: 800, margin: 'auto', boxShadow: 3 }}>
       <CardContent>
-        <Box display="flex" alignItems="center">
-          <Box width="50%">
+        <Box
+          display="flex"
+          gap={2}
+          flexDirection={{ xs: 'column', md: 'row' }}
+          alignItems="center"
+        >
+          <Box width={{ xs: '100%', md: '50%' }}>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.rating')}
-              {statisticData?.statistic.rating}
+              {t('user-profile.rating')} {statisticData?.statistic.rating}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.snippets')}
+              {t('user-profile.snippets')}{' '}
               {statisticData?.statistic.snippetsCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.comments')}
+              {t('user-profile.comments')}{' '}
               {statisticData?.statistic.commentsCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.likes')}
-              {statisticData?.statistic.likesCount}
+              {t('user-profile.likes')} {statisticData?.statistic.likesCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.dislikes')}
+              {t('user-profile.dislikes')}{' '}
               {statisticData?.statistic.dislikesCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.questions')}
+              {t('user-profile.questions')}{' '}
               {statisticData?.statistic.questionsCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.correct-answers')}
+              {t('user-profile.correct-answers')}{' '}
               {statisticData?.statistic.correctAnswersCount}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {t('user-profile.regular-answers')}
+              {t('user-profile.regular-answers')}{' '}
               {statisticData?.statistic.regularAnswersCount}
             </Typography>
           </Box>
@@ -113,50 +116,52 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
             flexDirection="column"
             alignItems="center"
             gap={2}
-            width="50%"
+            width={{ xs: '100%' }}
           >
-            <Box display="flex" gap={3}>
+            <Box
+              display="flex"
+              flexDirection={{ xs: 'column', md: 'row' }}
+              alignItems="center"
+              gap={2}
+            >
               <Avatar
-                sx={{
-                  bgcolor: 'secondary.main',
-                  width: 120,
-                  height: 120,
-                }}
+                sx={{ bgcolor: 'secondary.main', width: 120, height: 120 }}
               />
               <Box
                 display="flex"
                 flexDirection="column"
                 justifyContent="space-around"
+                textAlign={{ xs: 'center', md: 'left' }}
               >
-                <Typography variant="h5" justifySelf="flex-start">
+                <Typography
+                  variant="h5"
+                  sx={{
+                    maxWidth: 320,
+                  }}
+                >
                   {userData?.username}
                 </Typography>
                 <Box>
                   <Typography variant="body2" color="text.secondary">
-                    {t('user-profile.id')}
-                    {userData?.id}
+                    {t('user-profile.id')} {userData?.id}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {t('user-profile.role')}
-                    {userData?.role}
+                    {t('user-profile.role')} {userData?.role}
                   </Typography>
                 </Box>
               </Box>
             </Box>
-            <Box mt={2}>
+            <Box mt={2} display="flex" gap={2}>
               <Button
                 disabled={isUserLogoutPending || isUserDeletionPending}
-                key="Logout"
                 variant="contained"
                 color="warning"
-                sx={{ mr: 2 }}
                 onClick={() => mutateLogout()}
               >
                 <LogoutIcon />
               </Button>
               <Button
                 disabled={isUserLogoutPending || isUserDeletionPending}
-                key="Delete"
                 variant="contained"
                 color="error"
                 onClick={() => mutateDeleteUser()}
