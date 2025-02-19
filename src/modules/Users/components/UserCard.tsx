@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
 import { User } from '@/schemas/user';
 
 type SnippetCardProps = {
@@ -17,13 +18,19 @@ type SnippetCardProps = {
 export const UserCard = ({ user }: SnippetCardProps) => {
   const { t } = useTranslation();
 
+  const { data: currentUser } = useAuth();
+  const isCurrentUser = user.id === currentUser?.id;
+
   return (
     <Card
       id={user.id}
-      sx={{
+      sx={(theme) => ({
         width: '100%',
         margin: 'auto',
-      }}
+        backgroundColor: isCurrentUser
+          ? theme.palette.primary.light
+          : theme.palette.customNeutral[100],
+      })}
     >
       <CardHeader
         avatar={
