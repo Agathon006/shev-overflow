@@ -61,7 +61,7 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
       },
     });
 
-  if (isLoadingUserData || isLoadingStatisticData)
+  if (isLoadingUserData || isLoadingStatisticData) {
     return (
       <Card sx={{ width: 800, margin: 'auto', boxShadow: 3 }}>
         <CardContent>
@@ -69,6 +69,7 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
         </CardContent>
       </Card>
     );
+  }
 
   return (
     <Card sx={{ maxWidth: 800, margin: 'auto', boxShadow: 3 }}>
