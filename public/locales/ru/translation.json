@@ -9,7 +9,8 @@
     "Snippet already has mark \"like\" from this user.": "Сниппет уже имеет отметку \"like\" от этого пользователя.",
     "Unable to remove mark cause it does not exist on the snippet": "Невозможно удалить отметку, так как она не существует на сниппете",
     "Unable to delete! Comment not found!": "Невозможно удалить! Комментария нет!",
-    "Internal server error": "Внутренняя ошибка сервера"
+    "Internal server error": "Внутренняя ошибка сервера",
+    "Old password is incorrect!": "Старый пароль неправильный!"
   },
   "api": {
     "error-title": "Ошибка",
@@ -24,6 +25,9 @@
     },
     "register-form": {
       "success": "Регистрация успешна"
+    },
+    "account-page": {
+      "account-deletion": "Аккаунт был успешно удалён"
     }
   },
   "header": {
@@ -39,7 +43,8 @@
     "avatar": {
       "account": "Аккаунт",
       "my-posts": "Мои посты",
-      "logout": "Выйти"
+      "logout": "Выйти",
+      "tooltip": "Открыть настройки"
     },
     "language-switcher": {
       "en": "EN",
@@ -117,8 +122,39 @@
       "edit-error": "Комментарий не отредактирован"
     }
   },
+  "user-profile": {
+    "id": "Id: ",
+    "role": "Роль: ",
+    "rating": "Рейтинг: ",
+    "snippets": "Сниппеты: ",
+    "comments": "Комментарии: ",
+    "likes": "Лайки: ",
+    "dislikes": "Дизлайки: ",
+    "questions": "Вопросы: ",
+    "correct-answers": "Корректные ответы: ",
+    "regular-answers": "Ответы: ",
+    "credentials-changer": {
+      "title": "Измените ваш профиль",
+      "change-username-title": "Измените свой никнейм:",
+      "change-password-title": "Изменить свой пароль:",
+      "button-span-save": "сохранить",
+      "button-span-change-password": "изменить пароль",
+      "new-username-placeholder": "Новый никнейм",
+      "old-password-placeholder": "Старый пароль",
+      "new-password-placeholder": "Новый пароль",
+      "new-password-confirm-placeholder": "Подвердите пароль",
+      "username-changed": "Никнейм успешно изменён",
+      "password-changed": "Пароль успешно изменён"
+    },
+    "errors": {
+      "new-password-same-as-old": "Новый пароль совпадает со старым"
+    }
+  },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
+  },
+  "account-page": {
+    "title": "Добро пожаловать, "
   },
   "page404": {
     "title": "Страница не найдена",

@@ -1,9 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_authenticated/users/me/')({
-  component: RouteComponent,
-});
+import { AccountPage } from '@/pages/AccountPage';
 
-function RouteComponent() {
-  return <img src="" alt="Account page" />;
-}
+export const Route = createFileRoute('/_authenticated/users/me/')({
+  component: AccountPage,
+});

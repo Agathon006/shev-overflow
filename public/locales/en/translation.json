@@ -9,7 +9,8 @@
     "Snippet already has mark \"like\" from this user.": "Snippet already has mark \"like\" from this user.",
     "Unable to remove mark cause it does not exist on the snippet": "Unable to remove mark cause it does not exist on the snippet",
     "Unable to delete! Comment not found!": "Unable to delete! Comment not found!",
-    "Internal server error": "Internal server error"
+    "Internal server error": "Internal server error",
+    "Old password is incorrect!": "Old password is incorrect!"
   },
   "api": {
     "error-title": "Error",
@@ -24,6 +25,9 @@
     },
     "register-form": {
       "success": "Registration successful"
+    },
+    "account-page": {
+      "account-deletion": "Account was successfully deleted"
     }
   },
   "header": {
@@ -39,7 +43,8 @@
     "avatar": {
       "account": "Account",
       "my-posts": "My posts",
-      "logout": "Logout"
+      "logout": "Logout",
+      "tooltip": "Open settings"
     },
     "language-switcher": {
       "en": "EN",
@@ -117,8 +122,39 @@
       "edit-error": "Comment not edited"
     }
   },
+  "user-profile": {
+    "id": "Id: ",
+    "role": "Role: ",
+    "rating": "Rating: ",
+    "snippets": "Snippets: ",
+    "comments": "Comments: ",
+    "likes": "Likes: ",
+    "dislikes": "Dislikes: ",
+    "questions": "Questions: ",
+    "correct-answers": "Correct answers: ",
+    "regular-answers": "Regular answers: ",
+    "credentials-changer": {
+      "title": "Edit your profile",
+      "change-username-title": "Change your username:",
+      "change-password-title": "Change your password:",
+      "button-span-save": "save",
+      "button-span-change-password": "change password",
+      "new-username-placeholder": "New username",
+      "old-password-placeholder": "Old password",
+      "new-password-placeholder": "New password",
+      "new-password-confirm-placeholder": "Confirm password",
+      "username-changed": "Username successfully changed",
+      "password-changed": "Password successfully changed"
+    },
+    "errors": {
+      "new-password-same-as-old": "New password can't be the same as old"
+    }
+  },
   "home-page": {
     "title": "Welcome to Shef Overflow!"
+  },
+  "account-page": {
+    "title": "Welcome, "
   },
   "page404": {
     "title": "Page not found",

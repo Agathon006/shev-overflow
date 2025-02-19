@@ -2,8 +2,7 @@ import { queryOptions, useQuery } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
-
-import { SnippetSchema, snippetSchema } from '../schemas/snippet';
+import { SnippetSchema, snippetSchema } from '@/schemas/snippet';
 
 type GetSnippetByIdOptions = {
   queryConfig?: QueryConfigType<typeof getSnippetById>;
