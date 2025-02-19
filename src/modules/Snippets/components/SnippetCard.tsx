@@ -20,11 +20,11 @@ import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
+import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
 import { useSnippetMark } from '../api/createSnippetMark';
 import { useDeleteSnippet } from '../api/deleteSnippet';
-import { SnippetSchema } from '../schemas/snippet';
 
 type SnippetCardProps = {
   snippet: SnippetSchema;

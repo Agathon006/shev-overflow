@@ -5,25 +5,25 @@ import { authUserQueryOptions } from '@/api/auth';
 import { MutationConfigType } from '@/lib/react-query';
 import { Username } from '@/schemas/username';
 
-type UpdateUsernameProps = { username: Username };
+type UpdateProfileProps = { username: Username };
 
-type UpdateUserNameOptions = {
-  mutationConfig?: MutationConfigType<typeof updateUserName>;
+type UpdateProfileOptions = {
+  mutationConfig?: MutationConfigType<typeof updateProfile>;
 };
 
-export const updateUserName = async (data: UpdateUsernameProps) => {
+export const updateProfile = async (data: UpdateProfileProps) => {
   await api.patch('/me', data);
   return data;
 };
 
-export const useUpdateUserName = ({
+export const useUpdateProfile = ({
   mutationConfig,
-}: UpdateUserNameOptions = {}) => {
+}: UpdateProfileOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: updateUserName,
+    mutationFn: updateProfile,
     onSuccess: (data, ...args) => {
       queryClient.setQueryData(authUserQueryOptions().queryKey, (oldData) => {
         if (!oldData) return oldData;

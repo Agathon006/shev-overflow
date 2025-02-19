@@ -1,10 +1,12 @@
 import { Container } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 
+import { useSnippetById } from '@/api/getSnippetById';
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
 import { CommentInput, CommentsList } from '@/modules/Comments';
-import { SnippetCard, SnippetSchema, useSnippetById } from '@/modules/Snippets';
+import { SnippetCard } from '@/modules/Snippets';
+import { SnippetSchema } from '@/schemas/snippet';
 
 type PostPageProps = {
   postId: SnippetSchema['id'];

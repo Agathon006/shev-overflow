@@ -3,8 +3,8 @@ import { Box, Button, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema } from '@/schemas/comment';
+import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
 import { useComment } from '../api/createComment';

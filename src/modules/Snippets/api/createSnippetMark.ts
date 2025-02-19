@@ -2,8 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
+import { SnippetSchema } from '@/schemas/snippet';
 
-import { SnippetSchema } from '../schemas/snippet';
 import { snippetMarkSchema } from '../schemas/snippetMark';
 
 type CreateSnippetMarkParams = {
