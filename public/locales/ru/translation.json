@@ -46,7 +46,8 @@
     "avatar": {
       "account": "Аккаунт",
       "my-posts": "Мои посты",
-      "logout": "Выйти"
+      "logout": "Выйти",
+      "tooltip": "Открыть настройки"
     },
     "language-switcher": {
       "en": "EN",

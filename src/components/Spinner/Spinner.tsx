@@ -6,8 +6,8 @@ export const Spinner = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      height="100vh"
-      minHeight="100vh"
+      width="100%"
+      height="100%"
     >
       <CircularProgress />
     </Box>

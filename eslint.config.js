@@ -9,12 +9,14 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import i18next from 'eslint-plugin-i18next';
 import importPlugin from 'eslint-plugin-import';
 
-export default tseslint.config(
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  prettier,
   {
     ignores: ['dist'],
   },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended, prettier],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -38,7 +40,7 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
       i18next,
-      'import': importPlugin
+      import: importPlugin,
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -50,7 +52,18 @@ export default tseslint.config(
 
       'i18next/no-literal-string': ['error', { markupOnly: true }],
 
-      'import/no-cycle': ['error', { maxDepth: Infinity }]
+      'import/no-cycle': ['error', { maxDepth: Infinity }],
     },
-  }
-);
+  },
+  {
+    files: ['src/modules/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['@/modules/*', '../modules/*'],
+        },
+      ],
+    },
+  },
+];
