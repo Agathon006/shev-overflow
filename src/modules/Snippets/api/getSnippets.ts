@@ -39,7 +39,9 @@ export const getSnippets = async (
 
 export const snippetsQueryOptions = (searchTerm: string, userId?: string) => {
   return infiniteQueryOptions({
-    queryKey: ['snippets', searchTerm],
+    queryKey: userId
+      ? ['snippets', `searchTerm: ${searchTerm}`, `userId: ${userId}`]
+      : ['snippets', `searchTerm: ${searchTerm}`],
     queryFn: ({ pageParam }) =>
       getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm, userId),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,

@@ -17,7 +17,7 @@ export const getSnippetById = async (id: string) => {
 
 export const snippetByIdQueryOptions = (id: string) => {
   return queryOptions({
-    queryKey: ['snippet', id],
+    queryKey: id ? ['snippet', `id: ${id}`] : ['snippetCreation'],
     queryFn: () => getSnippetById(id),
   });
 };

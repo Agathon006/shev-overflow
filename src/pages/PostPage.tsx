@@ -40,7 +40,7 @@ export const PostPage = ({ postId }: PostPageProps) => {
       <SnippetCard
         snippet={snippet}
         onMark={() => {
-          queryClient.invalidateQueries({ queryKey: ['snippet', postId] });
+          queryClient.invalidateQueries({ queryKey: ['snippet', `id: ${postId}`] });
         }}
       />
       <CommentInput snippet={snippet} />

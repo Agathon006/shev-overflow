@@ -135,7 +135,10 @@ export const SnippetList = ({ onlyCurrentUserPosts }: SnippetListProps) => {
                         snippet={snippet}
                         onMark={() => {
                           queryClient.invalidateQueries({
-                            queryKey: ['snippets', debouncedSearchTerm],
+                            queryKey: [
+                              'snippets',
+                              `searchTerm: ${debouncedSearchTerm}`,
+                            ],
                           });
                         }}
                       />
