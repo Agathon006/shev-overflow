@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetEditForm } from '@/modules/Snippets';
+import { SnippetForm } from '@/modules/Snippets';
 
 export const CreatePostPage = () => {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export const CreatePostPage = () => {
           {t('create-post-page.title')}
         </Typography>
       </Stack>
-      <SnippetEditForm />
+      <SnippetForm />
     </Box>
   );
 };

@@ -23,11 +23,11 @@ import { useEditSnippet } from '../api/editSnippet';
 import { useSnippetsLanguages } from '../api/getSnippetsLanguages';
 import { SnippetEditSchema, snippetEditSchema } from '../schemas/snippetEdit';
 
-type SnippetEditFormProps = {
+type SnippetFormProps = {
   snippetId?: SnippetSchema['id'];
 };
 
-export const SnippetEditForm = ({ snippetId }: SnippetEditFormProps) => {
+export const SnippetForm = ({ snippetId }: SnippetFormProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 

@@ -1,3 +1,3 @@
 export { SnippetCard } from './components/SnippetCard';
-export { SnippetEditForm } from './components/SnippetEditForm';
+export { SnippetForm } from './components/SnippetForm';
 export { SnippetList } from './components/SnippetList';

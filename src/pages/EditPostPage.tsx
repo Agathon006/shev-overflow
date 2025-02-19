@@ -1,7 +1,8 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetEditForm, SnippetSchema } from '@/modules/Snippets';
+import { SnippetForm} from '@/modules/Snippets';
+import { SnippetSchema } from '@/schemas/snippet';
 
 type EditPostPageProps = {
   snippetId: SnippetSchema['id'];
@@ -22,7 +23,7 @@ export const EditPostPage = ({ snippetId }: EditPostPageProps) => {
           {t('edit-post-page.title')}
         </Typography>
       </Stack>
-      <SnippetEditForm snippetId={snippetId} />
+      <SnippetForm snippetId={snippetId} />
     </Box>
   );
 };
