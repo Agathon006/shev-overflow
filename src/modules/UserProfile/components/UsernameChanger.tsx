@@ -7,8 +7,8 @@ import { notify } from '@/utils/notify';
 
 import { useUpdateUserName } from '../api/updateUserName';
 import {
-  ChangeUsernameSchema,
-  changeUsernameSchema,
+  UpdateProfileSchema,
+  updateProfileSchema,
 } from '../schemas/changeUsername';
 
 export const UsernameChanger = () => {
@@ -18,8 +18,8 @@ export const UsernameChanger = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ChangeUsernameSchema>({
-    resolver: zodResolver(changeUsernameSchema),
+  } = useForm<UpdateProfileSchema>({
+    resolver: zodResolver(updateProfileSchema),
   });
 
   const { mutate, isPending } = useUpdateUserName({
@@ -34,7 +34,7 @@ export const UsernameChanger = () => {
     },
   });
 
-  const onSubmit = (data: ChangeUsernameSchema) => {
+  const onSubmit = (data: UpdateProfileSchema) => {
     mutate(data);
   };
 
