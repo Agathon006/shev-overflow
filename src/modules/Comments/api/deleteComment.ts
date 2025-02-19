@@ -11,9 +11,9 @@ type DeleteCommentOptions = {
   snippetId: SnippetSchema['id'];
 };
 
-type DeleteCommentParams = { commentId: CommentSchema['id'] };
+type DeleteCommentProps= { commentId: CommentSchema['id'] };
 
-export const deleteComment = async ({ commentId }: DeleteCommentParams) => {
+export const deleteComment = async ({ commentId }: DeleteCommentProps) => {
   const response = await api.delete(`/comments/${commentId}`);
 
   return commentSchema.omit({ id: true }).parseAsync(response.data);

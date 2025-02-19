@@ -13,9 +13,9 @@ type DeleteSnippetOptions = {
   snippetId: SnippetSchema['id'];
 };
 
-type DeleteSnippetParams = { snippetId: SnippetSchema['id'] };
+type DeleteSnippetProps = { snippetId: SnippetSchema['id'] };
 
-export const deleteSnippet = async ({ snippetId }: DeleteSnippetParams) => {
+export const deleteSnippet = async ({ snippetId }: DeleteSnippetProps) => {
   const response = await api.delete(`/snippets/${snippetId}`);
 
   return snippetStatisticSchema.omit({ id: true }).parseAsync(response.data);

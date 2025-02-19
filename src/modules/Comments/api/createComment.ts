@@ -12,7 +12,7 @@ type CreateCommentOptions = {
   snippetId: SnippetSchema['id'];
 };
 
-type CreateCommentParams = {
+type CreateCommentProps = {
   content: CommentSchema['content'];
   snippetId: SnippetSchema['id'];
 };
@@ -20,7 +20,7 @@ type CreateCommentParams = {
 export const createComment = async ({
   content,
   snippetId,
-}: CreateCommentParams) => {
+}: CreateCommentProps) => {
   const response = await api.post('/comments', { content, snippetId });
 
   return commentSchema.parseAsync(response.data);

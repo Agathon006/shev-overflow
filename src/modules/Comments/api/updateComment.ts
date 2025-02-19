@@ -12,7 +12,7 @@ type UpdateCommentOptions = {
   snippetId: SnippetSchema['id'];
 };
 
-type UpdateCommentParams = {
+type UpdateCommentProps = {
   commentId: CommentSchema['id'];
   content: CommentSchema['content'];
 };
@@ -20,7 +20,7 @@ type UpdateCommentParams = {
 export const updateComment = async ({
   content,
   commentId,
-}: UpdateCommentParams) => {
+}: UpdateCommentProps) => {
   const response = await api.patch(`/comments/${commentId}`, { content });
 
   return z
