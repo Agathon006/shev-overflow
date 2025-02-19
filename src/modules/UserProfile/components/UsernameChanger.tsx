@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import { notify } from '@/utils/notify';
 
-import { useUpdateUserName } from '../api/updateUserName';
+import { useUpdateProfile } from '../api/updateProfile';
 import {
   UpdateProfileSchema,
   updateProfileSchema,
-} from '../schemas/changeUsername';
+} from '../schemas/updateProfile';
 
 export const UsernameChanger = () => {
   const { t } = useTranslation();
@@ -22,7 +22,7 @@ export const UsernameChanger = () => {
     resolver: zodResolver(updateProfileSchema),
   });
 
-  const { mutate, isPending } = useUpdateUserName({
+  const { mutate, isPending } = useUpdateProfile({
     mutationConfig: {
       onSuccess: () => {
         reset();
