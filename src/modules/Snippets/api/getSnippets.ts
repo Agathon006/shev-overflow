@@ -9,6 +9,7 @@ import { snippetSchema } from '@/schemas/snippet';
 type GetSnippetsOptions = {
   queryConfig?: QueryConfigType<typeof getSnippets>;
   searchTerm?: string;
+  userId?: string;
 };
 
 const SNIPPETS_LIST_LIMIT = 10;
@@ -17,9 +18,10 @@ export const getSnippets = async (
   limit: number,
   nextOffset = 1,
   search = '',
+  userId?: string,
 ) => {
   const response = await api.get('/snippets', {
-    params: { page: nextOffset, limit, search },
+    params: { userId, page: nextOffset, limit, search },
   });
 
   const validated = await z
@@ -35,11 +37,11 @@ export const getSnippets = async (
   };
 };
 
-export const snippetsQueryOptions = (searchTerm: string) => {
+export const snippetsQueryOptions = (searchTerm: string, userId?: string) => {
   return infiniteQueryOptions({
-    queryKey: ['snippets', searchTerm],
+    queryKey: ['snippets', searchTerm, userId],
     queryFn: ({ pageParam }) =>
-      getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm),
+      getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm, userId),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
     initialPageParam: 0,
     staleTime: Infinity,
@@ -49,9 +51,10 @@ export const snippetsQueryOptions = (searchTerm: string) => {
 export const useSnippets = ({
   queryConfig,
   searchTerm = '',
+  userId,
 }: GetSnippetsOptions = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
-    ...snippetsQueryOptions(searchTerm),
+    ...snippetsQueryOptions(searchTerm, userId),
   });
 };
