@@ -8,10 +8,9 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useLogout } from '@/api/logout';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
-
-import { useLogout } from '../api/logout';
 
 type AvatarProps = {
   username: User['username'];
@@ -27,7 +26,6 @@ export const Avatar = ({ username }: AvatarProps) => {
     mutationConfig: {
       onSuccess: () => {
         navigate({ to: '/auth/login' });
-
         notify({
           type: 'info',
           title: t('api.header.avatar.logout'),
@@ -41,7 +39,9 @@ export const Avatar = ({ username }: AvatarProps) => {
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setTimeout(() => {
+      setAnchorElUser(null);
+    }, 100);
   };
 
   const handleClickLogout = () => {
@@ -51,12 +51,9 @@ export const Avatar = ({ username }: AvatarProps) => {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Open settings">
+      <Tooltip title={t('header.avatar.tooltip')}>
         <MuiAvatar
-          sx={{
-            bgcolor: 'secondary.main',
-            cursor: 'pointer',
-          }}
+          sx={{ bgcolor: 'secondary.main', cursor: 'pointer' }}
           onClick={handleOpenUserMenu}
           src="/broken-image.jpg"
           alt={username}
@@ -66,15 +63,9 @@ export const Avatar = ({ username }: AvatarProps) => {
         sx={{ mt: '45px' }}
         id="menu-appbar"
         anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >

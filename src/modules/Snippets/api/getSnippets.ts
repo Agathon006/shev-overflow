@@ -4,8 +4,7 @@ import { z } from 'zod';
 import { api } from '@/api/api-client';
 import { QueryConfigType } from '@/lib/react-query';
 import { linksSchema } from '@/schemas/links';
-
-import { snippetSchema } from '../schemas/snippet';
+import { snippetSchema } from '@/schemas/snippet';
 
 type GetSnippetsOptions = {
   queryConfig?: QueryConfigType<typeof getSnippets>;

@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import { notify } from '@/utils/notify';
 
-import { useUpdateUserName } from '../api/updateUserName';
+import { useUpdateProfile } from '../api/updateProfile';
 import {
-  ChangeUsernameSchema,
-  changeUsernameSchema,
-} from '../schemas/changeUsername';
+  UpdateProfileSchema,
+  updateProfileSchema,
+} from '../schemas/updateProfile';
 
 export const UsernameChanger = () => {
   const { t } = useTranslation();
@@ -18,11 +18,11 @@ export const UsernameChanger = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ChangeUsernameSchema>({
-    resolver: zodResolver(changeUsernameSchema),
+  } = useForm<UpdateProfileSchema>({
+    resolver: zodResolver(updateProfileSchema),
   });
 
-  const { mutate, isPending } = useUpdateUserName({
+  const { mutate, isPending } = useUpdateProfile({
     mutationConfig: {
       onSuccess: () => {
         reset();
@@ -34,7 +34,7 @@ export const UsernameChanger = () => {
     },
   });
 
-  const onSubmit = (data: ChangeUsernameSchema) => {
+  const onSubmit = (data: UpdateProfileSchema) => {
     mutate(data);
   };
 
