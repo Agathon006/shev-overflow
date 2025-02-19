@@ -3,7 +3,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetSchema } from '@/modules/Snippets';
+import { SnippetSchema } from '@/schemas/snippet';
 
 import { CommentItem } from './CommentItem';
 

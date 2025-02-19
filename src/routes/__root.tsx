@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import type { QueryClient } from '@tanstack/react-query';
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
@@ -10,7 +11,18 @@ const Root = () => {
   const { isLoading } = useAuth();
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Spinner />
+      </Box>
+    );
   }
 
   return (

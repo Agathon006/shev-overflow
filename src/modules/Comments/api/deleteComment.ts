@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { snippetByIdQueryOptions } from '@/api/getSnippetById';
 import { MutationConfigType } from '@/lib/react-query';
-import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema, commentSchema } from '@/schemas/comment';
+import { SnippetSchema } from '@/schemas/snippet';
 
 type DeleteCommentOptions = {
   mutationConfig?: MutationConfigType<typeof deleteComment>;

@@ -12,8 +12,8 @@ import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { LocalSpinner } from '@/components/Spinner';
-import { useLogout } from '@/modules/Header';
+import { useLogout } from '@/api/logout';
+import { Spinner } from '@/components/Spinner';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 
@@ -61,14 +61,15 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
       },
     });
 
-  if (isLoadingUserData || isLoadingStatisticData)
+  if (isLoadingUserData || isLoadingStatisticData) {
     return (
       <Card sx={{ width: 800, margin: 'auto', boxShadow: 3 }}>
         <CardContent>
-          <LocalSpinner />
+          <Spinner />
         </CardContent>
       </Card>
     );
+  }
 
   return (
     <Card sx={{ maxWidth: 800, margin: 'auto', boxShadow: 3 }}>

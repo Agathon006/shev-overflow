@@ -28,12 +28,10 @@ export const SnippetList = ({ onlyCurrentUserPosts }: SnippetListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
       searchTerm: debouncedSearchTerm,
+      userId: onlyCurrentUserPosts ? currentUser?.id : undefined,
     });
 
-  const rawSnippets = data ? data.pages.flatMap((page) => page.snippets) : [];
-  const snippets = onlyCurrentUserPosts
-    ? rawSnippets.filter((snippet) => snippet.user?.id === currentUser?.id)
-    : rawSnippets;
+  const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
 
   const parentRef = useRef(null);
 

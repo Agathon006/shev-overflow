@@ -2,7 +2,7 @@ import { Container, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { LocalSpinner } from '@/components/Spinner';
+import { Spinner } from '@/components/Spinner';
 import { CredentialsChanger, UserProfileCard } from '@/modules/UserProfile';
 
 export const AccountPage = () => {
@@ -22,7 +22,7 @@ export const AccountPage = () => {
       }}
     >
       {isLoading ? (
-        <LocalSpinner />
+        <Spinner />
       ) : (
         <Typography textAlign={'center'} variant="h4">
           {t('account-page.title')}
@@ -37,7 +37,7 @@ export const AccountPage = () => {
         </Typography>
       )}
       {isLoading ? (
-        <LocalSpinner />
+        <Spinner />
       ) : (
         <UserProfileCard userId={currentUser?.id || ''} />
       )}

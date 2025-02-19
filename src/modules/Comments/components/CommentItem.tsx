@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema } from '@/schemas/comment';
+import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
 import { useDeleteComment } from '../api/deleteComment';
