@@ -2,11 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { api } from '@/api/api-client';
+import { snippetByIdQueryOptions } from '@/api/getSnippetById';
 import { MutationConfigType } from '@/lib/react-query';
+import { SnippetSchema } from '@/schemas/snippet';
 
-import { SnippetSchema } from '../schemas/snippet';
 import { SnippetEditSchema } from '../schemas/snippetEdit';
-import { snippetByIdQueryOptions } from './getSnippetById';
 import { snippetsQueryOptions } from './getSnippets';
 
 type EditSnippetOptions = {

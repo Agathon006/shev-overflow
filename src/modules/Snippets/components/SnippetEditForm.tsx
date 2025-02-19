@@ -13,14 +13,14 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { LocalSpinner } from '@/components/Spinner';
+import { useSnippetById } from '@/api/getSnippetById';
+import { Spinner } from '@/components/Spinner';
+import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
 import { useCreateSnippet } from '../api/createSnippet';
 import { useEditSnippet } from '../api/editSnippet';
-import { useSnippetById } from '../api/getSnippetById';
 import { useSnippetsLanguages } from '../api/getSnippetsLanguages';
-import { SnippetSchema } from '../schemas/snippet';
 import { SnippetEditSchema, snippetEditSchema } from '../schemas/snippetEdit';
 
 type SnippetEditFormProps = {
@@ -96,7 +96,7 @@ export const SnippetEditForm = ({ snippetId }: SnippetEditFormProps) => {
   const language = watch('language');
 
   if (isLanguagesLoading || (snippetId && isSnippetLoading)) {
-    return <LocalSpinner />;
+    return <Spinner />;
   }
 
   return (
