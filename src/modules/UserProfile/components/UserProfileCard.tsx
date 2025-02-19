@@ -12,8 +12,8 @@ import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
+import { useLogout } from '@/api/logout';
 import { Spinner } from '@/components/Spinner';
-import { useLogout } from '@/modules/Header';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
 

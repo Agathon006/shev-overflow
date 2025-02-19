@@ -2,9 +2,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { z } from 'zod';
 
 import { api } from '@/api/api-client';
+import { snippetByIdQueryOptions } from '@/api/getSnippetById';
 import { MutationConfigType } from '@/lib/react-query';
-import { snippetByIdQueryOptions, SnippetSchema } from '@/modules/Snippets';
 import { CommentSchema } from '@/schemas/comment';
+import { SnippetSchema } from '@/schemas/snippet';
 
 type UpdateCommentOptions = {
   mutationConfig?: MutationConfigType<typeof updateComment>;

@@ -43,7 +43,8 @@
     "avatar": {
       "account": "Account",
       "my-posts": "My posts",
-      "logout": "Logout"
+      "logout": "Logout",
+      "tooltip": "Open settings"
     },
     "language-switcher": {
       "en": "EN",
