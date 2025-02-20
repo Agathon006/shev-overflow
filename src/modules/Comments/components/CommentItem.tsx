@@ -44,7 +44,7 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
         onSuccess: () => {
           notify({
             type: 'success',
-            title: t('comments.input.delete-success'),
+            title: t('comments.input.edit-success'),
           });
           setIsEditing(false);
         },

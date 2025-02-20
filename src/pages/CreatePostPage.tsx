@@ -1,10 +1,33 @@
 import { Box, Stack, Typography } from '@mui/material';
+import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { SnippetForm } from '@/modules/Snippets';
+import {
+  SnippetEditSchema,
+  SnippetForm,
+  useCreateSnippet,
+} from '@/modules/Snippets';
+import { notify } from '@/utils/notify';
 
 export const CreatePostPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { mutate: createSnippet, isPending: isCreating } = useCreateSnippet({
+    mutationConfig: {
+      onSuccess: (newSnippet) => {
+        navigate({ to: `/posts/${newSnippet.id}` });
+        notify({
+          type: 'success',
+          title: t('api.snippet-edit-form.created-post'),
+        });
+      },
+    },
+  });
+
+  const handleSubmit = (data: SnippetEditSchema) => {
+    createSnippet(data);
+  };
 
   return (
     <Box sx={{ marginTop: 2, marginBottom: 20 }}>
@@ -18,7 +41,11 @@ export const CreatePostPage = () => {
           {t('create-post-page.title')}
         </Typography>
       </Stack>
-      <SnippetForm />
+      <SnippetForm
+        defaultValues={{ language: '', code: '' }}
+        onSubmit={handleSubmit}
+        isSubmitting={isCreating}
+      />
     </Box>
   );
 };
