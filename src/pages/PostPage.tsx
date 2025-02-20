@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 
-import { useSnippetById } from '@/api/getSnippetById';
+import { snippetByIdQueryOptions, useSnippetById } from '@/api/getSnippetById';
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
 import { CommentInput, CommentsList } from '@/modules/Comments';
@@ -40,7 +40,9 @@ export const PostPage = ({ postId }: PostPageProps) => {
       <SnippetCard
         snippet={snippet}
         onMark={() => {
-          queryClient.invalidateQueries({ queryKey: ['snippet', `id: ${postId}`] });
+          queryClient.invalidateQueries({
+            queryKey: snippetByIdQueryOptions(snippet.id).queryKey,
+          });
         }}
       />
       <CommentInput snippet={snippet} />
