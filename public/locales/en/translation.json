@@ -10,7 +10,8 @@
     "Unable to remove mark cause it does not exist on the snippet": "Unable to remove mark cause it does not exist on the snippet",
     "Unable to delete! Comment not found!": "Unable to delete! Comment not found!",
     "Internal server error": "Internal server error",
-    "Old password is incorrect!": "Old password is incorrect!"
+    "Old password is incorrect!": "Old password is incorrect!",
+    "Unable to delete! Snippet not found!": "Unable to delete! Snippet not found!"
   },
   "api": {
     "error-title": "Error",
@@ -28,6 +29,12 @@
     },
     "account-page": {
       "account-deletion": "Account was successfully deleted"
+    },
+    "create-post-page": {
+      "created-post": "Post successfully created"
+    },
+    "edit-post-page": {
+      "edited-post": "Post successfully edited"
     }
   },
   "header": {
@@ -107,8 +114,21 @@
     "search": {
       "label": "Search Snippets"
     },
+    "edit-success": "Snippet edited",
+    "delete-success": "Snippet deleted",
     "no-snippets": "No snippets found",
     "extra-content": "Loaging more..."
+  },
+  "snippet-edit-form": {
+    "language-title": "Language of your snippet",
+    "code-title": "Code of your snippet",
+    "create-post-button-span": "Create post",
+    "edit-post-button-span": "Save",
+    "select-language-placeholder": "Select language",
+    "error": {
+      "language-message": "Please select language",
+      "code-message": "Please enter code"
+    }
   },
   "comments": {
     "title": "Comments",
@@ -119,8 +139,9 @@
       "success": "Comment sent",
       "error": "Comment not sent",
       "edit-success": "Comment edited",
-      "edit-error": "Comment not edited"
-    }
+      "delete-success": "Comment deleted"
+    },
+    "no-comments": "No comments yet"
   },
   "user-profile": {
     "id": "Id: ",
@@ -168,6 +189,16 @@
   },
   "users-page": {
     "title": "Users of Shef Overflow!"
+  },
+  "my-posts-page": {
+    "title": "My posts",
+    "create-post": "Create post"
+  },
+  "create-post-page": {
+    "title": "Create new snippet!"
+  },
+  "edit-post-page": {
+    "title": "Edit your snippet"
   },
   "account-page": {
     "title": "Welcome, "

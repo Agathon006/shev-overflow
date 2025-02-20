@@ -1,5 +1,7 @@
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CodeIcon from '@mui/icons-material/Code';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import PersonIcon from '@mui/icons-material/Person';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -12,14 +14,17 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
 import { SnippetSchema } from '@/schemas/snippet';
+import { notify } from '@/utils/notify';
 
 import { useSnippetMark } from '../api/createSnippetMark';
+import { useDeleteSnippet } from '../api/deleteSnippet';
 
 type SnippetCardProps = {
   snippet: SnippetSchema;
@@ -27,9 +32,24 @@ type SnippetCardProps = {
 };
 
 export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
-  const { data: currentUser } = useAuth();
-
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const { mutate, isPending } = useSnippetMark();
+  const { data: currentUser } = useAuth();
+  const isCurrentUser = snippet.user?.id === currentUser?.id;
+
+  const { mutate: deleteSnippet, isPending: deleteIsPending } =
+    useDeleteSnippet({
+      snippetId: snippet.id,
+      mutationConfig: {
+        onSuccess: () => {
+          if (window.location.pathname.startsWith('/posts/')) {
+            navigate({ to: '/users/me/posts' });
+          }
+          notify({ type: 'info', title: t('snippet-list.delete-success') });
+        },
+      },
+    });
 
   const [likesActive, setLikesActive] = useState(
     snippet.marks?.some(
@@ -103,10 +123,13 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   return (
     <Card
       id={snippet.id}
-      sx={{
+      sx={(theme) => ({
         width: '100%',
         margin: 'auto',
-      }}
+        backgroundColor: isCurrentUser
+          ? theme.palette.primary.light
+          : theme.palette.customNeutral[100],
+      })}
     >
       <CardHeader
         avatar={
@@ -118,7 +141,29 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
         action={
           <Box display="flex" alignItems="center">
             <CodeIcon sx={{ mr: 0.5 }} />
-            <Typography variant="body2">{snippet.language}</Typography>
+            <Typography variant="body2" sx={{ mr: 2 }}>
+              {snippet.language}
+            </Typography>
+            {isCurrentUser && (
+              <>
+                <IconButton
+                  disabled={deleteIsPending}
+                  component={Link}
+                  to="/users/me/posts/$postId"
+                  params={{ postId: snippet.id }}
+                  sx={{ p: 0.5 }}
+                >
+                  <EditIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+                <IconButton
+                  disabled={deleteIsPending}
+                  onClick={() => deleteSnippet({ snippetId: snippet.id })}
+                  sx={{ p: 0.5, color: 'error.main' }}
+                >
+                  <DeleteIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+              </>
+            )}
           </Box>
         }
       />
@@ -134,6 +179,7 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
       <Box
         sx={{
           padding: 1,
+          position: 'relative',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',

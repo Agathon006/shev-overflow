@@ -6,7 +6,7 @@ import { SnippetSchema } from '@/schemas/snippet';
 
 import { snippetMarkSchema } from '../schemas/snippetMark';
 
-type CreateSnippetMarkParams = {
+type CreateSnippetMarkProps = {
   mark: 'like' | 'dislike' | 'none';
   id: SnippetSchema['id'];
 };
@@ -14,7 +14,7 @@ type CreateSnippetMarkParams = {
 export const createSnippetMark = async ({
   mark,
   id,
-}: CreateSnippetMarkParams) => {
+}: CreateSnippetMarkProps) => {
   const response = await api.post(`/snippets/${id}/mark`, { mark });
   return snippetMarkSchema.parseAsync(response.data);
 };

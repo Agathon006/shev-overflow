@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Alert, Box, Container, Paper, Typography } from '@mui/material';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,14 @@ export const CommentsList = ({ snippet }: { snippet: SnippetSchema }) => {
     estimateSize: () => 88,
     overscan: 5,
   });
+
+  if (snippet.comments.length === 0) {
+    return (
+      <Container maxWidth="xl" sx={{ width: '100%' }}>
+        <Alert severity="info">{t('comments.no-comments')}</Alert>
+      </Container>
+    );
+  }
 
   return (
     <Paper
