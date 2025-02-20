@@ -23,7 +23,7 @@ export const getUserStatisticById = async (id: string) => {
 
 export const userStatisticByIdQueryOptions = (id: string) => {
   return queryOptions({
-    queryKey: ['user', id],
+    queryKey: ['userStatistic', id],
     queryFn: () => getUserStatisticById(id),
   });
 };

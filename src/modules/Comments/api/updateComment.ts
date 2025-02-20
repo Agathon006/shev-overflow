@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { snippetByIdQueryOptions } from '@/api/getSnippetById';
+import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 import { CommentSchema } from '@/schemas/comment';
 import { SnippetSchema } from '@/schemas/snippet';
@@ -12,7 +13,7 @@ type UpdateCommentOptions = {
   snippetId: SnippetSchema['id'];
 };
 
-type UpdateCommentParams = {
+type UpdateCommentProps = {
   commentId: CommentSchema['id'];
   content: CommentSchema['content'];
 };
@@ -20,7 +21,7 @@ type UpdateCommentParams = {
 export const updateComment = async ({
   content,
   commentId,
-}: UpdateCommentParams) => {
+}: UpdateCommentProps) => {
   const response = await api.patch(`/comments/${commentId}`, { content });
 
   return z
@@ -42,6 +43,9 @@ export const useUpdateComment = ({
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
+      });
+      await queryClient.invalidateQueries({
+        queryKey: snippetsQueryOptions('').queryKey,
       });
       onSuccess?.(...args);
     },

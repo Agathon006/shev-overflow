@@ -27,18 +27,26 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { mutate: deleteComment, isPending: deleteIsPending } =
-    useDeleteComment({ snippetId });
+    useDeleteComment({
+      snippetId,
+      mutationConfig: {
+        onSuccess: () => {
+          notify({ type: 'info', title: t('comments.input.delete-success') });
+          setIsEditing(false);
+        },
+      },
+    });
 
   const { mutate: updateComment, isPending: updateIsPending } =
     useUpdateComment({
       snippetId,
       mutationConfig: {
         onSuccess: () => {
-          notify({ type: 'success', title: t('comments.input.edit-success') });
+          notify({
+            type: 'success',
+            title: t('comments.input.edit-success'),
+          });
           setIsEditing(false);
-        },
-        onError: () => {
-          notify({ type: 'error', title: t('comments.input.edit-error') });
         },
       },
     });

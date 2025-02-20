@@ -19,6 +19,7 @@ export const snippetByIdQueryOptions = (id: string) => {
   return queryOptions({
     queryKey: ['snippet', id],
     queryFn: () => getSnippetById(id),
+    enabled: !!id,
   });
 };
 

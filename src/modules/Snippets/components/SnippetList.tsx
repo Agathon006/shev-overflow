@@ -4,14 +4,18 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useSnippets } from '@/api/getSnippets';
 import { Spinner } from '@/components/Spinner';
 import { useDebounce } from '@/hooks/useDebounce';
 
-import { useSnippets } from '../api/getSnippets';
 import { SnippetCard } from './SnippetCard';
 import { SnippetListSearch } from './SnippetListSearch';
 
-export const SnippetList = () => {
+type SnippetListProps = {
+  userId?: string;
+};
+
+export const SnippetList = ({ userId }: SnippetListProps) => {
   const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const debouncedSearchTerm = useDebounce(searchTerm);
@@ -21,6 +25,7 @@ export const SnippetList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useSnippets({
       searchTerm: debouncedSearchTerm,
+      userId: userId,
     });
 
   const snippets = data ? data.pages.flatMap((page) => page.snippets) : [];
@@ -127,7 +132,10 @@ export const SnippetList = () => {
                         snippet={snippet}
                         onMark={() => {
                           queryClient.invalidateQueries({
-                            queryKey: ['snippets', debouncedSearchTerm],
+                            queryKey: [
+                              'snippets',
+                              `searchTerm: ${debouncedSearchTerm}`,
+                            ],
                           });
                         }}
                       />

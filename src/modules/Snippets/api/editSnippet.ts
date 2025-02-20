@@ -1,42 +1,41 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { snippetByIdQueryOptions } from '@/api/getSnippetById';
 import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
-import { CommentSchema, commentSchema } from '@/schemas/comment';
 import { SnippetSchema } from '@/schemas/snippet';
 
-type CreateCommentOptions = {
-  mutationConfig?: MutationConfigType<typeof createComment>;
-  content?: CommentSchema['content'];
+import { SnippetEditSchema } from '../schemas/snippetEdit';
+
+type EditSnippetOptions = {
+  mutationConfig?: MutationConfigType<typeof editSnippet>;
   snippetId: SnippetSchema['id'];
 };
 
-type CreateCommentProps = {
-  content: CommentSchema['content'];
-  snippetId: SnippetSchema['id'];
-};
+type EditSnippetParams = SnippetEditSchema & { snippetId: SnippetSchema['id'] };
 
-export const createComment = async ({
-  content,
+export const editSnippet = async ({
   snippetId,
-}: CreateCommentProps) => {
-  const response = await api.post('/comments', { content, snippetId });
+  ...newSnippet
+}: EditSnippetParams) => {
+  const response = await api.patch(`/snippets/${snippetId}`, newSnippet);
 
-  return commentSchema.parseAsync(response.data);
+  return z.object({ updatedCount: z.number() }).parseAsync(response.data);
 };
 
-export const useComment = (
-  { mutationConfig, snippetId }: CreateCommentOptions = { snippetId: '' },
-) => {
+export const useEditSnippet = ({
+  mutationConfig,
+  snippetId,
+}: EditSnippetOptions) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: createComment,
+    mutationFn: editSnippet,
     onSuccess: async (...args) => {
-      await queryClient.invalidateQueries({
+      queryClient.removeQueries({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
       });
       await queryClient.invalidateQueries({
