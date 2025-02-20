@@ -1,19 +1,15 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router';
+
+// import { UserPage } from '@/pages/UserPage';
 
 export const Route = createFileRoute('/_authenticated/users/$userId')({
-  //   loader: ({ params }) => fetchPost(params.postId),
-  loader: async ({ params }: { params: { postId: string } }) => {
-    return new Promise((resolve) => {
-      setTimeout(
-        () => resolve({ id: params.postId, title: 'Mock User Title' }),
-        500,
-      )
-    })
-  },
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  const { postId } = Route.useParams()
-  return <img src="" alt={'Post page, ID: ' + postId} />
+  const { userId } = Route.useParams();
+
+  // return <UserPage userId={userId} />;
+
+  return <img src="" alt={'User page, ID: ' + userId} />;
 }

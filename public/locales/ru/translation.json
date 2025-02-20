@@ -170,8 +170,24 @@
       "new-password-same-as-old": "Новый пароль совпадает со старым"
     }
   },
+  "users": {
+    "user-card": {
+      "user-id-span": "id: ",
+      "user-role-span": "роль: "
+    },
+    "user-list": {
+      "no-users": "Пользователи не найдены",
+      "extra-content": "Загружается ещё..."
+    },
+    "user-list-search": {
+      "label": "Искать пользователей"
+    }
+  },
   "home-page": {
     "title": "Добро пожаловать на Shef Overflow!"
+  },
+  "users-page": {
+    "title": "Пользователи Shef Overflow!"
   },
   "my-posts-page": {
     "title": "Мои посты",
