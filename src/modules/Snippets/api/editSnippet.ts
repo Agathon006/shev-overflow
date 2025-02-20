@@ -3,11 +3,11 @@ import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { snippetByIdQueryOptions } from '@/api/getSnippetById';
+import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 import { SnippetSchema } from '@/schemas/snippet';
 
 import { SnippetEditSchema } from '../schemas/snippetEdit';
-import { snippetsQueryOptions } from './getSnippets';
 
 type EditSnippetOptions = {
   mutationConfig?: MutationConfigType<typeof editSnippet>;

@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { snippetByIdQueryOptions } from '@/api/getSnippetById';
+import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 import { CommentSchema } from '@/schemas/comment';
 import { SnippetSchema } from '@/schemas/snippet';
@@ -42,6 +43,9 @@ export const useUpdateComment = ({
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
+      });
+      await queryClient.invalidateQueries({
+        queryKey: snippetsQueryOptions('').queryKey,
       });
       onSuccess?.(...args);
     },
