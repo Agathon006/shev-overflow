@@ -3,10 +3,14 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
+import { Spinner } from '@/components/Spinner';
 import { SnippetList } from '@/modules/Snippets';
 
 export const MyPostsPage = () => {
   const { t } = useTranslation();
+
+  const { data: currentUser, isLoading } = useAuth();
 
   return (
     <Box sx={{ marginTop: 2, marginBottom: 2 }}>
@@ -31,7 +35,7 @@ export const MyPostsPage = () => {
           {t('my-posts-page.create-post')}
         </Button>
       </Stack>
-      <SnippetList onlyCurrentUserPosts />
+      {isLoading ? <Spinner /> : <SnippetList userId={currentUser?.id} />}
     </Box>
   );
 };
