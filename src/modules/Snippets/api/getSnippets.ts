@@ -45,7 +45,7 @@ export const snippetsQueryOptions = (searchTerm: string, userId?: string) => {
     queryFn: ({ pageParam }) =>
       getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm, userId),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
-    initialPageParam: 0,
+    initialPageParam: 1,
     staleTime: searchTerm ? 0 : 1000 * 60 * 5,
   });
 };
