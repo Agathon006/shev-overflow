@@ -37,8 +37,8 @@ export const usersQueryOptions = (searchTerm: string) => {
     queryFn: ({ pageParam }) =>
       getUsers(USERS_LIST_LIMIT, pageParam, searchTerm),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
-    initialPageParam: 0,
-    staleTime: Infinity,
+    initialPageParam: 1,
+    staleTime: searchTerm ? 0 : 1000 * 60 * 5,
   });
 };
 
