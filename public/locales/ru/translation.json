@@ -202,10 +202,15 @@
     "title": "Добро пожаловать, "
   },
   "questions-page": {
-    "title": "Shef Overflow вопросы"
+    "title": "Shef Overflow вопросы",
+    "create-question": "Задать вопрос"
   },
   "page404": {
     "title": "Страница не найдена",
     "button-text": "Вернуться на главную"
+  },
+  "yes-no-label": {
+    "yes": "Да",
+    "no": "Нет"
   }
 }

@@ -203,10 +203,15 @@
     "title": "Welcome, "
   },
   "questions-page": {
-    "title": "Shef Overflow questions"
+    "title": "Shef Overflow questions",
+    "create-question": "Ask question"
   },
   "page404": {
     "title": "Page not found",
     "button-text": "Go to main page"
+  },
+  "yes-no-label": {
+    "yes": "Yes",
+    "no": "No"
   }
 }

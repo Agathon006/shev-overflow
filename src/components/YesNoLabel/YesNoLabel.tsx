@@ -1,5 +1,6 @@
 import { Box, Theme } from '@mui/material';
 import { styled } from '@mui/system';
+import { useTranslation } from 'react-i18next';
 
 const StyledLabel = styled(Box)`
   display: inline-block;
@@ -9,6 +10,8 @@ const StyledLabel = styled(Box)`
 `;
 
 export const YesNoLabel = ({ truth = false }: { truth?: boolean }) => {
+  const { t } = useTranslation();
+
   return (
     <StyledLabel
       sx={(theme: Theme) => ({
@@ -20,7 +23,7 @@ export const YesNoLabel = ({ truth = false }: { truth?: boolean }) => {
           : theme.palette.customError.light,
       })}
     >
-      {truth ? 'Yes' : 'No'}
+      {truth ? t('yes-no-label.yes') : t('yes-no-label.no')}
     </StyledLabel>
   );
 };

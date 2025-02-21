@@ -19,6 +19,7 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel/YesNoLabel';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -45,8 +46,14 @@ export const QuestionsTable = () => {
     { accessorKey: 'id', header: t('questions-table.header.id') },
     { accessorKey: 'user.username', header: t('questions-table.header.user') },
     { accessorKey: 'title', header: t('questions-table.header.title') },
-    { accessorKey: 'description', header: t('questions-table.header.description') },
-    { accessorKey: 'answers.length', header: t('questions-table.header.answers') },
+    {
+      accessorKey: 'description',
+      header: t('questions-table.header.description'),
+    },
+    {
+      accessorKey: 'answers.length',
+      header: t('questions-table.header.answers'),
+    },
     {
       accessorKey: 'isResolved',
       header: t('questions-table.header.is-resolved'),
@@ -100,7 +107,7 @@ export const QuestionsTable = () => {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={columns.length} align="center">
-                  Loading...
+                  <Spinner />
                 </TableCell>
               </TableRow>
             ) : (
