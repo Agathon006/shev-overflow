@@ -142,6 +142,21 @@
     },
     "no-comments": "Комментариев пока нет"
   },
+  "questions-table": {
+    "search": {
+      "label": "Искать вопросы"
+    },
+    "header": {
+      "id": "ID",
+      "user": "Пользователь",
+      "title": "Загловок",
+      "description": "Описание",
+      "answers": "Ответы",
+      "is-resolved": "Решено",
+      "view": "Посмотреть"
+    },
+    "pagination-label": "Вопросов на странице:"
+  },
   "user-profile": {
     "id": "Id: ",
     "role": "Роль: ",
@@ -185,6 +200,9 @@
   },
   "account-page": {
     "title": "Добро пожаловать, "
+  },
+  "questions-page": {
+    "title": "Shef Overflow вопросы"
   },
   "page404": {
     "title": "Страница не найдена",

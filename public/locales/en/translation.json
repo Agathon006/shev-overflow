@@ -143,6 +143,21 @@
     },
     "no-comments": "No comments yet"
   },
+  "questions-table": {
+    "search": {
+      "label": "Search Questions"
+    },
+    "header": {
+      "id": "ID",
+      "user": "User",
+      "title": "Title",
+      "description": "Description",
+      "answers": "Answers",
+      "is-resolved": "IsResolved",
+      "view": "View"
+    },
+    "pagination-label": "Questions per page:"
+  },
   "user-profile": {
     "id": "Id: ",
     "role": "Role: ",
@@ -186,6 +201,9 @@
   },
   "account-page": {
     "title": "Welcome, "
+  },
+  "questions-page": {
+    "title": "Shef Overflow questions"
   },
   "page404": {
     "title": "Page not found",

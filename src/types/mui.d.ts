@@ -23,9 +23,21 @@ declare module '@mui/material/styles' {
     customNeutral: {
       [key: string]: string;
     };
+    customSuccess: {
+      [key: string]: string;
+    };
+    customError: {
+      [key: string]: string;
+    };
   }
   interface PaletteOptions {
     customNeutral: {
+      [key: string]: string;
+    };
+    customSuccess: {
+      [key: string]: string;
+    };
+    customError: {
       [key: string]: string;
     };
   }
