@@ -1,3 +1,4 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Alert,
@@ -20,9 +21,11 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useAuth } from '@/api/auth';
 import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { useDebounce } from '@/hooks/useDebounce';
+import { QuestionSchema } from '@/schemas/question';
 
 import { useQuestions } from '../api/getQuestions';
 import { QuestionsTableSearch } from './QuestionsTableSearch';
@@ -40,6 +43,8 @@ export const QuestionsTable = () => {
     limit: rowsPerPage,
     page: page + 1,
   });
+
+  const { data: currentUser } = useAuth();
 
   const questions = data?.pages?.[0]?.questions || [];
   const totalCount = data?.pages?.[0]?.totalCount ?? 0;
@@ -65,11 +70,22 @@ export const QuestionsTable = () => {
     {
       accessorKey: 'actions',
       header: t('questions-table.header.actions'),
-      cell: () => (
-        <IconButton color="secondary">
-          <VisibilityIcon />
-        </IconButton>
-      ),
+      cell: ({ row }: { row: { original: QuestionSchema } }) => {
+        const isCurrentUser = currentUser?.id === row.original.user.id;
+
+        return (
+          <>
+            <IconButton color="secondary">
+              <VisibilityIcon />
+            </IconButton>
+            {isCurrentUser && (
+              <IconButton color="error">
+                <DeleteIcon />
+              </IconButton>
+            )}
+          </>
+        );
+      },
     },
   ];
 
