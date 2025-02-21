@@ -49,6 +49,11 @@ export const ModalQuestionForm = ({
     defaultValues: defaultValues ?? { title: '', description: '', code: '' },
   });
 
+  const handleClose = () => {
+    onClose();
+    reset();
+  };
+
   const handleFormSubmit = (data: QuestionEditSchema) => {
     onSubmit(data);
     reset();
@@ -57,7 +62,7 @@ export const ModalQuestionForm = ({
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
