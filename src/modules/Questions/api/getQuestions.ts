@@ -43,11 +43,11 @@ export const questionsQueryOptions = (
   page: number = 1,
 ) => {
   return infiniteQueryOptions({
-    queryKey: ['questions', searchTerm, limit, page], 
-    queryFn: () => getQuestions(limit, page, searchTerm), 
-    getNextPageParam: () => null, 
+    queryKey: ['questions', searchTerm, limit, page],
+    queryFn: () => getQuestions(limit, page, searchTerm),
+    getNextPageParam: () => null,
     initialPageParam: 1,
-    staleTime: searchTerm ? 0 : 1000 * 60 * 5,
+    staleTime: searchTerm || limit !== 10 || page !== 1 ? 0 : 1000 * 60 * 5,
   });
 };
 
