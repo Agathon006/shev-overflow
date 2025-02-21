@@ -39,6 +39,7 @@ export const ModalQuestionForm = ({
   const { t } = useTranslation();
 
   const {
+    register,
     control,
     handleSubmit,
     formState: { errors },
@@ -53,8 +54,9 @@ export const ModalQuestionForm = ({
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      fullWidth
     >
-      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} pb={2} pt={2}>
         <Stack direction="column" spacing={2} mb={3} mx={4}>
           <Typography variant="h6">
             {t('modal-question-form.title-span')}
@@ -64,28 +66,28 @@ export const ModalQuestionForm = ({
             type="text"
             fullWidth
             margin="normal"
-            name="title"
+            {...register('title')}
+            error={!!errors.title}
+            helperText={
+              errors.title ? t('modal-question-form.error.title-message') : null
+            }
           />
-          {errors.title && (
-            <Typography color="error">
-              {t('modal-question-form.error.title-message')}
-            </Typography>
-          )}
+          <Typography variant="h6">
+            {t('modal-question-form.description-span')}
+          </Typography>
           <TextField
             label={t('modal-question-form.description-input-placeholder')}
             type="text"
             fullWidth
             margin="normal"
-            name="description"
+            {...register('description')}
+            error={!!errors.title}
+            helperText={
+              errors.title
+                ? t('modal-question-form.error.description-message')
+                : null
+            }
           />
-          <Typography variant="h6">
-            {t('modal-question-form.description-span')}
-          </Typography>
-          {errors.description && (
-            <Typography color="error">
-              {t('modal-question-form.error.description-message')}
-            </Typography>
-          )}
           <Typography variant="h6">
             {t('modal-question-form.code-span')}
           </Typography>

@@ -27,14 +27,16 @@
     "register-form": {
       "success": "Registration successful"
     },
+    "snippet-edit-form": {
+      "created-post": "Post successfully created",
+      "edited-post": "Post successfully edited"
+    },
+    "question-edit-form": {
+      "created-question": "Question successfully asked",
+      "edited-question": "Question successfully edited"
+    },
     "account-page": {
       "account-deletion": "Account was successfully deleted"
-    },
-    "create-post-page": {
-      "created-post": "Post successfully created"
-    },
-    "edit-post-page": {
-      "edited-post": "Post successfully edited"
     }
   },
   "header": {
@@ -161,7 +163,7 @@
   },
   "modal-question-form": {
     "title-span": "Title",
-    "title-input-placeholder": "Bug with event loop...",
+    "title-input-placeholder": "Problem...",
     "description-span": "Description",
     "description-input-placeholder": "The problem is...",
     "code-span": "Code",

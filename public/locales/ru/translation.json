@@ -31,6 +31,10 @@
       "created-post": "Пост успешно создан",
       "edited-post": "Пост успешно изменен"
     },
+    "question-edit-form": {
+      "created-question": "Вопрос успешно задан",
+      "edited-question": "Вопрос успешно изменен"
+    },
     "account-page": {
       "account-deletion": "Аккаунт был успешно удалён"
     }
@@ -160,7 +164,7 @@
   },
   "modal-question-form": {
     "title-span": "Заголовок",
-    "title-input-placeholder": "Проблема с циклом событий...",
+    "title-input-placeholder": "Проблема...",
     "description-span": "Описание",
     "description-input-placeholder": "Описание проблемы...",
     "code-span": "Код",
