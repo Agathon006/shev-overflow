@@ -10,6 +10,7 @@ type GetQuestionsOptions = {
   queryConfig?: QueryConfigType<typeof getQuestions>;
   searchTerm?: string;
   limit?: number;
+  page?: number;
 };
 
 export const getQuestions = async (
@@ -39,11 +40,12 @@ export const getQuestions = async (
 export const questionsQueryOptions = (
   searchTerm: string,
   limit: number = 10,
+  page: number = 1,
 ) => {
   return infiniteQueryOptions({
-    queryKey: ['questions', `searchTerm: ${searchTerm}`, `limit: ${limit}`],
-    queryFn: ({ pageParam }) => getQuestions(limit, pageParam, searchTerm),
-    getNextPageParam: (lastGroup) => lastGroup.nextPage,
+    queryKey: ['questions', searchTerm, limit, page], 
+    queryFn: () => getQuestions(limit, page, searchTerm), 
+    getNextPageParam: () => null, 
     initialPageParam: 1,
     staleTime: searchTerm ? 0 : 1000 * 60 * 5,
   });
@@ -53,9 +55,10 @@ export const useQuestions = ({
   queryConfig,
   searchTerm = '',
   limit = 10,
+  page = 1,
 }: GetQuestionsOptions = {}) => {
   return useInfiniteQuery({
     ...queryConfig,
-    ...questionsQueryOptions(searchTerm, limit),
+    ...questionsQueryOptions(searchTerm, limit, page),
   });
 };

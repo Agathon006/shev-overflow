@@ -34,12 +34,14 @@ export const QuestionsTable = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
   const { data, isLoading, fetchNextPage } = useQuestions({
     searchTerm: debouncedSearchTerm,
     limit: rowsPerPage,
+    page: page + 1,
   });
 
-  const questions = data?.pages.flatMap((page) => page.questions) || [];
+  const questions = data?.pages?.[0]?.questions || [];
   const totalCount = data?.pages?.[0]?.totalCount ?? 0;
 
   const columns = [
