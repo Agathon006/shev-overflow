@@ -34,14 +34,13 @@ export const QuestionsTable = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { data, isLoading } = useQuestions({
+  const { data, isLoading, fetchNextPage } = useQuestions({
     searchTerm: debouncedSearchTerm,
     limit: rowsPerPage,
   });
 
   const questions = data?.pages.flatMap((page) => page.questions) || [];
-  const totalCount =
-    data?.pages?.reduce((acc, page) => acc + page.questions.length, 0) || 0;
+  const totalCount = data?.pages?.[0]?.totalCount ?? 0;
 
   const columns = [
     { accessorKey: 'id', header: t('questions-table.header.id') },
@@ -150,10 +149,19 @@ export const QuestionsTable = () => {
         count={totalCount}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={(_, newPage) => setPage(newPage)}
-        onRowsPerPageChange={(e) =>
-          setRowsPerPage(parseInt(e.target.value, 10))
-        }
+        onPageChange={(_, newPage) => {
+          setPage(newPage);
+          if (
+            newPage > page &&
+            data?.pages?.[data.pages.length - 1]?.nextPage
+          ) {
+            fetchNextPage();
+          }
+        }}
+        onRowsPerPageChange={(e) => {
+          setRowsPerPage(parseInt(e.target.value, 10));
+          setPage(0);
+        }}
         labelRowsPerPage={t('questions-table.pagination-label')}
       />
     </Container>

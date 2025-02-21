@@ -25,12 +25,14 @@ export const getQuestions = async (
     .object({
       data: questionSchema.array(),
       links: linksSchema,
+      meta: z.object({ totalItems: z.number() }),
     })
     .parseAsync(response.data);
 
   return {
     questions: validated.data,
     nextPage: validated.links.next ? nextOffset + 1 : null,
+    totalCount: validated.meta.totalItems,
   };
 };
 
