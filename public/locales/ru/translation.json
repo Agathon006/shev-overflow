@@ -155,7 +155,8 @@
       "is-resolved": "Решено",
       "view": "Посмотреть"
     },
-    "pagination-label": "Вопросов на странице:"
+    "pagination-label": "Вопросов на странице:",
+    "no-questions": "Вопросов пока нет"
   },
   "user-profile": {
     "id": "Id: ",

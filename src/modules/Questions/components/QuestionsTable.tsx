@@ -1,5 +1,6 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
+  Alert,
   Container,
   IconButton,
   Table,
@@ -80,6 +81,24 @@ export const QuestionsTable = () => {
     rowCount: totalCount,
   });
 
+  if (isLoading && !questions.length) {
+    return (
+      <Container maxWidth="xl" sx={{ width: '100%' }}>
+        <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
+        <Spinner />
+      </Container>
+    );
+  }
+
+  if (questions.length === 0) {
+    return (
+      <Container maxWidth="xl" sx={{ width: '100%' }}>
+        <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
+        <Alert severity="info">{t('questions-table.no-questions')}</Alert>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="xl" sx={{ width: '100%' }}>
       <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
@@ -104,35 +123,24 @@ export const QuestionsTable = () => {
             ))}
           </TableHead>
           <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell colSpan={columns.length} align="center">
-                  <Spinner />
-                </TableCell>
+            {table.getRowModel().rows.map((row, i) => (
+              <TableRow
+                key={row.id}
+                sx={(theme) =>
+                  i % 2 !== 0
+                    ? {
+                        backgroundColor: theme.palette.customNeutral[200],
+                      }
+                    : {}
+                }
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id} align="center">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
               </TableRow>
-            ) : (
-              table.getRowModel().rows.map((row, i) => (
-                <TableRow
-                  key={row.id}
-                  sx={(theme) =>
-                    i % 2 !== 0
-                      ? {
-                          backgroundColor: theme.palette.customNeutral[200],
-                        }
-                      : {}
-                  }
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} align="center">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

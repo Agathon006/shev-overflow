@@ -156,7 +156,8 @@
       "is-resolved": "IsResolved",
       "view": "View"
     },
-    "pagination-label": "Questions per page:"
+    "pagination-label": "Questions per page:",
+    "no-questions": "No questions yet"
   },
   "user-profile": {
     "id": "Id: ",
