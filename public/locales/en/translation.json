@@ -214,5 +214,8 @@
   "yes-no-label": {
     "yes": "Yes",
     "no": "No"
+  },
+  "confirmation-modal": {
+    "title": "Are you sure?"
   }
 }

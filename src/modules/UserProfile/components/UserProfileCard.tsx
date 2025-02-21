@@ -9,10 +9,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
 import { useLogout } from '@/api/logout';
+import { ConfirmationModal } from '@/components/ConfirmationModal';
 import { Spinner } from '@/components/Spinner';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
@@ -26,6 +28,21 @@ type UserProfileCardProps = {
 
 export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
   const { t } = useTranslation();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleConfirm = () => {
+    mutateDeleteUser();
+    handleCloseModal();
+  };
 
   const navigate = useNavigate();
 
@@ -165,10 +182,15 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
                 disabled={isUserLogoutPending || isUserDeletionPending}
                 variant="contained"
                 color="error"
-                onClick={() => mutateDeleteUser()}
+                onClick={handleOpenModal}
               >
                 <DeleteIcon />
               </Button>
+              <ConfirmationModal
+                open={modalOpen}
+                onClose={handleCloseModal}
+                onConfirm={handleConfirm}
+              />
             </Box>
           </Box>
         </Box>

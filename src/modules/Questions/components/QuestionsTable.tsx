@@ -21,7 +21,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Spinner } from '@/components/Spinner';
-import { YesNoLabel } from '@/components/YesNoLabel/YesNoLabel';
+import { YesNoLabel } from '@/components/YesNoLabel';
 import { useDebounce } from '@/hooks/useDebounce';
 
 import { useQuestions } from '../api/getQuestions';

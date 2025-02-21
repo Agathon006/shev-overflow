@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
+import { ConfirmationModal } from '@/components/ConfirmationModal';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
@@ -33,6 +34,22 @@ type SnippetCardProps = {
 
 export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   const { t } = useTranslation();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleConfirm = () => {
+    deleteSnippet({ snippetId: snippet.id });
+    handleCloseModal();
+  };
+
   const navigate = useNavigate();
   const { mutate, isPending } = useSnippetMark();
   const { data: currentUser } = useAuth();
@@ -157,11 +174,16 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
                 </IconButton>
                 <IconButton
                   disabled={deleteIsPending}
-                  onClick={() => deleteSnippet({ snippetId: snippet.id })}
+                  onClick={handleOpenModal}
                   sx={{ p: 0.5, color: 'error.main' }}
                 >
                   <DeleteIcon sx={{ fontSize: 20 }} />
                 </IconButton>
+                <ConfirmationModal
+                  open={modalOpen}
+                  onClose={handleCloseModal}
+                  onConfirm={handleConfirm}
+                />
               </>
             )}
           </Box>

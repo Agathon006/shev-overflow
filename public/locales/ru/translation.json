@@ -213,5 +213,8 @@
   "yes-no-label": {
     "yes": "Да",
     "no": "Нет"
+  },
+  "confirmation-modal": {
+    "title": "Вы уверены?"
   }
 }
