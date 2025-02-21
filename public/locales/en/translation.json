@@ -154,10 +154,24 @@
       "description": "Description",
       "answers": "Answers",
       "is-resolved": "IsResolved",
-      "view": "View"
+      "actions": "Actions"
     },
     "pagination-label": "Questions per page:",
     "no-questions": "No questions yet"
+  },
+  "modal-question-form": {
+    "title-span": "Title",
+    "title-input-placeholder": "Bug with event loop...",
+    "description-span": "Description",
+    "description-input-placeholder": "The problem is...",
+    "code-span": "Code",
+    "ask-question-button-span": "Ask question",
+    "edit-question-button-span": "Save",
+    "error": {
+      "title-message": "Please enter title",
+      "description-message": "Please enter description",
+      "code-message": "Please enter code"
+    }
   },
   "user-profile": {
     "id": "Id: ",

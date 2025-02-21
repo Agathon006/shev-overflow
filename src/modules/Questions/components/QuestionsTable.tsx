@@ -62,8 +62,8 @@ export const QuestionsTable = () => {
         info.getValue() ? <YesNoLabel truth /> : <YesNoLabel />,
     },
     {
-      accessorKey: 'view',
-      header: t('questions-table.header.view'),
+      accessorKey: 'actions',
+      header: t('questions-table.header.actions'),
       cell: () => (
         <IconButton color="secondary">
           <VisibilityIcon />

@@ -153,10 +153,24 @@
       "description": "Описание",
       "answers": "Ответы",
       "is-resolved": "Решено",
-      "view": "Посмотреть"
+      "actions": "Действия"
     },
     "pagination-label": "Вопросов на странице:",
     "no-questions": "Вопросов пока нет"
+  },
+  "modal-question-form": {
+    "title-span": "Заголовок",
+    "title-input-placeholder": "Проблема с циклом событий...",
+    "description-span": "Описание",
+    "description-input-placeholder": "Описание проблемы...",
+    "code-span": "Код",
+    "ask-question-button-span": "Задать вопрос",
+    "edit-question-button-span": "Сохранить",
+    "error": {
+      "title-message": "Пожалуйста введите заголовок",
+      "description-message": "Пожалуйста введите описание",
+      "code-message": "Пожалуйста введите код"
+    }
   },
   "user-profile": {
     "id": "Id: ",
