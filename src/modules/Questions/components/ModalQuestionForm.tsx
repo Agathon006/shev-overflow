@@ -43,10 +43,16 @@ export const ModalQuestionForm = ({
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<QuestionEditSchema>({
     resolver: zodResolver(questionEditSchema),
     defaultValues: defaultValues ?? { title: '', description: '', code: '' },
   });
+
+  const handleFormSubmit = (data: QuestionEditSchema) => {
+    onSubmit(data);
+    reset();
+  };
 
   return (
     <Dialog
@@ -56,7 +62,12 @@ export const ModalQuestionForm = ({
       aria-describedby="alert-dialog-description"
       fullWidth
     >
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} pb={2} pt={2}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit(handleFormSubmit)}
+        pb={2}
+        pt={2}
+      >
         <Stack direction="column" spacing={2} mb={3} mx={4}>
           <Typography variant="h6">
             {t('modal-question-form.title-span')}
@@ -81,9 +92,9 @@ export const ModalQuestionForm = ({
             fullWidth
             margin="normal"
             {...register('description')}
-            error={!!errors.title}
+            error={!!errors.description}
             helperText={
-              errors.title
+              errors.description
                 ? t('modal-question-form.error.description-message')
                 : null
             }
