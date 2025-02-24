@@ -203,6 +203,9 @@
   "account-page": {
     "title": "Welcome, "
   },
+  "user-page": {
+    "title": "User: "
+  },
   "page404": {
     "title": "Page not found",
     "button-text": "Go to main page"
