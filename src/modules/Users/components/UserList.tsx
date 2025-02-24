@@ -64,7 +64,7 @@ export const UsersList = () => {
     );
   }
 
-  if (users.length === 0) {
+  if (!users.length) {
     return (
       <Container maxWidth="xl" sx={{ width: '100%' }}>
         <UserListSearch search={searchTerm} setSearch={setSearchTerm} />
@@ -74,61 +74,59 @@ export const UsersList = () => {
   }
 
   return (
-    <>
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
-        <UserListSearch search={searchTerm} setSearch={setSearchTerm} />
-        <Container
-          ref={parentRef}
-          maxWidth="xl"
-          disableGutters
+    <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <UserListSearch search={searchTerm} setSearch={setSearchTerm} />
+      <Container
+        ref={parentRef}
+        maxWidth="xl"
+        disableGutters
+        sx={{
+          width: '100%',
+          height: '75vh',
+          overflow: 'auto',
+          contain: 'strict',
+        }}
+      >
+        <Box
           sx={{
+            height: rowVirtualizer.getTotalSize(),
             width: '100%',
-            height: '75vh',
-            overflow: 'auto',
-            contain: 'strict',
+            position: 'relative',
           }}
         >
           <Box
+            display={'flex'}
+            flexDirection={'column'}
+            gap={2}
             sx={{
-              height: rowVirtualizer.getTotalSize(),
+              position: 'absolute',
+              top: 0,
+              left: 0,
               width: '100%',
-              position: 'relative',
+              transform: `translateY(${items[0]?.start ?? 0}px)`,
             }}
           >
-            <Box
-              display={'flex'}
-              flexDirection={'column'}
-              gap={2}
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                transform: `translateY(${items[0]?.start ?? 0}px)`,
-              }}
-            >
-              {items.map((virtualRow) => {
-                const isLoaderRow = virtualRow.index >= users.length;
-                const user = users[virtualRow.index];
+            {items.map((virtualRow) => {
+              const isLoaderRow = virtualRow.index >= users.length;
+              const user = users[virtualRow.index];
 
-                return (
-                  <Box
-                    key={virtualRow.index}
-                    data-index={virtualRow.index}
-                    ref={rowVirtualizer.measureElement}
-                  >
-                    {isLoaderRow ? (
-                      t('users.user-list.extra-content')
-                    ) : (
-                      <UserCard user={user} />
-                    )}
-                  </Box>
-                );
-              })}
-            </Box>
+              return (
+                <Box
+                  key={virtualRow.index}
+                  data-index={virtualRow.index}
+                  ref={rowVirtualizer.measureElement}
+                >
+                  {isLoaderRow ? (
+                    t('users.user-list.extra-content')
+                  ) : (
+                    <UserCard user={user} />
+                  )}
+                </Box>
+              );
+            })}
           </Box>
-        </Container>
+        </Box>
       </Container>
-    </>
+    </Container>
   );
 };
