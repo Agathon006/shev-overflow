@@ -35,10 +35,10 @@ export const useUpdateProfile = ({
         };
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions('').queryKey,
+        queryKey: snippetsQueryOptions().queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: usersQueryOptions('').queryKey,
+        queryKey: usersQueryOptions().queryKey,
       });
       onSuccess?.(data, ...args);
     },

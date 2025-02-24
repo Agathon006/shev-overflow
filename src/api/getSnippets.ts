@@ -37,11 +37,11 @@ export const getSnippets = async (
   };
 };
 
-export const snippetsQueryOptions = (searchTerm: string, userId?: string) => {
+export const snippetsQueryOptions = (searchTerm = '', userId?: string) => {
   return infiniteQueryOptions({
     queryKey: userId
-      ? ['snippets', `searchTerm: ${searchTerm}`, `userId: ${userId}`]
-      : ['snippets', `searchTerm: ${searchTerm}`],
+      ? ['snippets', searchTerm, userId]
+      : ['snippets', searchTerm],
     queryFn: ({ pageParam }) =>
       getSnippets(SNIPPETS_LIST_LIMIT, pageParam, searchTerm, userId),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,

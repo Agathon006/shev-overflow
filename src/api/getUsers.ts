@@ -31,9 +31,9 @@ export const getUsers = async (limit: number, nextOffset = 1, search = '') => {
   };
 };
 
-export const usersQueryOptions = (searchTerm: string) => {
+export const usersQueryOptions = (searchTerm = '') => {
   return infiniteQueryOptions({
-    queryKey: ['users', `searchTerm: ${searchTerm}`],
+    queryKey: ['users', searchTerm],
     queryFn: ({ pageParam }) =>
       getUsers(USERS_LIST_LIMIT, pageParam, searchTerm),
     getNextPageParam: (lastGroup) => lastGroup.nextPage,
