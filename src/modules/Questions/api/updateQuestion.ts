@@ -4,6 +4,7 @@ import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
 import { QuestionSchema, questionSchema } from '@/schemas/question';
 
+import { QuestionEditSchema } from '../schemas/questionEdit';
 import { questionByIdQueryOptions } from './getQuestionById';
 import { questionsQueryOptions } from './getQuestions';
 
@@ -14,7 +15,7 @@ type UpdateQuestionOptions = {
 
 type UpdateQuestionProps = {
   questionId: QuestionSchema['id'];
-  content: Pick<QuestionSchema, 'title' | 'description' | 'attachedCode'>;
+  content: QuestionEditSchema;
 };
 
 export const updateQuestion = async ({

@@ -15,6 +15,7 @@ import { notify } from '@/utils/notify';
 import { useDeleteQuestion } from '../api/deleteQuestion';
 import { useQuestionById } from '../api/getQuestionById';
 import { useUpdateQuestion } from '../api/updateQuestion';
+import { QuestionEditSchema } from '../schemas/questionEdit';
 import { ModalQuestionForm } from './ModalQuestionForm';
 
 type QuestionTableRowProps = {
@@ -61,8 +62,9 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
     });
 
   const handleSubmit = (
-    data: Pick<QuestionSchema, 'title' | 'description' | 'attachedCode'>,
-    setIsEditing: (value: boolean) => void,
+    data: QuestionEditSchema,
+    setIsEditing?: (value: boolean) => void,
+    reset?: () => void,
   ) => {
     updateQuestion(
       {
@@ -72,7 +74,8 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
       {
         onSuccess: () => {
           handleCloseModal();
-          setIsEditing(false);
+          setIsEditing?.(false);
+          reset?.();
         },
       },
     );

@@ -3,9 +3,12 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ModalQuestionForm, QuestionsTable } from '@/modules/Questions';
-import { useCreateQuestion } from '@/modules/Questions/api/createQuestion';
-import { QuestionEditSchema } from '@/modules/Questions/schemas/questionEdit';
+import {
+  ModalQuestionForm,
+  QuestionEditSchema,
+  QuestionsTable,
+  useCreateQuestion,
+} from '@/modules/Questions';
 import { notify } from '@/utils/notify';
 
 export const QuestionsPage = () => {
@@ -28,13 +31,22 @@ export const QuestionsPage = () => {
           type: 'success',
           title: t('api.question-edit-form.created-question'),
         });
-        handleCloseModal();
       },
     },
   });
 
-  const handleSubmit = (data: QuestionEditSchema) => {
-    createQuestion(data);
+  const handleSubmit = (
+    data: QuestionEditSchema,
+    setIsEditing?: (value: boolean) => void,
+    reset?: () => void,
+  ) => {
+    createQuestion(data, {
+      onSuccess: () => {
+        handleCloseModal();
+        setIsEditing?.(false);
+        reset?.();
+      },
+    });
   };
 
   return (

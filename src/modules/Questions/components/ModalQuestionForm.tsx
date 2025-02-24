@@ -30,7 +30,8 @@ type ModalQuestionFormProps = {
   isSubmitting?: boolean;
   onSubmit: (
     data: QuestionEditSchema,
-    setIsEditing: (value: boolean) => void,
+    setIsEditing?: (value: boolean) => void,
+    reset?: () => void,
   ) => void;
 };
 
@@ -79,7 +80,7 @@ export const ModalQuestionForm = ({
   };
 
   const handleFormSubmit = (data: QuestionEditSchema) => {
-    onSubmit(data, setIsEditing);
+    onSubmit(data, setIsEditing, reset);
   };
 
   return (
