@@ -203,8 +203,24 @@
       "new-password-same-as-old": "New password can't be the same as old"
     }
   },
+  "users": {
+    "user-card": {
+      "user-id-span": "id: ",
+      "user-role-span": "role: "
+    },
+    "user-list": {
+      "no-users": "No users found",
+      "extra-content": "Loading more..."
+    },
+    "user-list-search": {
+      "label": "Search users"
+    }
+  },
   "home-page": {
     "title": "Welcome to Shef Overflow!"
+  },
+  "users-page": {
+    "title": "Users of Shef Overflow!"
   },
   "my-posts-page": {
     "title": "My posts",

@@ -34,7 +34,7 @@ export const useDeleteComment = ({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions('').queryKey,
+        queryKey: snippetsQueryOptions().queryKey,
       });
       onSuccess?.(...args);
     },

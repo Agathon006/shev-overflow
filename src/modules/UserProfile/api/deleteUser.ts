@@ -22,7 +22,7 @@ export const useDeleteUser = ({ mutationConfig }: DeleteUserOptions = {}) => {
     onSuccess: async (...args) => {
       queryClient.setQueryData(authUserQueryOptions().queryKey, null);
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions('').queryKey,
+        queryKey: snippetsQueryOptions().queryKey,
       });
       onSuccess?.(...args);
     },

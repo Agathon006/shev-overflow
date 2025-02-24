@@ -33,7 +33,7 @@ export const useCreateSnippet = ({
         queryKey: snippetByIdQueryOptions(data.id).queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions('').queryKey,
+        queryKey: snippetsQueryOptions().queryKey,
       });
       onSuccess?.(data, ...args);
     },

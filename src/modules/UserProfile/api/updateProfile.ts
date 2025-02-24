@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
 import { snippetsQueryOptions } from '@/api/getSnippets';
+import { usersQueryOptions } from '@/api/getUsers';
 import { MutationConfigType } from '@/lib/react-query';
 import { Username } from '@/schemas/username';
 
@@ -34,7 +35,10 @@ export const useUpdateProfile = ({
         };
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions('').queryKey,
+        queryKey: snippetsQueryOptions().queryKey,
+      });
+      await queryClient.invalidateQueries({
+        queryKey: usersQueryOptions().queryKey,
       });
       onSuccess?.(data, ...args);
     },
