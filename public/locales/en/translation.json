@@ -161,7 +161,8 @@
     },
     "pagination-label": "Questions per page:",
     "no-questions": "No questions yet",
-    "delete-success": "Question deleted"
+    "delete-success": "Question deleted",
+    "edit-success": "Question edited"
   },
   "modal-question-form": {
     "title-span": "Title",

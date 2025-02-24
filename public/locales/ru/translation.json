@@ -162,7 +162,8 @@
     },
     "pagination-label": "Вопросов на странице:",
     "no-questions": "Вопросов пока нет",
-    "delete-success": "Вопрос удален"
+    "delete-success": "Вопрос удален",
+    "edit-success": "Вопрос отредактирован"
   },
   "modal-question-form": {
     "title-span": "Заголовок",

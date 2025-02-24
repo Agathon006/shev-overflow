@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import MonacoEditor from '@monaco-editor/react';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -22,21 +24,25 @@ import {
 type ModalQuestionFormProps = {
   open: boolean;
   onClose: () => void;
-  questionId?: QuestionSchema['id'];
+  question?: QuestionSchema;
+  isCurrentUser?: boolean;
   defaultValues?: Partial<QuestionEditSchema>;
-  onSubmit: (data: QuestionEditSchema) => void;
   isSubmitting?: boolean;
+  onSubmit: (data: QuestionEditSchema) => void;
 };
 
 export const ModalQuestionForm = ({
   open,
   onClose,
-  questionId,
+  question,
+  isCurrentUser,
   defaultValues,
-  onSubmit,
   isSubmitting,
+  onSubmit,
 }: ModalQuestionFormProps) => {
   const { t } = useTranslation();
+
+  const [isEditing, setIsEditing] = useState(false);
 
   const {
     register,
@@ -46,17 +52,21 @@ export const ModalQuestionForm = ({
     reset,
   } = useForm<QuestionEditSchema>({
     resolver: zodResolver(questionEditSchema),
-    defaultValues: defaultValues ?? { title: '', description: '', code: '' },
+    defaultValues: defaultValues ?? {
+      title: '',
+      description: '',
+      attachedCode: '',
+    },
   });
 
   const handleClose = () => {
     onClose();
     reset();
+    setIsEditing(false);
   };
 
   const handleFormSubmit = (data: QuestionEditSchema) => {
     onSubmit(data);
-    reset();
   };
 
   return (
@@ -73,6 +83,13 @@ export const ModalQuestionForm = ({
         pb={2}
         pt={2}
       >
+        {question?.id && isCurrentUser && !isEditing && (
+          <Box display="flex" justifyContent="flex-end" mx={4}>
+            <Button variant="contained" onClick={() => setIsEditing(true)}>
+              <EditIcon />
+            </Button>
+          </Box>
+        )}
         <Stack direction="column" spacing={2} mb={3} mx={4}>
           <Typography variant="h6">
             {t('modal-question-form.title-span')}
@@ -87,6 +104,12 @@ export const ModalQuestionForm = ({
             helperText={
               errors.title ? t('modal-question-form.error.title-message') : null
             }
+            slotProps={{
+              input: {
+                readOnly: !(!question?.id || isEditing),
+                disabled: !(!question?.id || isEditing),
+              },
+            }}
           />
           <Typography variant="h6">
             {t('modal-question-form.description-span')}
@@ -103,17 +126,24 @@ export const ModalQuestionForm = ({
                 ? t('modal-question-form.error.description-message')
                 : null
             }
+            slotProps={{
+              input: {
+                readOnly: !(!question?.id || isEditing),
+                disabled: !(!question?.id || isEditing),
+              },
+            }}
           />
           <Typography variant="h6">
             {t('modal-question-form.code-span')}
           </Typography>
           <Controller
-            name="code"
+            name="attachedCode"
             control={control}
             render={({ field: { onChange, value } }) => (
               <MonacoEditor
                 height="400px"
                 theme="vs-dark"
+                defaultValue={question?.attachedCode}
                 value={value}
                 onChange={(val) => onChange(val)}
                 options={{
@@ -122,26 +152,28 @@ export const ModalQuestionForm = ({
                   lineNumbers: 'on',
                   minimap: { enabled: false },
                   padding: { top: 10 },
-                  readOnly: isSubmitting,
+                  readOnly: !(!question?.id || isEditing),
                 }}
               />
             )}
           />
-          {errors.code && (
+          {errors.attachedCode && (
             <Typography color="error">
               {t('modal-question-form.error.code-message')}
             </Typography>
           )}
         </Stack>
-        <Stack direction="row" justifyContent="center">
-          <DialogActions>
-            <Button disabled={isSubmitting} variant="contained" type="submit">
-              {questionId
-                ? t('modal-question-form.edit-question-button-span')
-                : t('modal-question-form.ask-question-button-span')}
-            </Button>
-          </DialogActions>
-        </Stack>
+        {(!question?.id || isEditing) && (
+          <Stack direction="row" justifyContent="center">
+            <DialogActions>
+              <Button disabled={isSubmitting} variant="contained" type="submit">
+                {question?.id
+                  ? t('modal-question-form.edit-question-button-span')
+                  : t('modal-question-form.ask-question-button-span')}
+              </Button>
+            </DialogActions>
+          </Stack>
+        )}
       </Box>
     </Dialog>
   );

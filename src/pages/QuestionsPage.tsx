@@ -61,7 +61,7 @@ export const QuestionsPage = () => {
         <ModalQuestionForm
           open={modalOpen}
           onClose={handleCloseModal}
-          defaultValues={{ title: '', description: '', code: '' }}
+          defaultValues={{ title: '', description: '', attachedCode: '' }}
           onSubmit={handleSubmit}
           isSubmitting={isCreating}
         />

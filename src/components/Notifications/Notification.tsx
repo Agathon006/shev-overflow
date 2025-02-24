@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert, AlertTitle, Fade, IconButton } from '@mui/material';
+import { Alert, AlertTitle, Box, Fade, IconButton } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 export type NotificationProps = {
@@ -34,7 +34,7 @@ export const Notification = ({
 
   return (
     <Fade in={open} timeout={500}>
-      <div>
+      <Box>
         <Alert
           variant="filled"
           severity={type}
@@ -53,7 +53,7 @@ export const Notification = ({
           <AlertTitle>{title}</AlertTitle>
           {message}
         </Alert>
-      </div>
+      </Box>
     </Fade>
   );
 };

@@ -7,7 +7,7 @@ export const questionEditSchema = z.object({
   description: questionSchema.shape.description.nonempty(
     'Description is required',
   ),
-  code: questionSchema.shape.attachedCode.nonempty('Code is required'),
+  attachedCode: questionSchema.shape.attachedCode.nonempty('Code is required'),
 });
 
 export type QuestionEditSchema = z.infer<typeof questionEditSchema>;

@@ -1,9 +1,6 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   Alert,
   Container,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -21,20 +18,18 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '@/api/auth';
 import { Spinner } from '@/components/Spinner';
-import { YesNoLabel } from '@/components/YesNoLabel';
 import { useDebounce } from '@/hooks/useDebounce';
-import { QuestionSchema } from '@/schemas/question';
-import { notify } from '@/utils/notify';
 
-import { useDeleteQuestion } from '../api/deleteQuestion';
 import { useQuestions } from '../api/getQuestions';
 import { QuestionsTableSearch } from './QuestionsTableSearch';
+import { QuestionsTableRow } from './QuestionTableRow';
 
 export const QuestionsTable = () => {
   const { t } = useTranslation();
+
   const [searchTerm, setSearchTerm] = useState('');
+  
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -45,16 +40,6 @@ export const QuestionsTable = () => {
     limit: rowsPerPage,
     page: page + 1,
   });
-
-  const { mutate, isPending } = useDeleteQuestion({
-    mutationConfig: {
-      onSuccess: () => {
-        notify({ type: 'info', title: t('questions-table.delete-success') });
-      },
-    },
-  });
-
-  const { data: currentUser } = useAuth();
 
   const questions = data?.pages?.[0]?.questions || [];
   const totalCount = data?.pages?.[0]?.totalCount ?? 0;
@@ -74,32 +59,10 @@ export const QuestionsTable = () => {
     {
       accessorKey: 'isResolved',
       header: t('questions-table.header.is-resolved'),
-      cell: (info: { getValue: () => boolean }) =>
-        info.getValue() ? <YesNoLabel truth /> : <YesNoLabel />,
     },
     {
       accessorKey: 'actions',
       header: t('questions-table.header.actions'),
-      cell: ({ row }: { row: { original: QuestionSchema } }) => {
-        const isCurrentUser = currentUser?.id === row.original.user.id;
-
-        return (
-          <>
-            <IconButton disabled={isPending} color="secondary">
-              <VisibilityIcon />
-            </IconButton>
-            {isCurrentUser && (
-              <IconButton
-                onClick={() => mutate({ questionId: row.original.id })}
-                disabled={isPending}
-                color="error"
-              >
-                <DeleteIcon />
-              </IconButton>
-            )}
-          </>
-        );
-      },
     },
   ];
 
@@ -155,22 +118,7 @@ export const QuestionsTable = () => {
           </TableHead>
           <TableBody>
             {table.getRowModel().rows.map((row, i) => (
-              <TableRow
-                key={row.id}
-                sx={(theme) =>
-                  i % 2 !== 0
-                    ? {
-                        backgroundColor: theme.palette.customNeutral[200],
-                      }
-                    : {}
-                }
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} align="center">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
+              <QuestionsTableRow key={row.id} row={row} index={i} />
             ))}
           </TableBody>
         </Table>

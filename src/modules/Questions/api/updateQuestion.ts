@@ -2,40 +2,49 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { MutationConfigType } from '@/lib/react-query';
-import { questionSchema } from '@/schemas/question';
+import { QuestionSchema, questionSchema } from '@/schemas/question';
 
-import { QuestionEditSchema } from '../schemas/questionEdit';
 import { questionByIdQueryOptions } from './getQuestionById';
 import { questionsQueryOptions } from './getQuestions';
 
-type CreateQuestionOptions = {
-  mutationConfig?: MutationConfigType<typeof createQuestion>;
+type UpdateQuestionOptions = {
+  mutationConfig?: MutationConfigType<typeof updateQuestion>;
+  id: QuestionSchema['id'];
 };
 
-export const createQuestion = async (newQuestion: QuestionEditSchema) => {
-  const response = await api.post('/questions', newQuestion);
+type UpdateQuestionProps = {
+  questionId: QuestionSchema['id'];
+  content: Pick<QuestionSchema, 'title' | 'description' | 'attachedCode'>;
+};
+
+export const updateQuestion = async ({
+  questionId,
+  content,
+}: UpdateQuestionProps) => {
+  const response = await api.patch(`/questions/${questionId}`, content);
 
   return questionSchema
     .omit({ answers: true, isResolved: true })
     .parseAsync(response.data);
 };
 
-export const useCreateQuestion = ({
+export const useUpdateQuestion = ({
   mutationConfig,
-}: CreateQuestionOptions = {}) => {
+  id,
+}: UpdateQuestionOptions) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: createQuestion,
-    onSuccess: async (data, ...args) => {
+    mutationFn: updateQuestion,
+    onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
-        queryKey: questionByIdQueryOptions(data.id),
+        queryKey: questionByIdQueryOptions(id),
       });
       await queryClient.invalidateQueries({
         queryKey: questionsQueryOptions().queryKey,
       });
-      onSuccess?.(data, ...args);
+      onSuccess?.(...args);
     },
     ...restConfig,
   });
