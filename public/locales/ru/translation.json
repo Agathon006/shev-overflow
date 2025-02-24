@@ -11,7 +11,8 @@
     "Unable to delete! Comment not found!": "Невозможно удалить! Комментария нет!",
     "Internal server error": "Внутренняя ошибка сервера",
     "Old password is incorrect!": "Старый пароль неправильный!",
-    "Unable to delete! Snippet not found!": "Невозможно удалить! Сниппет не найден!"
+    "Unable to delete! Snippet not found!": "Невозможно удалить! Сниппет не найден!",
+    "Token expired!": "Сессия истекла!"
   },
   "api": {
     "error-title": "Ошибка",
@@ -160,7 +161,8 @@
       "actions": "Действия"
     },
     "pagination-label": "Вопросов на странице:",
-    "no-questions": "Вопросов пока нет"
+    "no-questions": "Вопросов пока нет",
+    "delete-success": "Вопрос удален"
   },
   "modal-question-form": {
     "title-span": "Заголовок",

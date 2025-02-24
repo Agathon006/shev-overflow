@@ -32,7 +32,7 @@ export const useCreateQuestion = ({
         queryKey: ['question', data.id],
       });
       await queryClient.invalidateQueries({
-        queryKey: questionsQueryOptions('').queryKey,
+        queryKey: questionsQueryOptions().queryKey,
       });
       onSuccess?.(data, ...args);
     },

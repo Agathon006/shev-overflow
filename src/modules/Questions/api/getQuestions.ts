@@ -38,7 +38,7 @@ export const getQuestions = async (
 };
 
 export const questionsQueryOptions = (
-  searchTerm: string,
+  searchTerm = '',
   limit: number = 10,
   page: number = 1,
 ) => {

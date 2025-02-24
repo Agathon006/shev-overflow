@@ -26,7 +26,9 @@ import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { useDebounce } from '@/hooks/useDebounce';
 import { QuestionSchema } from '@/schemas/question';
+import { notify } from '@/utils/notify';
 
+import { useDeleteQuestion } from '../api/deleteQuestion';
 import { useQuestions } from '../api/getQuestions';
 import { QuestionsTableSearch } from './QuestionsTableSearch';
 
@@ -42,6 +44,14 @@ export const QuestionsTable = () => {
     searchTerm: debouncedSearchTerm,
     limit: rowsPerPage,
     page: page + 1,
+  });
+
+  const { mutate, isPending } = useDeleteQuestion({
+    mutationConfig: {
+      onSuccess: () => {
+        notify({ type: 'info', title: t('questions-table.delete-success') });
+      },
+    },
   });
 
   const { data: currentUser } = useAuth();
@@ -75,11 +85,15 @@ export const QuestionsTable = () => {
 
         return (
           <>
-            <IconButton color="secondary">
+            <IconButton disabled={isPending} color="secondary">
               <VisibilityIcon />
             </IconButton>
             {isCurrentUser && (
-              <IconButton color="error">
+              <IconButton
+                onClick={() => mutate({ questionId: row.original.id })}
+                disabled={isPending}
+                color="error"
+              >
                 <DeleteIcon />
               </IconButton>
             )}
@@ -107,7 +121,7 @@ export const QuestionsTable = () => {
     );
   }
 
-  if (questions.length === 0) {
+  if (!questions.length) {
     return (
       <Container maxWidth="xl" sx={{ width: '100%' }}>
         <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
