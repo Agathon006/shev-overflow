@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -28,7 +28,10 @@ type ModalQuestionFormProps = {
   isCurrentUser?: boolean;
   defaultValues?: Partial<QuestionEditSchema>;
   isSubmitting?: boolean;
-  onSubmit: (data: QuestionEditSchema) => void;
+  onSubmit: (
+    data: QuestionEditSchema,
+    setIsEditing: (value: boolean) => void,
+  ) => void;
 };
 
 export const ModalQuestionForm = ({
@@ -59,6 +62,16 @@ export const ModalQuestionForm = ({
     },
   });
 
+  useEffect(() => {
+    if (question) {
+      reset({
+        title: question.title || '',
+        description: question.description || '',
+        attachedCode: question.attachedCode || '',
+      });
+    }
+  }, [question, reset]);
+
   const handleClose = () => {
     onClose();
     reset();
@@ -66,7 +79,7 @@ export const ModalQuestionForm = ({
   };
 
   const handleFormSubmit = (data: QuestionEditSchema) => {
-    onSubmit(data);
+    onSubmit(data, setIsEditing);
   };
 
   return (
@@ -95,6 +108,7 @@ export const ModalQuestionForm = ({
             {t('modal-question-form.title-span')}
           </Typography>
           <TextField
+            variant="standard"
             label={t('modal-question-form.title-input-placeholder')}
             type="text"
             fullWidth
@@ -115,6 +129,7 @@ export const ModalQuestionForm = ({
             {t('modal-question-form.description-span')}
           </Typography>
           <TextField
+            variant="standard"
             label={t('modal-question-form.description-input-placeholder')}
             type="text"
             fullWidth

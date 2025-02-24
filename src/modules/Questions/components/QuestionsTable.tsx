@@ -118,7 +118,7 @@ export const QuestionsTable = () => {
           </TableHead>
           <TableBody>
             {table.getRowModel().rows.map((row, i) => (
-              <QuestionsTableRow key={row.id} row={row} index={i} />
+              <QuestionsTableRow key={row.original.id} row={row} index={i} />
             ))}
           </TableBody>
         </Table>

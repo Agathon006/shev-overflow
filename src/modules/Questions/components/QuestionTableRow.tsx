@@ -56,15 +56,26 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
             type: 'success',
             title: t('questions-table.edit-success'),
           });
-          handleCloseModal();
         },
       },
     });
 
   const handleSubmit = (
     data: Pick<QuestionSchema, 'title' | 'description' | 'attachedCode'>,
+    setIsEditing: (value: boolean) => void,
   ) => {
-    updateQuestion({ questionId: row.original.id, content: data });
+    updateQuestion(
+      {
+        questionId: row.original.id,
+        content: data,
+      },
+      {
+        onSuccess: () => {
+          handleCloseModal();
+          setIsEditing(false);
+        },
+      },
+    );
   };
 
   if (isLoading) {
@@ -101,7 +112,11 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
                 onClose={handleCloseModal}
                 question={row.original}
                 isCurrentUser={isCurrentUser}
-                defaultValues={question}
+                defaultValues={{
+                  title: question?.title || '',
+                  description: question?.description || '',
+                  attachedCode: question?.attachedCode || '',
+                }}
                 isSubmitting={updateIsPending}
                 onSubmit={handleSubmit}
               />
