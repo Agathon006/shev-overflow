@@ -134,7 +134,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
                           queryClient.invalidateQueries({
                             queryKey: [
                               'snippets',
-                              `searchTerm: ${debouncedSearchTerm}`,
+                              debouncedSearchTerm,
                             ],
                           });
                         }}

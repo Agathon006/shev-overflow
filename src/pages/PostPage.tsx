@@ -41,7 +41,7 @@ export const PostPage = ({ postId }: PostPageProps) => {
         snippet={snippet}
         onMark={() => {
           queryClient.invalidateQueries({
-            queryKey: snippetsQueryOptions('').queryKey,
+            queryKey: snippetsQueryOptions().queryKey,
           });
           queryClient.invalidateQueries({
             queryKey: snippetByIdQueryOptions(snippet.id).queryKey,
