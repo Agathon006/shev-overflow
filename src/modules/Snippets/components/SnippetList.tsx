@@ -39,8 +39,10 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
     overscan: 5,
   });
 
+  const items = rowVirtualizer.getVirtualItems();
+
   useEffect(() => {
-    const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
+    const lastItem = items[items.length - 1];
 
     if (!lastItem) return;
 
@@ -51,17 +53,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
     ) {
       fetchNextPage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    hasNextPage,
-    fetchNextPage,
-    snippets.length,
-    isFetchingNextPage,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    rowVirtualizer.getVirtualItems(),
-  ]);
-
-  const items = rowVirtualizer.getVirtualItems();
+  }, [hasNextPage, fetchNextPage, snippets.length, isFetchingNextPage, items]);
 
   if (isLoading && !snippets.length) {
     return (
@@ -132,10 +124,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
                         snippet={snippet}
                         onMark={() => {
                           queryClient.invalidateQueries({
-                            queryKey: [
-                              'snippets',
-                              debouncedSearchTerm,
-                            ],
+                            queryKey: ['snippets', debouncedSearchTerm],
                           });
                         }}
                       />
