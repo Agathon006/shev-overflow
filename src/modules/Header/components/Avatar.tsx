@@ -68,6 +68,7 @@ export const Avatar = ({ username }: AvatarProps) => {
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
+        closeAfterTransition={false}
       >
         <MenuItem
           component={Link}
