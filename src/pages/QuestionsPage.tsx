@@ -52,20 +52,20 @@ export const QuestionsPage = () => {
   return (
     <Box sx={{ marginTop: 2, marginBottom: 2 }}>
       <Stack
-        position={'relative'}
         direction="row"
         justifyContent="space-between"
         alignItems="center"
+        flexWrap="wrap"
+        gap={2}
         mb={2}
         mx={4}
       >
-        <Typography variant="h4" align="center" sx={{ flexGrow: 1 }}>
+        <Typography variant="h4" sx={{ textAlign: 'left' }}>
           {t('questions-page.title')}
         </Typography>
         <Button
           variant="contained"
           endIcon={<AddIcon />}
-          sx={{ position: 'absolute', right: 0, top: 2 }}
           onClick={handleOpenModal}
         >
           {t('questions-page.create-question')}
