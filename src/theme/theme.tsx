@@ -83,13 +83,13 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      light: '#5dd6b3',
+      light: '#3da68a',
       main: '#70ffcc',
       dark: '#a1ffe4',
     },
     secondary: {
       light: '#d65d8e',
-      main: '#ff70a8',
+      main: '#ff5d9d',
       dark: '#ffa1c4',
     },
     customNeutral: {
