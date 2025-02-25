@@ -126,13 +126,13 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           '&:hover, &:focus': {
-            backgroundColor: theme.palette.customNeutral[700],
+            backgroundColor: theme.palette.customNeutral[300],
           },
           '&.Mui-selected': {
             backgroundColor: theme.palette.customNeutral[500],
             '&:hover, &:focus': {
-              backgroundColor: theme.palette.customNeutral[300],
-              color: theme.palette.customNeutral[900],
+              backgroundColor: theme.palette.customNeutral[700],
+              color: theme.palette.customNeutral[100],
             },
           },
         }),
