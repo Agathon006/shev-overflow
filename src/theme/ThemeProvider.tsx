@@ -9,10 +9,10 @@ import React, {
 
 import { darkTheme, defaultTheme } from './theme';
 
-interface ThemeContextType {
+type ThemeContextType = {
   currentTheme: string;
   setTheme: Dispatch<SetStateAction<string>>;
-}
+};
 
 export const ThemeContext = createContext<ThemeContextType>({
   currentTheme: 'default',
