@@ -122,7 +122,6 @@ export const ModalQuestionForm = ({
             slotProps={{
               input: {
                 readOnly: !(!question?.id || isEditing),
-                disabled: !(!question?.id || isEditing),
               },
             }}
           />
@@ -145,7 +144,6 @@ export const ModalQuestionForm = ({
             slotProps={{
               input: {
                 readOnly: !(!question?.id || isEditing),
-                disabled: !(!question?.id || isEditing),
               },
             }}
           />
