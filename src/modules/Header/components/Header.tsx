@@ -12,6 +12,7 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { Logo } from './Logo';
 import { NavMenu } from './NavMenu';
 import { NavMenuMob } from './NavMenuMob';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -37,6 +38,7 @@ export const Header = () => {
             </Button>
           )}
           <LanguageSwitcher />
+          <ThemeSwitcher />
         </Toolbar>
       </Container>
     </AppBar>
