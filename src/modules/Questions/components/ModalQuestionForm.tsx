@@ -15,6 +15,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { QuestionSchema } from '@/schemas/question';
+import { createDialogHook } from '@/services/dialogService';
 
 import {
   QuestionEditSchema,
@@ -22,12 +23,10 @@ import {
 } from '../schemas/questionEdit';
 
 type ModalQuestionFormProps = {
-  open: boolean;
   onClose: () => void;
   question?: QuestionSchema;
   isCurrentUser?: boolean;
   defaultValues?: Partial<QuestionEditSchema>;
-  isSubmitting?: boolean;
   onSubmit: (
     data: QuestionEditSchema,
     setIsEditing?: (value: boolean) => void,
@@ -35,13 +34,11 @@ type ModalQuestionFormProps = {
   ) => void;
 };
 
-export const ModalQuestionForm = ({
-  open,
+const ModalQuestionForm = ({
   onClose,
   question,
   isCurrentUser,
   defaultValues,
-  isSubmitting,
   onSubmit,
 }: ModalQuestionFormProps) => {
   const { t } = useTranslation();
@@ -81,11 +78,12 @@ export const ModalQuestionForm = ({
 
   const handleFormSubmit = (data: QuestionEditSchema) => {
     onSubmit(data, setIsEditing, reset);
+    handleClose();
   };
 
   return (
     <Dialog
-      open={open}
+      open
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -180,7 +178,7 @@ export const ModalQuestionForm = ({
         {(!question?.id || isEditing) && (
           <Stack direction="row" justifyContent="center">
             <DialogActions>
-              <Button disabled={isSubmitting} variant="contained" type="submit">
+              <Button variant="contained" type="submit">
                 {question?.id
                   ? t('modal-question-form.edit-question-button-span')
                   : t('modal-question-form.ask-question-button-span')}
@@ -192,3 +190,7 @@ export const ModalQuestionForm = ({
     </Dialog>
   );
 };
+
+export const useQuestionFormDialog = createDialogHook<ModalQuestionFormProps>(
+  (props) => <ModalQuestionForm {...props} />,
+);

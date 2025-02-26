@@ -1,28 +1,20 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
-  ModalQuestionForm,
   QuestionEditSchema,
   QuestionsTable,
   useCreateQuestion,
 } from '@/modules/Questions';
+import { useQuestionFormDialog } from '@/modules/Questions';
 import { notify } from '@/utils/notify';
 
 export const QuestionsPage = () => {
   const { t } = useTranslation();
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
+  const [openQuestionFormDialog, closeQuestionFormDialog] =
+    useQuestionFormDialog();
 
   const { mutate: createQuestion, isPending: isCreating } = useCreateQuestion({
     mutationConfig: {
@@ -42,9 +34,9 @@ export const QuestionsPage = () => {
   ) => {
     createQuestion(data, {
       onSuccess: () => {
-        handleCloseModal();
         setIsEditing?.(false);
         reset?.();
+        closeQuestionFormDialog();
       },
     });
   };
@@ -64,19 +56,18 @@ export const QuestionsPage = () => {
           {t('questions-page.title')}
         </Typography>
         <Button
+          disabled={isCreating}
           variant="contained"
           endIcon={<AddIcon />}
-          onClick={handleOpenModal}
+          onClick={() =>
+            openQuestionFormDialog({
+              defaultValues: { title: '', description: '', attachedCode: '' },
+              onSubmit: handleSubmit,
+            })
+          }
         >
           {t('questions-page.create-question')}
         </Button>
-        <ModalQuestionForm
-          open={modalOpen}
-          onClose={handleCloseModal}
-          defaultValues={{ title: '', description: '', attachedCode: '' }}
-          onSubmit={handleSubmit}
-          isSubmitting={isCreating}
-        />
       </Stack>
       <QuestionsTable />
     </Box>

@@ -3,10 +3,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton, TableCell, TableRow } from '@mui/material';
 import { flexRender } from '@tanstack/react-table';
 import { Row } from '@tanstack/react-table';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
+import { useConfirmationDialog } from '@/components/ConfirmationModal';
 import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { QuestionSchema } from '@/schemas/question';
@@ -16,7 +16,7 @@ import { useDeleteQuestion } from '../api/deleteQuestion';
 import { useQuestionById } from '../api/getQuestionById';
 import { useUpdateQuestion } from '../api/updateQuestion';
 import { QuestionEditSchema } from '../schemas/questionEdit';
-import { ModalQuestionForm } from './ModalQuestionForm';
+import { useQuestionFormDialog } from './ModalQuestionForm';
 
 type QuestionTableRowProps = {
   row: Row<QuestionSchema>;
@@ -29,10 +29,10 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
   const { data: currentUser } = useAuth();
   const isCurrentUser = currentUser?.id === row.original.user.id;
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [openConfirmationDialog] = useConfirmationDialog();
 
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
+  const [openQuestionFormDialog, closeQuestionFormDialog] =
+    useQuestionFormDialog();
 
   const { data: question, isLoading } = useQuestionById({
     id: row.original.id ?? '',
@@ -73,12 +73,20 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
       },
       {
         onSuccess: () => {
-          handleCloseModal();
           setIsEditing?.(false);
           reset?.();
+          closeQuestionFormDialog();
         },
       },
     );
+  };
+
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        deleteQuestion({ id: row.original.id });
+      },
+    });
   };
 
   if (isLoading) {
@@ -108,29 +116,27 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
                 return (
                   <>
                     <IconButton
-                      onClick={handleOpenModal}
-                      disabled={deleteIsPending}
+                      onClick={() =>
+                        openQuestionFormDialog({
+                          question: row.original,
+                          isCurrentUser,
+                          defaultValues: {
+                            title: question?.title || '',
+                            description: question?.description || '',
+                            attachedCode: question?.attachedCode || '',
+                          },
+                          onSubmit: handleSubmit,
+                        })
+                      }
+                      disabled={deleteIsPending || updateIsPending}
                       color="secondary"
                     >
                       <VisibilityIcon />
                     </IconButton>
-                    <ModalQuestionForm
-                      open={modalOpen}
-                      onClose={handleCloseModal}
-                      question={row.original}
-                      isCurrentUser={isCurrentUser}
-                      defaultValues={{
-                        title: question?.title || '',
-                        description: question?.description || '',
-                        attachedCode: question?.attachedCode || '',
-                      }}
-                      isSubmitting={updateIsPending}
-                      onSubmit={handleSubmit}
-                    />
                     {isCurrentUser && (
                       <IconButton
-                        onClick={() => deleteQuestion({ id: row.original.id })}
-                        disabled={deleteIsPending}
+                        onClick={handleDeleteClick}
+                        disabled={deleteIsPending || updateIsPending}
                         color="error"
                       >
                         <DeleteIcon />
