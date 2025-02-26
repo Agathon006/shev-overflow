@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 
-import { darkTheme, defaultTheme } from './theme';
+import { darkTheme, lightTheme } from './theme';
 
 type ThemeContextType = {
   currentTheme: string;
@@ -15,17 +15,20 @@ type ThemeContextType = {
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
-  currentTheme: 'default',
+  currentTheme: 'light',
   setTheme: () => {},
 });
 
 export const ThemeProviderWrapper: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
-  const savedTheme = localStorage.getItem('appTheme') || 'default';
+  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+  const savedTheme = localStorage.getItem('appTheme') || systemTheme;
   const [currentTheme, setCurrentTheme] = useState(savedTheme);
 
-  const themeObject = currentTheme === 'default' ? defaultTheme : darkTheme;
+  const themeObject = currentTheme === 'light' ? lightTheme : darkTheme;
 
   useEffect(() => {
     localStorage.setItem('appTheme', currentTheme);

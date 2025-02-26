@@ -8,7 +8,7 @@ export const ThemeSwitcher: React.FC = () => {
   const { currentTheme, setTheme } = useContext(ThemeContext);
 
   const toggleTheme = () => {
-    setTheme(currentTheme === 'default' ? 'dark' : 'default');
+    setTheme(currentTheme === 'light' ? 'dark' : 'light');
   };
 
   return (

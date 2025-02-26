@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 // https://mui.com/material-ui/customization/palette/#default-colors
 
-export const defaultTheme = createTheme({
+export const lightTheme = createTheme({
   cssVariables: true,
   typography: {
     fontFamily: 'Inter',
