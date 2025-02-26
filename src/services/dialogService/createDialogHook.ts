@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef } from 'react';
+import { FC, useCallback, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 
 import { useDialogService } from './dialogService';
@@ -15,20 +15,24 @@ export const createDialogHook = <T>(Component: FC<T>) => {
       }
     }, []);
 
+    const memoComponent = useMemo(
+      () => (props?: Omit<T, 'onClose'>) => () =>
+        Component({
+          ...props,
+          onClose: closeDialog,
+        } as T) as React.ReactElement,
+      [closeDialog],
+    );
+
     const openDialog = useCallback(
       (props?: Omit<T, 'onClose'>) => {
         idRef.current = v4();
 
-        useDialogService.getState().openDialog(
-          idRef.current,
-          () =>
-            Component({
-              ...props,
-              onClose: closeDialog,
-            } as T) as React.ReactElement,
-        );
+        useDialogService
+          .getState()
+          .openDialog(idRef.current, memoComponent(props));
       },
-      [closeDialog],
+      [memoComponent],
     );
 
     return [openDialog, closeDialog];
