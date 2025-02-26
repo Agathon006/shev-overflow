@@ -25,9 +25,11 @@ export const updateAnswer = async ({
 }: UpdateAnswerProps) => {
   const response = await api.patch(`/answers/${answerId}`, { content });
 
+  console.log(response);
+
   return z
     .object({
-      updatedCount: z.number(),
+      affectedCount: z.number(),
     })
     .parseAsync(response.data);
 };

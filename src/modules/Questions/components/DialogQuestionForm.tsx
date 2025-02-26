@@ -15,9 +15,10 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { QuestionSchema } from '@/schemas/question';
+import { Spinner } from '@/components/Spinner';
 import { createDialogHook } from '@/services/dialogService';
 
+import { useQuestionById } from '../api/getQuestionById';
 import {
   QuestionEditSchema,
   questionEditSchema,
@@ -27,9 +28,8 @@ import { AnswersList } from './AnswersList';
 
 type DialogQuestionFormProps = {
   onClose: () => void;
-  question?: QuestionSchema;
+  questionId: string;
   isCurrentUser?: boolean;
-  defaultValues?: Partial<QuestionEditSchema>;
   onSubmit: (
     data: QuestionEditSchema,
     setIsEditing?: (value: boolean) => void,
@@ -39,13 +39,12 @@ type DialogQuestionFormProps = {
 
 const DialogQuestionForm = ({
   onClose,
-  question,
+  questionId,
   isCurrentUser,
-  defaultValues,
   onSubmit,
 }: DialogQuestionFormProps) => {
   const { t } = useTranslation();
-
+  const { data: question, isLoading } = useQuestionById({ id: questionId });
   const [isEditing, setIsEditing] = useState(false);
 
   const {
@@ -56,7 +55,7 @@ const DialogQuestionForm = ({
     reset,
   } = useForm<QuestionEditSchema>({
     resolver: zodResolver(questionEditSchema),
-    defaultValues: defaultValues ?? {
+    defaultValues: {
       title: '',
       description: '',
       attachedCode: '',
@@ -73,6 +72,8 @@ const DialogQuestionForm = ({
     }
   }, [question, reset]);
 
+  if (isLoading) return <Spinner />;
+
   const handleClose = () => {
     onClose();
     reset();
@@ -85,17 +86,11 @@ const DialogQuestionForm = ({
   };
 
   return (
-    <Dialog
-      open
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      fullWidth
-    >
+    <Dialog open onClose={handleClose} fullWidth>
       <Container sx={{ padding: 2 }}>
         <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
           {question?.id && isCurrentUser && !isEditing && (
-            <Box display="flex" justifyContent="flex-end" mx={4}>
+            <Box display="flex" justifyContent="flex-end">
               <Button variant="contained" onClick={() => setIsEditing(true)}>
                 <EditIcon />
               </Button>
