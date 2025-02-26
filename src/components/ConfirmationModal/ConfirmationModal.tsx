@@ -5,23 +5,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useTranslation } from 'react-i18next';
 
 import { YesNoLabel } from '@/components/YesNoLabel';
+import { createDialogHook } from '@/services/dialogService';
 
 type ConfirmationModalProps = {
-  open: boolean;
   onClose: () => void;
   onConfirm: () => void;
 };
 
-export const ConfirmationModal = ({
-  open,
-  onClose,
-  onConfirm,
-}: ConfirmationModalProps) => {
+const ConfirmationModal = ({ onClose, onConfirm }: ConfirmationModalProps) => {
   const { t } = useTranslation();
 
   return (
     <Dialog
-      open={open}
+      open
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -33,10 +29,21 @@ export const ConfirmationModal = ({
         <Button onClick={onClose} color="error">
           <YesNoLabel />
         </Button>
-        <Button onClick={onConfirm} color="success" autoFocus>
+        <Button
+          onClick={() => {
+            onClose();
+            onConfirm();
+          }}
+          color="success"
+          autoFocus
+        >
           <YesNoLabel truth />
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
+
+export const useConfirmationDialog = createDialogHook<ConfirmationModalProps>(
+  (props) => <ConfirmationModal {...props} />,
+);

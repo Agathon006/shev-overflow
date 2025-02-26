@@ -10,6 +10,7 @@ import React from 'react';
 import { Notifications } from '@/components/Notifications';
 import { queryClient } from '@/lib/react-query';
 import { router } from '@/lib/react-router';
+import { DialogsContainer } from '@/services/dialogService';
 import { ThemeProviderWrapper } from '@/theme';
 
 const App: React.FC = () => {
@@ -18,6 +19,7 @@ const App: React.FC = () => {
       <ThemeProviderWrapper>
         <CssBaseline />
         <RouterProvider router={router} />
+        <DialogsContainer />
         <Notifications />
       </ThemeProviderWrapper>
       <ReactQueryDevtools initialIsOpen={false} />

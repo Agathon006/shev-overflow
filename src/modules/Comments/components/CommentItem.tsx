@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { ConfirmationModal } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationModal';
 import { CommentSchema } from '@/schemas/comment';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
@@ -24,20 +24,7 @@ type CommentItemProps = {
 export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
   const { t } = useTranslation();
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleConfirm = () => {
-    deleteComment({ commentId: comment.id });
-    handleCloseModal();
-  };
+  const [openConfirmationDialog] = useConfirmationDialog();
 
   const { data: currentUser } = useAuth();
   const isCurrentUser = comment.user?.id === currentUser?.id;
@@ -85,6 +72,14 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
   const handleCancel = () => {
     reset();
     setIsEditing(false);
+  };
+
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        deleteComment({ commentId: comment.id });
+      },
+    });
   };
 
   const isSaveDisabled =
@@ -142,16 +137,11 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
               </IconButton>
               <IconButton
                 disabled={deleteIsPending}
-                onClick={handleOpenModal}
+                onClick={handleDeleteClick}
                 sx={{ p: 0.5, color: 'error.main' }}
               >
                 <DeleteIcon sx={{ fontSize: 16 }} />
               </IconButton>
-              <ConfirmationModal
-                open={modalOpen}
-                onClose={handleCloseModal}
-                onConfirm={handleConfirm}
-              />
             </>
           )}
         </Box>

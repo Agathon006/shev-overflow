@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
-import { ConfirmationModal } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationModal';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
@@ -34,26 +34,12 @@ type SnippetCardProps = {
 
 export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   const { t } = useTranslation();
-
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleConfirm = () => {
-    deleteSnippet({ snippetId: snippet.id });
-    handleCloseModal();
-  };
-
   const navigate = useNavigate();
   const { mutate, isPending } = useSnippetMark();
   const { data: currentUser } = useAuth();
   const isCurrentUser = snippet.user?.id === currentUser?.id;
+
+  const [openConfirmationDialog] = useConfirmationDialog();
 
   const { mutate: deleteSnippet, isPending: deleteIsPending } =
     useDeleteSnippet({
@@ -137,6 +123,14 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
     );
   };
 
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        deleteSnippet({ snippetId: snippet.id });
+      },
+    });
+  };
+
   return (
     <Card
       id={snippet.id}
@@ -174,16 +168,11 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
                 </IconButton>
                 <IconButton
                   disabled={deleteIsPending}
-                  onClick={handleOpenModal}
+                  onClick={handleDeleteClick}
                   sx={{ p: 0.5, color: 'error.main' }}
                 >
                   <DeleteIcon sx={{ fontSize: 20 }} />
                 </IconButton>
-                <ConfirmationModal
-                  open={modalOpen}
-                  onClose={handleCloseModal}
-                  onConfirm={handleConfirm}
-                />
               </>
             )}
           </Box>

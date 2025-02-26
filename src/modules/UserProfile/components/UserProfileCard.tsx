@@ -9,11 +9,10 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useLogout } from '@/api/logout';
-import { ConfirmationModal } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationModal';
 import { Spinner } from '@/components/Spinner';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
@@ -32,20 +31,7 @@ export const UserProfileCard = ({
 }: UserProfileCardProps) => {
   const { t } = useTranslation();
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleConfirm = () => {
-    mutateDeleteUser();
-    handleCloseModal();
-  };
+  const [openConfirmationDialog] = useConfirmationDialog();
 
   const navigate = useNavigate();
 
@@ -78,6 +64,14 @@ export const UserProfileCard = ({
         },
       },
     });
+
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        mutateDeleteUser();
+      },
+    });
+  };
 
   if (isLoadingStatisticData) {
     return (
@@ -184,15 +178,10 @@ export const UserProfileCard = ({
                   disabled={isUserLogoutPending || isUserDeletionPending}
                   variant="contained"
                   color="error"
-                  onClick={handleOpenModal}
+                  onClick={handleDeleteClick}
                 >
                   <DeleteIcon />
                 </Button>
-                <ConfirmationModal
-                  open={modalOpen}
-                  onClose={handleCloseModal}
-                  onConfirm={handleConfirm}
-                />
               </Box>
             )}
           </Box>
