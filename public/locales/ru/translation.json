@@ -243,6 +243,9 @@
     "title": "Shef Overflow вопросы",
     "create-question": "Задать вопрос"
   },
+  "user-page": {
+    "title": "Пользователь: "
+  },
   "page404": {
     "title": "Страница не найдена",
     "button-text": "Вернуться на главную"

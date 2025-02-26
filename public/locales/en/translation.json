@@ -242,6 +242,9 @@
     "title": "Shef Overflow questions",
     "create-question": "Ask question"
   },
+  "user-page": {
+    "title": "User: "
+  },
   "page404": {
     "title": "Page not found",
     "button-text": "Go to main page"
