@@ -33,7 +33,7 @@ export const UserProfileCard = ({
   const navigate = useNavigate();
 
   const { data: statisticData, isLoading: isLoadingStatisticData } =
-    useUserStatisticById({ id: user?.id ?? '' });
+    useUserStatisticById({ id: user?.id });
 
   const { mutate: mutateLogout, isPending: isUserLogoutPending } = useLogout({
     mutationConfig: {
