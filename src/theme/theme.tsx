@@ -111,6 +111,14 @@ export const darkTheme = createTheme({
       '800': '#e9ecef',
       '900': '#f8f9fa',
     },
+    customSuccess: {
+      light: '#b9f6ca',
+      main: '#1a5e31',
+    },
+    customError: {
+      light: '#ffcdd2',
+      main: '#b71c1c',
+    },
   },
   components: {
     MuiTextField: {
