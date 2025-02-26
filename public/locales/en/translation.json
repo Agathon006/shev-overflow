@@ -11,7 +11,8 @@
     "Unable to delete! Comment not found!": "Unable to delete! Comment not found!",
     "Internal server error": "Internal server error",
     "Old password is incorrect!": "Old password is incorrect!",
-    "Unable to delete! Snippet not found!": "Unable to delete! Snippet not found!"
+    "Unable to delete! Snippet not found!": "Unable to delete! Snippet not found!",
+    "Token expired!": "Session expired!"
   },
   "api": {
     "error-title": "Error",
@@ -27,14 +28,16 @@
     "register-form": {
       "success": "Registration successful"
     },
+    "snippet-edit-form": {
+      "created-post": "Post successfully created",
+      "edited-post": "Post successfully edited"
+    },
+    "question-edit-form": {
+      "created-question": "Question successfully asked",
+      "edited-question": "Question successfully edited"
+    },
     "account-page": {
       "account-deletion": "Account was successfully deleted"
-    },
-    "create-post-page": {
-      "created-post": "Post successfully created"
-    },
-    "edit-post-page": {
-      "edited-post": "Post successfully edited"
     }
   },
   "header": {
@@ -143,6 +146,38 @@
     },
     "no-comments": "No comments yet"
   },
+  "questions-table": {
+    "search": {
+      "label": "Search Questions"
+    },
+    "header": {
+      "id": "ID",
+      "user": "User",
+      "title": "Title",
+      "description": "Description",
+      "answers": "Answers",
+      "is-resolved": "IsResolved",
+      "actions": "Actions"
+    },
+    "pagination-label": "Questions per page:",
+    "no-questions": "No questions yet",
+    "delete-success": "Question deleted",
+    "edit-success": "Question edited"
+  },
+  "modal-question-form": {
+    "title-span": "Title",
+    "title-input-placeholder": "Problem...",
+    "description-span": "Description",
+    "description-input-placeholder": "The problem is...",
+    "code-span": "Code",
+    "ask-question-button-span": "Ask question",
+    "edit-question-button-span": "Save",
+    "error": {
+      "title-message": "Please enter title",
+      "description-message": "Please enter description",
+      "code-message": "Please enter code"
+    }
+  },
   "user-profile": {
     "id": "Id: ",
     "role": "Role: ",
@@ -203,11 +238,22 @@
   "account-page": {
     "title": "Welcome, "
   },
+  "questions-page": {
+    "title": "Shef Overflow questions",
+    "create-question": "Ask question"
+  },
   "user-page": {
     "title": "User: "
   },
   "page404": {
     "title": "Page not found",
     "button-text": "Go to main page"
+  },
+  "yes-no-label": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "confirmation-modal": {
+    "title": "Are you sure?"
   }
 }

@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { CommentSchema } from '@/schemas/comment';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
@@ -22,6 +23,9 @@ type CommentItemProps = {
 
 export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
   const { t } = useTranslation();
+
+  const [openConfirmationDialog] = useConfirmationDialog();
+
   const { data: currentUser } = useAuth();
   const isCurrentUser = comment.user?.id === currentUser?.id;
   const [isEditing, setIsEditing] = useState(false);
@@ -68,6 +72,14 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
   const handleCancel = () => {
     reset();
     setIsEditing(false);
+  };
+
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        deleteComment({ commentId: comment.id });
+      },
+    });
   };
 
   const isSaveDisabled =
@@ -125,7 +137,7 @@ export const CommentItem = ({ comment, snippetId }: CommentItemProps) => {
               </IconButton>
               <IconButton
                 disabled={deleteIsPending}
-                onClick={() => deleteComment({ commentId: comment.id })}
+                onClick={handleDeleteClick}
                 sx={{ p: 0.5, color: 'error.main' }}
               >
                 <DeleteIcon sx={{ fontSize: 16 }} />

@@ -11,7 +11,8 @@
     "Unable to delete! Comment not found!": "Невозможно удалить! Комментария нет!",
     "Internal server error": "Внутренняя ошибка сервера",
     "Old password is incorrect!": "Старый пароль неправильный!",
-    "Unable to delete! Snippet not found!": "Невозможно удалить! Сниппет не найден!"
+    "Unable to delete! Snippet not found!": "Невозможно удалить! Сниппет не найден!",
+    "Token expired!": "Сессия истекла!"
   },
   "api": {
     "error-title": "Ошибка",
@@ -30,6 +31,10 @@
     "snippet-edit-form": {
       "created-post": "Пост успешно создан",
       "edited-post": "Пост успешно изменен"
+    },
+    "question-edit-form": {
+      "created-question": "Вопрос успешно задан",
+      "edited-question": "Вопрос успешно изменен"
     },
     "account-page": {
       "account-deletion": "Аккаунт был успешно удалён"
@@ -142,6 +147,38 @@
     },
     "no-comments": "Комментариев пока нет"
   },
+  "questions-table": {
+    "search": {
+      "label": "Искать вопросы"
+    },
+    "header": {
+      "id": "ID",
+      "user": "Пользователь",
+      "title": "Загловок",
+      "description": "Описание",
+      "answers": "Ответы",
+      "is-resolved": "Решено",
+      "actions": "Действия"
+    },
+    "pagination-label": "Вопросов на странице:",
+    "no-questions": "Вопросов пока нет",
+    "delete-success": "Вопрос удален",
+    "edit-success": "Вопрос отредактирован"
+  },
+  "modal-question-form": {
+    "title-span": "Заголовок",
+    "title-input-placeholder": "Проблема...",
+    "description-span": "Описание",
+    "description-input-placeholder": "Описание проблемы...",
+    "code-span": "Код",
+    "ask-question-button-span": "Задать вопрос",
+    "edit-question-button-span": "Сохранить",
+    "error": {
+      "title-message": "Пожалуйста введите заголовок",
+      "description-message": "Пожалуйста введите описание",
+      "code-message": "Пожалуйста введите код"
+    }
+  },
   "user-profile": {
     "id": "Id: ",
     "role": "Роль: ",
@@ -202,11 +239,22 @@
   "account-page": {
     "title": "Добро пожаловать, "
   },
+  "questions-page": {
+    "title": "Shef Overflow вопросы",
+    "create-question": "Задать вопрос"
+  },
   "user-page": {
     "title": "Пользователь: "
   },
   "page404": {
     "title": "Страница не найдена",
     "button-text": "Вернуться на главную"
+  },
+  "yes-no-label": {
+    "yes": "Да",
+    "no": "Нет"
+  },
+  "confirmation-modal": {
+    "title": "Вы уверены?"
   }
 }

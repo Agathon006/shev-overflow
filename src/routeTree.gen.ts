@@ -19,7 +19,6 @@ import { Route as AuthenticatedQuestionsIndexImport } from './routes/_authentica
 import { Route as NotAuthenticatedAuthRegisterImport } from './routes/_notAuthenticated/auth/register'
 import { Route as NotAuthenticatedAuthLoginImport } from './routes/_notAuthenticated/auth/login'
 import { Route as AuthenticatedUsersUserIdImport } from './routes/_authenticated/users/$userId'
-import { Route as AuthenticatedQuestionsCreateImport } from './routes/_authenticated/questions/create'
 import { Route as AuthenticatedPostsCreateImport } from './routes/_authenticated/posts/create'
 import { Route as AuthenticatedPostsPostIdImport } from './routes/_authenticated/posts/$postId'
 import { Route as AuthenticatedUsersMeIndexImport } from './routes/_authenticated/users/me/index'
@@ -75,13 +74,6 @@ const AuthenticatedUsersUserIdRoute = AuthenticatedUsersUserIdImport.update({
   path: '/users/$userId',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-
-const AuthenticatedQuestionsCreateRoute =
-  AuthenticatedQuestionsCreateImport.update({
-    id: '/questions/create',
-    path: '/questions/create',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 
 const AuthenticatedPostsCreateRoute = AuthenticatedPostsCreateImport.update({
   id: '/posts/create',
@@ -154,13 +146,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPostsCreateImport
       parentRoute: typeof AuthenticatedImport
     }
-    '/_authenticated/questions/create': {
-      id: '/_authenticated/questions/create'
-      path: '/questions/create'
-      fullPath: '/questions/create'
-      preLoaderRoute: typeof AuthenticatedQuestionsCreateImport
-      parentRoute: typeof AuthenticatedImport
-    }
     '/_authenticated/users/$userId': {
       id: '/_authenticated/users/$userId'
       path: '/users/$userId'
@@ -225,7 +210,6 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedPostsPostIdRoute: typeof AuthenticatedPostsPostIdRoute
   AuthenticatedPostsCreateRoute: typeof AuthenticatedPostsCreateRoute
-  AuthenticatedQuestionsCreateRoute: typeof AuthenticatedQuestionsCreateRoute
   AuthenticatedUsersUserIdRoute: typeof AuthenticatedUsersUserIdRoute
   AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute
   AuthenticatedUsersIndexRoute: typeof AuthenticatedUsersIndexRoute
@@ -237,7 +221,6 @@ interface AuthenticatedRouteChildren {
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPostsPostIdRoute: AuthenticatedPostsPostIdRoute,
   AuthenticatedPostsCreateRoute: AuthenticatedPostsCreateRoute,
-  AuthenticatedQuestionsCreateRoute: AuthenticatedQuestionsCreateRoute,
   AuthenticatedUsersUserIdRoute: AuthenticatedUsersUserIdRoute,
   AuthenticatedQuestionsIndexRoute: AuthenticatedQuestionsIndexRoute,
   AuthenticatedUsersIndexRoute: AuthenticatedUsersIndexRoute,
@@ -268,7 +251,6 @@ export interface FileRoutesByFullPath {
   '': typeof NotAuthenticatedRouteWithChildren
   '/posts/$postId': typeof AuthenticatedPostsPostIdRoute
   '/posts/create': typeof AuthenticatedPostsCreateRoute
-  '/questions/create': typeof AuthenticatedQuestionsCreateRoute
   '/users/$userId': typeof AuthenticatedUsersUserIdRoute
   '/auth/login': typeof NotAuthenticatedAuthLoginRoute
   '/auth/register': typeof NotAuthenticatedAuthRegisterRoute
@@ -284,7 +266,6 @@ export interface FileRoutesByTo {
   '': typeof NotAuthenticatedRouteWithChildren
   '/posts/$postId': typeof AuthenticatedPostsPostIdRoute
   '/posts/create': typeof AuthenticatedPostsCreateRoute
-  '/questions/create': typeof AuthenticatedQuestionsCreateRoute
   '/users/$userId': typeof AuthenticatedUsersUserIdRoute
   '/auth/login': typeof NotAuthenticatedAuthLoginRoute
   '/auth/register': typeof NotAuthenticatedAuthRegisterRoute
@@ -302,7 +283,6 @@ export interface FileRoutesById {
   '/_notAuthenticated': typeof NotAuthenticatedRouteWithChildren
   '/_authenticated/posts/$postId': typeof AuthenticatedPostsPostIdRoute
   '/_authenticated/posts/create': typeof AuthenticatedPostsCreateRoute
-  '/_authenticated/questions/create': typeof AuthenticatedQuestionsCreateRoute
   '/_authenticated/users/$userId': typeof AuthenticatedUsersUserIdRoute
   '/_notAuthenticated/auth/login': typeof NotAuthenticatedAuthLoginRoute
   '/_notAuthenticated/auth/register': typeof NotAuthenticatedAuthRegisterRoute
@@ -320,7 +300,6 @@ export interface FileRouteTypes {
     | ''
     | '/posts/$postId'
     | '/posts/create'
-    | '/questions/create'
     | '/users/$userId'
     | '/auth/login'
     | '/auth/register'
@@ -335,7 +314,6 @@ export interface FileRouteTypes {
     | ''
     | '/posts/$postId'
     | '/posts/create'
-    | '/questions/create'
     | '/users/$userId'
     | '/auth/login'
     | '/auth/register'
@@ -351,7 +329,6 @@ export interface FileRouteTypes {
     | '/_notAuthenticated'
     | '/_authenticated/posts/$postId'
     | '/_authenticated/posts/create'
-    | '/_authenticated/questions/create'
     | '/_authenticated/users/$userId'
     | '/_notAuthenticated/auth/login'
     | '/_notAuthenticated/auth/register'
@@ -398,7 +375,6 @@ export const routeTree = rootRoute
       "children": [
         "/_authenticated/posts/$postId",
         "/_authenticated/posts/create",
-        "/_authenticated/questions/create",
         "/_authenticated/users/$userId",
         "/_authenticated/questions/",
         "/_authenticated/users/",
@@ -420,10 +396,6 @@ export const routeTree = rootRoute
     },
     "/_authenticated/posts/create": {
       "filePath": "_authenticated/posts/create.tsx",
-      "parent": "/_authenticated"
-    },
-    "/_authenticated/questions/create": {
-      "filePath": "_authenticated/questions/create.tsx",
       "parent": "/_authenticated"
     },
     "/_authenticated/users/$userId": {

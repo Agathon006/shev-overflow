@@ -12,6 +12,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { useLogout } from '@/api/logout';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { Spinner } from '@/components/Spinner';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';
@@ -29,6 +30,8 @@ export const UserProfileCard = ({
   isCurrentUser,
 }: UserProfileCardProps) => {
   const { t } = useTranslation();
+
+  const [openConfirmationDialog] = useConfirmationDialog();
 
   const navigate = useNavigate();
 
@@ -61,6 +64,14 @@ export const UserProfileCard = ({
         },
       },
     });
+
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        mutateDeleteUser();
+      },
+    });
+  };
 
   if (isLoadingStatisticData) {
     return (
@@ -167,7 +178,7 @@ export const UserProfileCard = ({
                   disabled={isUserLogoutPending || isUserDeletionPending}
                   variant="contained"
                   color="error"
-                  onClick={() => mutateDeleteUser()}
+                  onClick={handleDeleteClick}
                 >
                   <DeleteIcon />
                 </Button>

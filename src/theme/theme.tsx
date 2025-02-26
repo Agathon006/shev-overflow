@@ -30,6 +30,14 @@ export const lightTheme = createTheme({
       '800': '#343a40',
       '900': '#212529',
     },
+    customSuccess: {
+      light: '#b9f6ca',
+      main: '#1a5e31',
+    },
+    customError: {
+      light: '#ffcdd2',
+      main: '#b71c1c',
+    },
   },
   components: {
     MuiTextField: {
@@ -102,6 +110,14 @@ export const darkTheme = createTheme({
       '700': '#dee2e6',
       '800': '#e9ecef',
       '900': '#f8f9fa',
+    },
+    customSuccess: {
+      light: '#b9f6ca',
+      main: '#1a5e31',
+    },
+    customError: {
+      light: '#ffcdd2',
+      main: '#b71c1c',
     },
   },
   components: {

@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 
@@ -37,6 +38,8 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
   const { mutate, isPending } = useSnippetMark();
   const { data: currentUser } = useAuth();
   const isCurrentUser = snippet.user?.id === currentUser?.id;
+
+  const [openConfirmationDialog] = useConfirmationDialog();
 
   const { mutate: deleteSnippet, isPending: deleteIsPending } =
     useDeleteSnippet({
@@ -120,6 +123,14 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
     );
   };
 
+  const handleDeleteClick = () => {
+    openConfirmationDialog({
+      onConfirm: () => {
+        deleteSnippet({ snippetId: snippet.id });
+      },
+    });
+  };
+
   return (
     <Card
       id={snippet.id}
@@ -157,7 +168,7 @@ export const SnippetCard = ({ snippet, onMark }: SnippetCardProps) => {
                 </IconButton>
                 <IconButton
                   disabled={deleteIsPending}
-                  onClick={() => deleteSnippet({ snippetId: snippet.id })}
+                  onClick={handleDeleteClick}
                   sx={{ p: 0.5, color: 'error.main' }}
                 >
                   <DeleteIcon sx={{ fontSize: 20 }} />

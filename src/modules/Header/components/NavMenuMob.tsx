@@ -45,6 +45,7 @@ export const NavMenuMob = () => {
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
         sx={{ display: { xs: 'block', md: 'none' } }}
+        closeAfterTransition={false}
       >
         <MenuItem
           component={Link}

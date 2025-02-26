@@ -61,6 +61,7 @@ export const LanguageSwitcher = () => {
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        closeAfterTransition={false}
       >
         <MenuItem
           ref={enRef}
