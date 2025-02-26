@@ -11,7 +11,6 @@ import {
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
-import { useAuth } from '@/api/auth';
 import { useLogout } from '@/api/logout';
 import { Spinner } from '@/components/Spinner';
 import { User } from '@/schemas/user';
@@ -21,18 +20,20 @@ import { useDeleteUser } from '../api/deleteUser';
 import { useUserStatisticById } from '../api/getUserStatisticById';
 
 type UserProfileCardProps = {
-  userId: User['id'];
+  user: User | undefined | null;
+  isCurrentUser?: boolean;
 };
 
-export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
+export const UserProfileCard = ({
+  user,
+  isCurrentUser,
+}: UserProfileCardProps) => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
 
-  const { data: userData, isLoading: isLoadingUserData } = useAuth();
-
   const { data: statisticData, isLoading: isLoadingStatisticData } =
-    useUserStatisticById({ id: userId });
+    useUserStatisticById({ id: user?.id });
 
   const { mutate: mutateLogout, isPending: isUserLogoutPending } = useLogout({
     mutationConfig: {
@@ -61,7 +62,7 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
       },
     });
 
-  if (isLoadingUserData || isLoadingStatisticData) {
+  if (isLoadingStatisticData) {
     return (
       <Card sx={{ width: 800, margin: 'auto', boxShadow: 3 }}>
         <CardContent>
@@ -140,36 +141,38 @@ export const UserProfileCard = ({ userId }: UserProfileCardProps) => {
                     maxWidth: 320,
                   }}
                 >
-                  {userData?.username}
+                  {user?.username}
                 </Typography>
                 <Box>
                   <Typography variant="body2" color="text.secondary">
-                    {t('user-profile.id')} {userData?.id}
+                    {t('user-profile.id')} {user?.id}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {t('user-profile.role')} {userData?.role}
+                    {t('user-profile.role')} {user?.role}
                   </Typography>
                 </Box>
               </Box>
             </Box>
-            <Box mt={2} display="flex" gap={2}>
-              <Button
-                disabled={isUserLogoutPending || isUserDeletionPending}
-                variant="contained"
-                color="warning"
-                onClick={() => mutateLogout()}
-              >
-                <LogoutIcon />
-              </Button>
-              <Button
-                disabled={isUserLogoutPending || isUserDeletionPending}
-                variant="contained"
-                color="error"
-                onClick={() => mutateDeleteUser()}
-              >
-                <DeleteIcon />
-              </Button>
-            </Box>
+            {isCurrentUser && (
+              <Box mt={2} display="flex" gap={2}>
+                <Button
+                  disabled={isUserLogoutPending || isUserDeletionPending}
+                  variant="contained"
+                  color="warning"
+                  onClick={() => mutateLogout()}
+                >
+                  <LogoutIcon />
+                </Button>
+                <Button
+                  disabled={isUserLogoutPending || isUserDeletionPending}
+                  variant="contained"
+                  color="error"
+                  onClick={() => mutateDeleteUser()}
+                >
+                  <DeleteIcon />
+                </Button>
+              </Box>
+            )}
           </Box>
         </Box>
       </CardContent>

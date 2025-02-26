@@ -8,7 +8,7 @@ import { statisticSchema } from '../schemas/userStatistic';
 
 type GetUserStatisticByIdOptions = {
   queryConfig?: QueryConfigType<typeof getUserStatisticById>;
-  id: User['id'];
+  id?: User['id'];
 };
 
 export const getUserStatisticById = async (id: string) => {
@@ -21,7 +21,7 @@ export const getUserStatisticById = async (id: string) => {
     .parseAsync(response.data);
 };
 
-export const userStatisticByIdQueryOptions = (id: string) => {
+export const userStatisticByIdQueryOptions = (id = '') => {
   return queryOptions({
     queryKey: ['userStatistic', id],
     queryFn: () => getUserStatisticById(id),

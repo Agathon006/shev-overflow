@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-// import { UserPage } from '@/pages/UserPage';
+import { UserPage } from '@/pages/UserPage';
 
 export const Route = createFileRoute('/_authenticated/users/$userId')({
   component: RouteComponent,
@@ -9,7 +9,5 @@ export const Route = createFileRoute('/_authenticated/users/$userId')({
 function RouteComponent() {
   const { userId } = Route.useParams();
 
-  // return <UserPage userId={userId} />;
-
-  return <img src="" alt={'User page, ID: ' + userId} />;
+  return <UserPage userId={userId} />;
 }
