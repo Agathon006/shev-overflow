@@ -93,51 +93,58 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
           : {}
       }
     >
-      {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id} align="center">
-          {cell.column.id === 'isResolved' ? (
-            cell.getValue() ? (
-              <YesNoLabel truth />
-            ) : (
-              <YesNoLabel />
-            )
-          ) : cell.column.id === 'actions' ? (
-            <>
-              <IconButton
-                onClick={handleOpenModal}
-                disabled={deleteIsPending}
-                color="secondary"
-              >
-                <VisibilityIcon />
-              </IconButton>
-              <ModalQuestionForm
-                open={modalOpen}
-                onClose={handleCloseModal}
-                question={row.original}
-                isCurrentUser={isCurrentUser}
-                defaultValues={{
-                  title: question?.title || '',
-                  description: question?.description || '',
-                  attachedCode: question?.attachedCode || '',
-                }}
-                isSubmitting={updateIsPending}
-                onSubmit={handleSubmit}
-              />
-              {isCurrentUser && (
-                <IconButton
-                  onClick={() => deleteQuestion({ id: row.original.id })}
-                  disabled={deleteIsPending}
-                  color="error"
-                >
-                  <DeleteIcon />
-                </IconButton>
-              )}
-            </>
-          ) : (
-            flexRender(cell.column.columnDef.cell, cell.getContext())
-          )}
-        </TableCell>
-      ))}
+      {row.getVisibleCells().map((cell) => {
+        return (
+          <TableCell key={cell.id} align="center">
+            {(() => {
+              if (cell.column.id === 'isResolved') {
+                if (cell.getValue()) {
+                  return <YesNoLabel truth />;
+                }
+                return <YesNoLabel />;
+              }
+
+              if (cell.column.id === 'actions') {
+                return (
+                  <>
+                    <IconButton
+                      onClick={handleOpenModal}
+                      disabled={deleteIsPending}
+                      color="secondary"
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                    <ModalQuestionForm
+                      open={modalOpen}
+                      onClose={handleCloseModal}
+                      question={row.original}
+                      isCurrentUser={isCurrentUser}
+                      defaultValues={{
+                        title: question?.title || '',
+                        description: question?.description || '',
+                        attachedCode: question?.attachedCode || '',
+                      }}
+                      isSubmitting={updateIsPending}
+                      onSubmit={handleSubmit}
+                    />
+                    {isCurrentUser && (
+                      <IconButton
+                        onClick={() => deleteQuestion({ id: row.original.id })}
+                        disabled={deleteIsPending}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
+                  </>
+                );
+              }
+
+              return flexRender(cell.column.columnDef.cell, cell.getContext());
+            })()}
+          </TableCell>
+        );
+      })}
     </TableRow>
   );
 };
