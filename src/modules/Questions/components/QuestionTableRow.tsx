@@ -6,7 +6,7 @@ import { Row } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { useConfirmationDialog } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { QuestionSchema } from '@/schemas/question';
@@ -16,7 +16,7 @@ import { useDeleteQuestion } from '../api/deleteQuestion';
 import { useQuestionById } from '../api/getQuestionById';
 import { useUpdateQuestion } from '../api/updateQuestion';
 import { QuestionEditSchema } from '../schemas/questionEdit';
-import { useQuestionFormDialog } from './ModalQuestionForm';
+import { useQuestionFormDialog } from './DialogQuestionForm';
 
 type QuestionTableRowProps = {
   row: Row<QuestionSchema>;

@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import { useAuth } from '@/api/auth';
-import { useConfirmationDialog } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';
 

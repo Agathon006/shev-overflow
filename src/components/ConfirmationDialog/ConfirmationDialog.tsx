@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { createDialogHook } from '@/services/dialogService';
 
-type ConfirmationModalProps = {
+type ConfirmationDialogProps = {
   onClose: () => void;
   onConfirm: () => void;
 };
 
-const ConfirmationModal = ({ onClose, onConfirm }: ConfirmationModalProps) => {
+const ConfirmationDialog = ({ onClose, onConfirm }: ConfirmationDialogProps) => {
   const { t } = useTranslation();
 
   return (
@@ -44,6 +44,6 @@ const ConfirmationModal = ({ onClose, onConfirm }: ConfirmationModalProps) => {
   );
 };
 
-export const useConfirmationDialog = createDialogHook<ConfirmationModalProps>(
-  (props) => <ConfirmationModal {...props} />,
+export const useConfirmationDialog = createDialogHook<ConfirmationDialogProps>(
+  (props) => <ConfirmationDialog {...props} />,
 );

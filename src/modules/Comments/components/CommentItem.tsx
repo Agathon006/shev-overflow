@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
-import { useConfirmationDialog } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { CommentSchema } from '@/schemas/comment';
 import { SnippetSchema } from '@/schemas/snippet';
 import { notify } from '@/utils/notify';

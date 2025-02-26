@@ -12,7 +12,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
 import { useLogout } from '@/api/logout';
-import { useConfirmationDialog } from '@/components/ConfirmationModal';
+import { useConfirmationDialog } from '@/components/ConfirmationDialog';
 import { Spinner } from '@/components/Spinner';
 import { User } from '@/schemas/user';
 import { notify } from '@/utils/notify';

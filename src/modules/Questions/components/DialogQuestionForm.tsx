@@ -22,7 +22,7 @@ import {
   questionEditSchema,
 } from '../schemas/questionEdit';
 
-type ModalQuestionFormProps = {
+type DialogQuestionFormProps = {
   onClose: () => void;
   question?: QuestionSchema;
   isCurrentUser?: boolean;
@@ -34,13 +34,13 @@ type ModalQuestionFormProps = {
   ) => void;
 };
 
-const ModalQuestionForm = ({
+const DialogQuestionForm = ({
   onClose,
   question,
   isCurrentUser,
   defaultValues,
   onSubmit,
-}: ModalQuestionFormProps) => {
+}: DialogQuestionFormProps) => {
   const { t } = useTranslation();
 
   const [isEditing, setIsEditing] = useState(false);
@@ -191,6 +191,6 @@ const ModalQuestionForm = ({
   );
 };
 
-export const useQuestionFormDialog = createDialogHook<ModalQuestionFormProps>(
-  (props) => <ModalQuestionForm {...props} />,
+export const useQuestionFormDialog = createDialogHook<DialogQuestionFormProps>(
+  (props) => <DialogQuestionForm {...props} />,
 );
