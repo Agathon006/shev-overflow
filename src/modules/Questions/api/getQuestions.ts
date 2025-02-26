@@ -24,7 +24,13 @@ export const getQuestions = async (
 
   const validated = await z
     .object({
-      data: questionSchema.array(),
+      data: questionSchema
+        .extend({
+          answers: questionSchema.shape.answers.element
+            .omit({ user: true })
+            .array(),
+        })
+        .array(),
       links: linksSchema,
       meta: z.object({ totalItems: z.number() }),
     })

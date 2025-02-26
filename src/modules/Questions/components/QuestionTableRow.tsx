@@ -18,8 +18,17 @@ import { useUpdateQuestion } from '../api/updateQuestion';
 import { QuestionEditSchema } from '../schemas/questionEdit';
 import { useQuestionFormDialog } from './DialogQuestionForm';
 
+
 type QuestionTableRowProps = {
-  row: Row<QuestionSchema>;
+  row: Row<
+    Omit<QuestionSchema, 'answers'> & {
+      answers: {
+        id: string;
+        content: string;
+        isCorrect: boolean;
+      }[];
+    }
+  >;
   index: number;
 };
 
@@ -118,7 +127,7 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
                     <IconButton
                       onClick={() =>
                         openQuestionFormDialog({
-                          question: row.original,
+                          question: question,
                           isCurrentUser,
                           defaultValues: {
                             title: question?.title || '',

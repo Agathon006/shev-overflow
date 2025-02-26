@@ -146,6 +146,19 @@
     },
     "no-comments": "No comments yet"
   },
+  "answers": {
+    "title": "Answers",
+    "deleted": "Answer successfully deleted",
+    "edited": "Answer successfully edited",
+    "input": {
+      "placeholder": "Answer...",
+      "success": "Answer sent",
+      "error": "Answer not sent",
+      "edit-success": "Answer edited",
+      "delete-success": "Answer deleted"
+    },
+    "no-answers": "No answers yet"
+  },
   "questions-table": {
     "search": {
       "label": "Search Questions"
