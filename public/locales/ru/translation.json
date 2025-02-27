@@ -147,15 +147,29 @@
     },
     "no-comments": "Комментариев пока нет"
   },
+  "answers": {
+    "title": "Ответы",
+    "deleted": "Ответ успешно удален",
+    "edited": "Ответ успешно отредактирован",
+    "input": {
+      "placeholder": "Ответить...",
+      "success": "Ответ отправлен",
+      "error": "Ответ не отправлен",
+      "edit-success": "Ответ отредактирован",
+      "delete-success": "Ответ удален"
+    },
+    "no-answers": "Ответов пока нет",
+    "approve-success": "Ответ одобрен"
+  },
   "questions-table": {
     "search": {
       "label": "Искать вопросы"
     },
     "header": {
       "id": "ID",
-      "user": "Пользователь",
       "title": "Загловок",
       "description": "Описание",
+      "user": "Автор",
       "answers": "Ответы",
       "is-resolved": "Решено",
       "actions": "Действия"

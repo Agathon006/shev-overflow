@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -42,7 +42,7 @@ export const QuestionsPage = () => {
   };
 
   return (
-    <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+    <Container maxWidth="xl" sx={{ marginTop: 2, marginBottom: 2 }}>
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -50,7 +50,6 @@ export const QuestionsPage = () => {
         flexWrap="wrap"
         gap={2}
         mb={2}
-        mx={4}
       >
         <Typography variant="h4" sx={{ textAlign: 'left' }}>
           {t('questions-page.title')}
@@ -61,7 +60,6 @@ export const QuestionsPage = () => {
           endIcon={<AddIcon />}
           onClick={() =>
             openQuestionFormDialog({
-              defaultValues: { title: '', description: '', attachedCode: '' },
               onSubmit: handleSubmit,
             })
           }
@@ -70,6 +68,6 @@ export const QuestionsPage = () => {
         </Button>
       </Stack>
       <QuestionsTable />
-    </Box>
+    </Container>
   );
 };

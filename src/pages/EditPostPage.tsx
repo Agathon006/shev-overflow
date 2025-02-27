@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import { useNavigate } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -44,7 +44,7 @@ export const EditPostPage = ({ snippetId }: EditPostPageProps) => {
   };
 
   return (
-    <Box sx={{ marginTop: 2, marginBottom: 20 }}>
+    <Container maxWidth="xl" sx={{ marginTop: 2, marginBottom: 20 }}>
       <Stack direction="row" mb={2} mx={4}>
         <Typography
           variant="h4"
@@ -61,6 +61,6 @@ export const EditPostPage = ({ snippetId }: EditPostPageProps) => {
         onSubmit={handleSubmit}
         isSubmitting={isEditing}
       />
-    </Box>
+    </Container>
   );
 };

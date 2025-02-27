@@ -24,7 +24,13 @@ export const getQuestions = async (
 
   const validated = await z
     .object({
-      data: questionSchema.array(),
+      data: questionSchema
+        .extend({
+          answers: questionSchema.shape.answers.element
+            .omit({ user: true })
+            .array(),
+        })
+        .array(),
       links: linksSchema,
       meta: z.object({ totalItems: z.number() }),
     })
@@ -47,7 +53,6 @@ export const questionsQueryOptions = (
     queryFn: () => getQuestions(limit, page, searchTerm),
     getNextPageParam: () => null,
     initialPageParam: 1,
-    staleTime: searchTerm || limit !== 10 || page !== 1 ? 0 : 1000 * 60 * 5,
   });
 };
 

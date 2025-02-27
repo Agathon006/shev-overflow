@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { questionByIdQueryOptions } from '@/api/getQuestionById';
 import { MutationConfigType } from '@/lib/react-query';
 import { QuestionSchema, questionSchema } from '@/schemas/question';
-
-import { questionByIdQueryOptions } from './getQuestionById';
-import { questionsQueryOptions } from './getQuestions';
 
 type DeleteQuestionOptions = {
   mutationConfig?: MutationConfigType<typeof deleteQuestion>;
@@ -36,7 +34,7 @@ export const useDeleteQuestion = ({
         queryKey: questionByIdQueryOptions(id),
       });
       await queryClient.invalidateQueries({
-        queryKey: questionsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'questions',
       });
       onSuccess?.(...args);
     },

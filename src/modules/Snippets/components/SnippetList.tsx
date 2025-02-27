@@ -4,10 +4,10 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useSnippets } from '@/api/getSnippets';
 import { Spinner } from '@/components/Spinner';
 import { useDebounce } from '@/hooks/useDebounce';
 
+import { useSnippets } from '../api/getSnippets';
 import { SnippetCard } from './SnippetCard';
 import { SnippetListSearch } from './SnippetListSearch';
 
@@ -57,7 +57,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
 
   if (isLoading && !snippets.length) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" sx={{ width: '100%' }} disableGutters>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Spinner />
       </Container>
@@ -66,7 +66,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
 
   if (snippets.length === 0) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" sx={{ width: '100%' }} disableGutters>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Alert severity="info">{t('snippet-list.no-snippets')}</Alert>
       </Container>
@@ -75,7 +75,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" sx={{ width: '100%' }} disableGutters>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Container
           ref={parentRef}

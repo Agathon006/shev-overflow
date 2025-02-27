@@ -1,42 +1,43 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton, TableCell, TableRow } from '@mui/material';
+import { Link } from '@tanstack/react-router';
 import { flexRender } from '@tanstack/react-table';
 import { Row } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
 
 import { useAuth } from '@/api/auth';
 import { useConfirmationDialog } from '@/components/ConfirmationDialog';
-import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { QuestionSchema } from '@/schemas/question';
 import { notify } from '@/utils/notify';
 
 import { useDeleteQuestion } from '../api/deleteQuestion';
-import { useQuestionById } from '../api/getQuestionById';
 import { useUpdateQuestion } from '../api/updateQuestion';
 import { QuestionEditSchema } from '../schemas/questionEdit';
 import { useQuestionFormDialog } from './DialogQuestionForm';
 
 type QuestionTableRowProps = {
-  row: Row<QuestionSchema>;
+  row: Row<
+    Omit<QuestionSchema, 'answers'> & {
+      answers: {
+        id: string;
+        content: string;
+        isCorrect: boolean;
+      }[];
+    }
+  >;
   index: number;
 };
 
 export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
   const { t } = useTranslation();
-
   const { data: currentUser } = useAuth();
   const isCurrentUser = currentUser?.id === row.original.user.id;
 
   const [openConfirmationDialog] = useConfirmationDialog();
-
-  const [openQuestionFormDialog, closeQuestionFormDialog] =
-    useQuestionFormDialog();
-
-  const { data: question, isLoading } = useQuestionById({
-    id: row.original.id ?? '',
-  });
+  const [openQuestionFormDialog] = useQuestionFormDialog();
 
   const { mutate: deleteQuestion, isPending: deleteIsPending } =
     useDeleteQuestion({
@@ -67,15 +68,11 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
     reset?: () => void,
   ) => {
     updateQuestion(
-      {
-        questionId: row.original.id,
-        content: data,
-      },
+      { questionId: row.original.id, content: data },
       {
         onSuccess: () => {
           setIsEditing?.(false);
           reset?.();
-          closeQuestionFormDialog();
         },
       },
     );
@@ -89,10 +86,6 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
     });
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   return (
     <TableRow
       sx={(theme) =>
@@ -101,56 +94,57 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
           : {}
       }
     >
-      {row.getVisibleCells().map((cell) => {
-        return (
-          <TableCell key={cell.id} align="center">
-            {(() => {
-              if (cell.column.id === 'isResolved') {
-                if (cell.getValue()) {
-                  return <YesNoLabel truth />;
-                }
-                return <YesNoLabel />;
-              }
+      {row.getVisibleCells().map((cell) => (
+        <TableCell key={cell.id} align="center">
+          {(() => {
+            if (cell.column.id === 'isResolved') {
+              return cell.getValue() ? <YesNoLabel truth /> : <YesNoLabel />;
+            }
 
-              if (cell.column.id === 'actions') {
-                return (
-                  <>
+            if (cell.column.id === 'actions') {
+              return (
+                <>
+                  <IconButton
+                    component={Link}
+                    to="/questions/$questionId"
+                    params={{ questionId: row.original.id }}
+                    disabled={deleteIsPending || updateIsPending}
+                    color="secondary"
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                  {isCurrentUser && (
                     <IconButton
                       onClick={() =>
                         openQuestionFormDialog({
-                          question: row.original,
+                          questionId: row.original.id,
                           isCurrentUser,
-                          defaultValues: {
-                            title: question?.title || '',
-                            description: question?.description || '',
-                            attachedCode: question?.attachedCode || '',
-                          },
                           onSubmit: handleSubmit,
                         })
                       }
                       disabled={deleteIsPending || updateIsPending}
-                      color="secondary"
+                      color="warning"
                     >
-                      <VisibilityIcon />
+                      <EditIcon />
                     </IconButton>
-                    {isCurrentUser && (
-                      <IconButton
-                        onClick={handleDeleteClick}
-                        disabled={deleteIsPending || updateIsPending}
-                        color="error"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    )}
-                  </>
-                );
-              }
+                  )}
+                  {isCurrentUser && (
+                    <IconButton
+                      onClick={handleDeleteClick}
+                      disabled={deleteIsPending || updateIsPending}
+                      color="error"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  )}
+                </>
+              );
+            }
 
-              return flexRender(cell.column.columnDef.cell, cell.getContext());
-            })()}
-          </TableCell>
-        );
-      })}
+            return flexRender(cell.column.columnDef.cell, cell.getContext());
+          })()}
+        </TableCell>
+      ))}
     </TableRow>
   );
 };

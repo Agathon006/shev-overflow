@@ -47,14 +47,14 @@ export const QuestionsTable = () => {
   const columns = useMemo(
     () => [
       { accessorKey: 'id', header: t('questions-table.header.id') },
-      {
-        accessorKey: 'user.username',
-        header: t('questions-table.header.user'),
-      },
       { accessorKey: 'title', header: t('questions-table.header.title') },
       {
         accessorKey: 'description',
         header: t('questions-table.header.description'),
+      },
+      {
+        accessorKey: 'user.username',
+        header: t('questions-table.header.user'),
       },
       {
         accessorKey: 'answers.length',
@@ -83,7 +83,7 @@ export const QuestionsTable = () => {
 
   if (isLoading && !questions.length) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" disableGutters sx={{ width: '100%' }}>
         <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
         <Spinner />
       </Container>
@@ -92,7 +92,7 @@ export const QuestionsTable = () => {
 
   if (!questions.length) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" disableGutters sx={{ width: '100%' }}>
         <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
         <Alert severity="info">{t('questions-table.no-questions')}</Alert>
       </Container>
@@ -100,7 +100,7 @@ export const QuestionsTable = () => {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ width: '100%' }}>
+    <Container maxWidth="xl" disableGutters sx={{ width: '100%' }}>
       <QuestionsTableSearch search={searchTerm} setSearch={setSearchTerm} />
       <TableContainer sx={{ border: '1px solid' }}>
         <Table>

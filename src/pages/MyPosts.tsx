@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import { Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -13,22 +13,21 @@ export const MyPostsPage = () => {
   const { data: currentUser, isLoading } = useAuth();
 
   return (
-    <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+    <Container maxWidth="xl" sx={{ marginTop: 2, marginBottom: 2 }}>
       <Stack
-        position={'relative'}
         direction="row"
         justifyContent="space-between"
         alignItems="center"
+        flexWrap="wrap"
+        gap={2}
         mb={2}
-        mx={4}
       >
-        <Typography variant="h4" align="center" sx={{ flexGrow: 1 }}>
+        <Typography variant="h4" sx={{ textAlign: 'left' }}>
           {t('my-posts-page.title')}
         </Typography>
         <Button
           variant="contained"
           endIcon={<AddIcon />}
-          sx={{ position: 'absolute', right: 0, top: 2 }}
           component={Link}
           to="/posts/create"
         >
@@ -36,6 +35,6 @@ export const MyPostsPage = () => {
         </Button>
       </Stack>
       {isLoading ? <Spinner /> : <SnippetList userId={currentUser?.id} />}
-    </Box>
+    </Container>
   );
 };
