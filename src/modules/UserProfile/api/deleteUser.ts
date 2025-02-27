@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
-import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 
 type DeleteUserOptions = {
@@ -22,7 +21,10 @@ export const useDeleteUser = ({ mutationConfig }: DeleteUserOptions = {}) => {
     onSuccess: async (...args) => {
       queryClient.setQueryData(authUserQueryOptions().queryKey, null);
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'snippets',
+      });
+      await queryClient.invalidateQueries({
+        predicate: (query) => query.queryKey[0] === 'users',
       });
       onSuccess?.(...args);
     },

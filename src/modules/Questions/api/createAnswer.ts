@@ -6,7 +6,6 @@ import { AnswerSchema, answerSchema } from '@/schemas/answer';
 import { QuestionSchema } from '@/schemas/question';
 
 import { questionByIdQueryOptions } from './getQuestionById';
-import { questionsQueryOptions } from './getQuestions';
 
 type CreateAnswerOptions = {
   mutationConfig?: MutationConfigType<typeof createAnswer>;
@@ -41,7 +40,7 @@ export const useAnswer = (
         queryKey: questionByIdQueryOptions(questionId).queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: questionsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'questions',
       });
       onSuccess?.(...args);
     },

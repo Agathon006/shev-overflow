@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 import { api } from '@/api/api-client';
 import { snippetByIdQueryOptions } from '@/api/getSnippetById';
-import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 import { SnippetSchema } from '@/schemas/snippet';
 
@@ -39,7 +38,7 @@ export const useEditSnippet = ({
         queryKey: snippetByIdQueryOptions(snippetId).queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'snippets',
       });
       onSuccess?.(...args);
     },

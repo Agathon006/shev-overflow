@@ -5,7 +5,7 @@ import { snippetByIdQueryOptions, useSnippetById } from '@/api/getSnippetById';
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
 import { CommentInput, CommentsList } from '@/modules/Comments';
-import { SnippetCard, snippetsQueryOptions } from '@/modules/Snippets';
+import { SnippetCard } from '@/modules/Snippets';
 import { SnippetSchema } from '@/schemas/snippet';
 
 type PostPageProps = {
@@ -41,10 +41,10 @@ export const PostPage = ({ postId }: PostPageProps) => {
         snippet={snippet}
         onMark={() => {
           queryClient.invalidateQueries({
-            queryKey: snippetsQueryOptions().queryKey,
+            queryKey: snippetByIdQueryOptions(snippet.id).queryKey,
           });
           queryClient.invalidateQueries({
-            queryKey: snippetByIdQueryOptions(snippet.id).queryKey,
+            predicate: (query) => query.queryKey[0] === 'snippets',
           });
         }}
       />

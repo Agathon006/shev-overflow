@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { snippetByIdQueryOptions } from '@/api/getSnippetById';
-import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 import { snippetSchema } from '@/schemas/snippet';
 
@@ -33,7 +32,7 @@ export const useCreateSnippet = ({
         queryKey: snippetByIdQueryOptions(data.id).queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'snippets',
       });
       onSuccess?.(data, ...args);
     },

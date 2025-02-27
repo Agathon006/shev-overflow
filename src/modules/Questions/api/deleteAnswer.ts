@@ -6,7 +6,6 @@ import { AnswerSchema, answerSchema } from '@/schemas/answer';
 import { QuestionSchema } from '@/schemas/question';
 
 import { questionByIdQueryOptions } from './getQuestionById';
-import { questionsQueryOptions } from './getQuestions';
 
 type DeleteAnswerOptions = {
   mutationConfig?: MutationConfigType<typeof deleteAnswer>;
@@ -35,7 +34,7 @@ export const useDeleteAnswer = ({
         queryKey: questionByIdQueryOptions(questionId).queryKey,
       });
       await queryClient.invalidateQueries({
-        queryKey: questionsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'questions',
       });
       onSuccess?.(...args);
     },

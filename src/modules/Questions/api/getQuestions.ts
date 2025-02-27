@@ -53,7 +53,6 @@ export const questionsQueryOptions = (
     queryFn: () => getQuestions(limit, page, searchTerm),
     getNextPageParam: () => null,
     initialPageParam: 1,
-    staleTime: searchTerm || limit !== 10 || page !== 1 ? 0 : 1000 * 60 * 5,
   });
 };
 
