@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
 import { authUserQueryOptions } from '@/api/auth';
-import { snippetsQueryOptions } from '@/api/getSnippets';
 import { MutationConfigType } from '@/lib/react-query';
 import { Username } from '@/schemas/username';
 
@@ -34,7 +33,7 @@ export const useUpdateProfile = ({
         };
       });
       await queryClient.invalidateQueries({
-        queryKey: snippetsQueryOptions().queryKey,
+        predicate: (query) => query.queryKey[0] === 'spippets',
       });
       await queryClient.invalidateQueries({
         predicate: (query) => query.queryKey[0] === 'users',

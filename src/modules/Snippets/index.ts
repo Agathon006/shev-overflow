@@ -4,4 +4,3 @@ export { SnippetCard } from './components/SnippetCard';
 export { SnippetForm } from './components/SnippetForm';
 export { SnippetList } from './components/SnippetList';
 export type { SnippetEditSchema } from './schemas/snippetEdit';
-export { snippetsQueryOptions } from '@/api/getSnippets';

@@ -3,10 +3,10 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useUsers } from '@/api/getUsers';
 import { Spinner } from '@/components/Spinner';
 import { useDebounce } from '@/hooks/useDebounce';
 
+import { useUsers } from '../api/getUsers';
 import { UserCard } from './UserCard';
 import { UserListSearch } from './UserListSearch';
 

@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { questionByIdQueryOptions } from '@/api/getQuestionById';
 import { MutationConfigType } from '@/lib/react-query';
 import { questionSchema } from '@/schemas/question';
 
 import { QuestionEditSchema } from '../schemas/questionEdit';
-import { questionByIdQueryOptions } from './getQuestionById';
 
 type CreateQuestionOptions = {
   mutationConfig?: MutationConfigType<typeof createQuestion>;

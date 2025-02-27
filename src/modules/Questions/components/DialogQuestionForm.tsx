@@ -14,11 +14,11 @@ import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useQuestionById } from '@/api/getQuestionById';
 import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
 import { createDialogHook } from '@/services/dialogService';
 
-import { useQuestionById } from '../api/getQuestionById';
 import {
   QuestionEditSchema,
   questionEditSchema,

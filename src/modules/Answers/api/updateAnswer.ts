@@ -1,34 +1,44 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { z } from 'zod';
 
 import { api } from '@/api/api-client';
+import { questionByIdQueryOptions } from '@/api/getQuestionById';
 import { MutationConfigType } from '@/lib/react-query';
-import { AnswerSchema, answerSchema } from '@/schemas/answer';
+import { AnswerSchema } from '@/schemas/answer';
 import { QuestionSchema } from '@/schemas/question';
 
-import { questionByIdQueryOptions } from './getQuestionById';
-
-type DeleteAnswerOptions = {
-  mutationConfig?: MutationConfigType<typeof deleteAnswer>;
+type UpdateAnswerOptions = {
+  mutationConfig?: MutationConfigType<typeof updateAnswer>;
   questionId: QuestionSchema['id'];
 };
 
-type DeleteAnswerProps = { answerId: AnswerSchema['id'] };
-
-export const deleteAnswer = async ({ answerId }: DeleteAnswerProps) => {
-  const response = await api.delete(`/answers/${answerId}`);
-
-  return answerSchema.omit({ id: true }).parseAsync(response.data);
+type UpdateAnswerProps = {
+  answerId: AnswerSchema['id'];
+  content: AnswerSchema['content'];
 };
 
-export const useDeleteAnswer = ({
+export const updateAnswer = async ({
+  content,
+  answerId,
+}: UpdateAnswerProps) => {
+  const response = await api.patch(`/answers/${answerId}`, { content });
+
+  return z
+    .object({
+      affectedCount: z.number(),
+    })
+    .parseAsync(response.data);
+};
+
+export const useUpdateAnswer = ({
   mutationConfig,
   questionId,
-}: DeleteAnswerOptions) => {
+}: UpdateAnswerOptions) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
   return useMutation({
-    mutationFn: deleteAnswer,
+    mutationFn: updateAnswer,
     onSuccess: async (...args) => {
       await queryClient.invalidateQueries({
         queryKey: questionByIdQueryOptions(questionId).queryKey,

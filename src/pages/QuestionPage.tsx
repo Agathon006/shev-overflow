@@ -2,12 +2,11 @@ import { Box, Container, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
+import { useQuestionById } from '@/api/getQuestionById';
 import { Page404 } from '@/components/Page404';
 import { Spinner } from '@/components/Spinner';
 import { YesNoLabel } from '@/components/YesNoLabel';
-import { useQuestionById } from '@/modules/Questions/api/getQuestionById';
-import { AnswerInput } from '@/modules/Questions/components/AnswerInput';
-import { AnswersList } from '@/modules/Questions/components/AnswersList';
+import { AnswerInput, AnswersList } from '@/modules/Answers';
 import { QuestionSchema } from '@/schemas/question';
 
 type QuestionPageProps = {

@@ -1,10 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { api } from '@/api/api-client';
+import { questionByIdQueryOptions } from '@/api/getQuestionById';
 import { MutationConfigType } from '@/lib/react-query';
 import { QuestionSchema, questionSchema } from '@/schemas/question';
-
-import { questionByIdQueryOptions } from './getQuestionById';
 
 type DeleteQuestionOptions = {
   mutationConfig?: MutationConfigType<typeof deleteQuestion>;
