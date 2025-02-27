@@ -167,9 +167,9 @@
     },
     "header": {
       "id": "ID",
-      "user": "Пользователь",
       "title": "Загловок",
       "description": "Описание",
+      "user": "Автор",
       "answers": "Ответы",
       "is-resolved": "Решено",
       "actions": "Действия"

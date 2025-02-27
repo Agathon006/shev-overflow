@@ -166,9 +166,9 @@
     },
     "header": {
       "id": "ID",
-      "user": "User",
       "title": "Title",
       "description": "Description",
+      "user": "Author",
       "answers": "Answers",
       "is-resolved": "IsResolved",
       "actions": "Actions"

@@ -47,14 +47,14 @@ export const QuestionsTable = () => {
   const columns = useMemo(
     () => [
       { accessorKey: 'id', header: t('questions-table.header.id') },
-      {
-        accessorKey: 'user.username',
-        header: t('questions-table.header.user'),
-      },
       { accessorKey: 'title', header: t('questions-table.header.title') },
       {
         accessorKey: 'description',
         header: t('questions-table.header.description'),
+      },
+      {
+        accessorKey: 'user.username',
+        header: t('questions-table.header.user'),
       },
       {
         accessorKey: 'answers.length',
