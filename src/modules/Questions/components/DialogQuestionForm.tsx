@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import MonacoEditor from '@monaco-editor/react';
-import EditIcon from '@mui/icons-material/Edit';
 import {
   Box,
   Button,
@@ -11,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -24,29 +23,21 @@ import {
   QuestionEditSchema,
   questionEditSchema,
 } from '../schemas/questionEdit';
-import { AnswerInput } from './AnswerInput';
-import { AnswersList } from './AnswersList';
 
 type DialogQuestionFormProps = {
   onClose: () => void;
   questionId?: string;
   isCurrentUser?: boolean;
-  onSubmit: (
-    data: QuestionEditSchema,
-    setIsEditing?: (value: boolean) => void,
-    reset?: () => void,
-  ) => void;
+  onSubmit: (data: QuestionEditSchema, reset?: () => void) => void;
 };
 
 const DialogQuestionForm = ({
   onClose,
   questionId,
-  isCurrentUser,
   onSubmit,
 }: DialogQuestionFormProps) => {
   const { t } = useTranslation();
   const { data: question, isLoading } = useQuestionById({ id: questionId });
-  const [isEditing, setIsEditing] = useState(false);
 
   const {
     register,
@@ -76,11 +67,10 @@ const DialogQuestionForm = ({
   const handleClose = () => {
     onClose();
     reset();
-    setIsEditing(false);
   };
 
   const handleFormSubmit = (data: QuestionEditSchema) => {
-    onSubmit(data, setIsEditing, reset);
+    onSubmit(data, reset);
     handleClose();
   };
 
@@ -96,17 +86,12 @@ const DialogQuestionForm = ({
       <Container sx={{ padding: 2 }}>
         <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
           {question?.id && (
-            <Box display="flex" justifyContent="space-between" mb={2}>
+            <Box mb={2}>
               <Typography variant="h6">
                 {t('questions-table.header.is-resolved')}
                 {': '}
                 {question?.isResolved ? <YesNoLabel truth /> : <YesNoLabel />}
               </Typography>
-              {question?.id && isCurrentUser && !isEditing && (
-                <Button variant="contained" onClick={() => setIsEditing(true)}>
-                  <EditIcon />
-                </Button>
-              )}
             </Box>
           )}
           <Stack direction="column" spacing={2} mb={1}>
@@ -126,11 +111,6 @@ const DialogQuestionForm = ({
                   ? t('modal-question-form.error.title-message')
                   : null
               }
-              slotProps={{
-                input: {
-                  readOnly: !(!question?.id || isEditing),
-                },
-              }}
             />
             <Typography variant="h6">
               {t('modal-question-form.description-span')}
@@ -148,11 +128,6 @@ const DialogQuestionForm = ({
                   ? t('modal-question-form.error.description-message')
                   : null
               }
-              slotProps={{
-                input: {
-                  readOnly: !(!question?.id || isEditing),
-                },
-              }}
             />
             <Typography variant="h6">
               {t('modal-question-form.code-span')}
@@ -173,7 +148,6 @@ const DialogQuestionForm = ({
                     lineNumbers: 'on',
                     minimap: { enabled: false },
                     padding: { top: 10 },
-                    readOnly: !(!question?.id || isEditing),
                   }}
                 />
               )}
@@ -184,20 +158,16 @@ const DialogQuestionForm = ({
               </Typography>
             )}
           </Stack>
-          {(!question?.id || isEditing) && (
-            <Stack direction="row" justifyContent="center">
-              <DialogActions>
-                <Button variant="contained" type="submit">
-                  {question?.id
-                    ? t('modal-question-form.edit-question-button-span')
-                    : t('modal-question-form.ask-question-button-span')}
-                </Button>
-              </DialogActions>
-            </Stack>
-          )}
+          <Stack direction="row" justifyContent="center">
+            <DialogActions>
+              <Button variant="contained" type="submit">
+                {question?.id
+                  ? t('modal-question-form.edit-question-button-span')
+                  : t('modal-question-form.ask-question-button-span')}
+              </Button>
+            </DialogActions>
+          </Stack>
         </Box>
-        {question && <AnswerInput question={question} />}
-        {question && <AnswersList question={question} />}
       </Container>
     </Dialog>
   );

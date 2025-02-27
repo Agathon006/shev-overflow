@@ -1,6 +1,8 @@
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton, TableCell, TableRow } from '@mui/material';
+import { Link } from '@tanstack/react-router';
 import { flexRender } from '@tanstack/react-table';
 import { Row } from '@tanstack/react-table';
 import { useTranslation } from 'react-i18next';
@@ -103,18 +105,29 @@ export const QuestionsTableRow = ({ row, index }: QuestionTableRowProps) => {
               return (
                 <>
                   <IconButton
-                    onClick={() =>
-                      openQuestionFormDialog({
-                        questionId: row.original.id,
-                        isCurrentUser,
-                        onSubmit: handleSubmit,
-                      })
-                    }
+                    component={Link}
+                    to="/questions/$questionId"
+                    params={{ questionId: row.original.id }}
                     disabled={deleteIsPending || updateIsPending}
                     color="secondary"
                   >
                     <VisibilityIcon />
                   </IconButton>
+                  {isCurrentUser && (
+                    <IconButton
+                      onClick={() =>
+                        openQuestionFormDialog({
+                          questionId: row.original.id,
+                          isCurrentUser,
+                          onSubmit: handleSubmit,
+                        })
+                      }
+                      disabled={deleteIsPending || updateIsPending}
+                      color="warning"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  )}
                   {isCurrentUser && (
                     <IconButton
                       onClick={handleDeleteClick}
