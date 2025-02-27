@@ -1,7 +1,9 @@
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
+import UnpublishedIcon from '@mui/icons-material/Unpublished';
 import { Box, IconButton, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -15,23 +17,25 @@ import { notify } from '@/utils/notify';
 
 import { useDeleteAnswer } from '../api/deleteAnswer';
 import { useUpdateAnswer } from '../api/updateAnswer';
+import { useUpdateAnswerApprove } from '../api/updateAnswerApprove';
 
 type AnswerItemProps = {
   answer: AnswerSchema;
-  questionId: QuestionSchema['id'];
+  question: QuestionSchema;
 };
 
-export const AnswerItem = ({ answer, questionId }: AnswerItemProps) => {
+export const AnswerItem = ({ answer, question }: AnswerItemProps) => {
   const { t } = useTranslation();
 
   const [openConfirmationDialog] = useConfirmationDialog();
 
   const { data: currentUser } = useAuth();
   const isCurrentUser = answer?.user?.id === currentUser?.id;
+  const isCurrentUserQuestion = question?.user?.id === currentUser?.id;
   const [isEditing, setIsEditing] = useState(false);
 
   const { mutate: deleteAnswer, isPending: deleteIsPending } = useDeleteAnswer({
-    questionId,
+    questionId: question.id,
     mutationConfig: {
       onSuccess: () => {
         notify({ type: 'info', title: t('answers.input.delete-success') });
@@ -41,7 +45,7 @@ export const AnswerItem = ({ answer, questionId }: AnswerItemProps) => {
   });
 
   const { mutate: updateAnswer, isPending: updateIsPending } = useUpdateAnswer({
-    questionId,
+    questionId: question.id,
     mutationConfig: {
       onSuccess: () => {
         notify({
@@ -52,6 +56,19 @@ export const AnswerItem = ({ answer, questionId }: AnswerItemProps) => {
       },
     },
   });
+
+  const { mutate: updateAnswerApprove, isPending: approveIsPending } =
+    useUpdateAnswerApprove({
+      questionId: question.id,
+      mutationConfig: {
+        onSuccess: () => {
+          notify({
+            type: 'success',
+            title: t('answers.approve-success'),
+          });
+        },
+      },
+    });
 
   const { register, handleSubmit, watch, reset } = useForm<{ content: string }>(
     {
@@ -95,6 +112,9 @@ export const AnswerItem = ({ answer, questionId }: AnswerItemProps) => {
         borderRadius: 3,
         wordBreak: 'break-word',
         position: 'relative',
+        ...(answer.isCorrect && {
+          border: `2px dashed ${theme.palette.customSuccess.main}`,
+        }),
       })}
     >
       {isCurrentUser && (
@@ -147,8 +167,30 @@ export const AnswerItem = ({ answer, questionId }: AnswerItemProps) => {
 
       <Typography variant="subtitle2" sx={{ color: 'primary.dark' }}>
         {answer?.user?.username ?? 'Anonymous'}
+        {isCurrentUserQuestion && (
+          <IconButton
+            disabled={approveIsPending}
+            onClick={() =>
+              updateAnswerApprove({
+                answerId: answer.id,
+                state: answer.isCorrect ? 'incorrect' : 'correct',
+              })
+            }
+            sx={(theme) => ({
+              p: 0.5,
+              color: answer.isCorrect
+                ? theme.palette.customError.main
+                : theme.palette.customSuccess.main,
+            })}
+          >
+            {answer.isCorrect ? (
+              <UnpublishedIcon sx={{ fontSize: 16 }} />
+            ) : (
+              <CheckCircleIcon sx={{ fontSize: 16 }} />
+            )}
+          </IconButton>
+        )}
       </Typography>
-
       {isEditing ? (
         <TextField
           {...register('content')}

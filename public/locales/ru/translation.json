@@ -158,7 +158,8 @@
       "edit-success": "Ответ отредактирован",
       "delete-success": "Ответ удален"
     },
-    "no-answers": "Ответов пока нет"
+    "no-answers": "Ответов пока нет",
+    "approve-success": "Ответ одобрен"
   },
   "questions-table": {
     "search": {

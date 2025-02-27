@@ -62,7 +62,7 @@ export const AnswersList = ({ question }: { question: QuestionSchema }) => {
                 pb: 2,
               }}
             >
-              <AnswerItem answer={answer} questionId={question.id} />
+              <AnswerItem answer={answer} question={question} />
             </Box>
           );
         })}

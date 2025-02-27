@@ -16,6 +16,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { Spinner } from '@/components/Spinner';
+import { YesNoLabel } from '@/components/YesNoLabel';
 import { createDialogHook } from '@/services/dialogService';
 
 import { useQuestionById } from '../api/getQuestionById';
@@ -72,8 +73,6 @@ const DialogQuestionForm = ({
     }
   }, [question, reset]);
 
-  if (isLoading) return <Spinner />;
-
   const handleClose = () => {
     onClose();
     reset();
@@ -85,17 +84,29 @@ const DialogQuestionForm = ({
     handleClose();
   };
 
+  if (isLoading)
+    return (
+      <Dialog open onClose={handleClose} fullWidth>
+        <Spinner />
+      </Dialog>
+    );
+
   return (
     <Dialog open onClose={handleClose} fullWidth>
       <Container sx={{ padding: 2 }}>
         <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
-          {question?.id && isCurrentUser && !isEditing && (
-            <Box display="flex" justifyContent="flex-end">
+          <Box display="flex" justifyContent="space-between" mb={2}>
+            <Typography variant="h6">
+              {t('questions-table.header.is-resolved')}
+              {': '}
+              {question?.isResolved ? <YesNoLabel truth /> : <YesNoLabel />}
+            </Typography>
+            {question?.id && isCurrentUser && !isEditing && (
               <Button variant="contained" onClick={() => setIsEditing(true)}>
                 <EditIcon />
               </Button>
-            </Box>
-          )}
+            )}
+          </Box>
           <Stack direction="column" spacing={2} mb={1}>
             <Typography variant="h6">
               {t('modal-question-form.title-span')}

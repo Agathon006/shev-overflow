@@ -157,7 +157,8 @@
       "edit-success": "Answer edited",
       "delete-success": "Answer deleted"
     },
-    "no-answers": "No answers yet"
+    "no-answers": "No answers yet",
+    "approve-success": "Answer approved"
   },
   "questions-table": {
     "search": {
