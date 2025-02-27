@@ -42,7 +42,7 @@ export const QuestionsPage = () => {
   };
 
   return (
-    <Container sx={{ marginTop: 2, marginBottom: 2 }} maxWidth="xl">
+    <Container maxWidth="xl" sx={{ marginTop: 2, marginBottom: 2 }}>
       <Stack
         direction="row"
         justifyContent="space-between"

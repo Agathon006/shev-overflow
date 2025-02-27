@@ -57,7 +57,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
 
   if (isLoading && !snippets.length) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" sx={{ width: '100%' }} disableGutters>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Spinner />
       </Container>
@@ -66,7 +66,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
 
   if (snippets.length === 0) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" sx={{ width: '100%' }} disableGutters>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Alert severity="info">{t('snippet-list.no-snippets')}</Alert>
       </Container>
@@ -75,7 +75,7 @@ export const SnippetList = ({ userId }: SnippetListProps) => {
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" sx={{ width: '100%' }} disableGutters>
         <SnippetListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Container
           ref={parentRef}

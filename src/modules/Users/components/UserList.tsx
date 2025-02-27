@@ -57,7 +57,7 @@ export const UsersList = () => {
 
   if (isLoading && !users.length) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" disableGutters sx={{ width: '100%' }}>
         <UserListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Spinner />
       </Container>
@@ -66,7 +66,7 @@ export const UsersList = () => {
 
   if (!users.length) {
     return (
-      <Container maxWidth="xl" sx={{ width: '100%' }}>
+      <Container maxWidth="xl" disableGutters sx={{ width: '100%' }}>
         <UserListSearch search={searchTerm} setSearch={setSearchTerm} />
         <Alert severity="info">{t('users.user-list.no-users')}</Alert>
       </Container>
@@ -74,7 +74,7 @@ export const UsersList = () => {
   }
 
   return (
-    <Container maxWidth="xl" sx={{ width: '100%' }}>
+    <Container maxWidth="xl" disableGutters sx={{ width: '100%' }}>
       <UserListSearch search={searchTerm} setSearch={setSearchTerm} />
       <Container
         ref={parentRef}
