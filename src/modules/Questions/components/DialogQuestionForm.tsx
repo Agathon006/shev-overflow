@@ -29,7 +29,7 @@ import { AnswersList } from './AnswersList';
 
 type DialogQuestionFormProps = {
   onClose: () => void;
-  questionId: string;
+  questionId?: string;
   isCurrentUser?: boolean;
   onSubmit: (
     data: QuestionEditSchema,
@@ -95,18 +95,20 @@ const DialogQuestionForm = ({
     <Dialog open onClose={handleClose} fullWidth>
       <Container sx={{ padding: 2 }}>
         <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
-          <Box display="flex" justifyContent="space-between" mb={2}>
-            <Typography variant="h6">
-              {t('questions-table.header.is-resolved')}
-              {': '}
-              {question?.isResolved ? <YesNoLabel truth /> : <YesNoLabel />}
-            </Typography>
-            {question?.id && isCurrentUser && !isEditing && (
-              <Button variant="contained" onClick={() => setIsEditing(true)}>
-                <EditIcon />
-              </Button>
-            )}
-          </Box>
+          {question?.id && (
+            <Box display="flex" justifyContent="space-between" mb={2}>
+              <Typography variant="h6">
+                {t('questions-table.header.is-resolved')}
+                {': '}
+                {question?.isResolved ? <YesNoLabel truth /> : <YesNoLabel />}
+              </Typography>
+              {question?.id && isCurrentUser && !isEditing && (
+                <Button variant="contained" onClick={() => setIsEditing(true)}>
+                  <EditIcon />
+                </Button>
+              )}
+            </Box>
+          )}
           <Stack direction="column" spacing={2} mb={1}>
             <Typography variant="h6">
               {t('modal-question-form.title-span')}

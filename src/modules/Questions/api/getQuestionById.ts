@@ -6,7 +6,7 @@ import { QuestionSchema, questionSchema } from '@/schemas/question';
 
 type GetQuestionByIdOptions = {
   queryConfig?: QueryConfigType<typeof getQuestionById>;
-  id: QuestionSchema['id'];
+  id?: QuestionSchema['id'];
 };
 
 export const getQuestionById = async (id: string) => {
@@ -24,7 +24,7 @@ export const questionByIdQueryOptions = (id: string) => {
 };
 
 export const useQuestionById = (
-  { queryConfig, id }: GetQuestionByIdOptions = { id: '' },
+  { queryConfig, id = '' }: GetQuestionByIdOptions = { id: '' },
 ) => {
   return useQuery({
     ...queryConfig,
