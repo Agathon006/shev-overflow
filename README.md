@@ -74,15 +74,3 @@ npm run format    # Format code with Prettier
 npm run typecheck # TypeScript type checking
 npm run preview   # Run the built project
 ```
-
----
-
-## 🤝 Contribution
-
-We welcome your PRs and suggestions! Please check [`CONTRIBUTING.md`](CONTRIBUTING.md) before getting started.
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License**. See [`LICENSE`](LICENSE) for more details.
